@@ -1,0 +1,39 @@
+Contract ReverseNameResolver() extends Constants(), Events() {
+
+    mapping[Address, ByteVec] addressNames
+
+    pub fn getNameByAddress(address: Address) -> ByteVec {
+        return addressNames[address]
+    }
+
+    pub fn containsNameByAddress(address: Address) -> Bool {
+        return addressNames.contains!(address)
+    }
+
+    @using(preapprovedAssets = true, checkExternalCaller = false)
+    pub fn setAddressName(name: ByteVec) -> () {
+        let caller = callerAddress!()
+        if (addressNames.contains!(caller)) {
+            addressNames.remove!(caller, caller)
+        }
+        addressNames.insert!(caller, caller, name)
+
+        emit ReverseAddressSet(
+            caller,
+            name
+        )
+    }
+
+    @using(checkExternalCaller = false)
+    pub fn removeAddress() -> () {
+        let caller = callerAddress!()
+        assert!(addressNames.contains!(caller), ErrorCodes.ReverseAddressNotFound)
+        let name = addressNames[caller]
+        addressNames.remove!(caller, caller)
+
+        emit ReverseAddressDeleted(
+            caller,
+            name
+        )
+    }
+}

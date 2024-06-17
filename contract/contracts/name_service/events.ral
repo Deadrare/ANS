@@ -1,0 +1,44 @@
+Abstract Contract Events() {
+    event NameCreated(
+        nftIndex: U256,
+        name: ByteVec,
+        capitalisation: ByteVec,
+        creator: Address,
+        expires: U256
+    )
+
+    event NameRenewed(
+        nftIndex: U256,
+        name: ByteVec,
+        renewer: Address,
+        expires: U256
+    )
+
+    event AddressSet(
+        nftIndex: U256,
+        name: ByteVec,
+        newAddress: Address
+    )
+
+    event CapitalisationSet(
+        nftIndex: U256,
+        name: ByteVec,
+        newCapitalisation: ByteVec
+    )
+
+    event NameDeleted(
+        nftIndex: U256,
+        name: ByteVec,
+        deleter: Address
+    )
+
+    event ReverseAddressSet(
+        address: Address,
+        newName: ByteVec
+    )
+
+    event ReverseAddressDeleted(
+        address: Address,
+        name: ByteVec
+    )
+}

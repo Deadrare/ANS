@@ -1,0 +1,74 @@
+{
+    "extends": [
+        "standard"
+    ],
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
+    },
+    "globals": {
+        "NODE_ENV": true
+    },
+    "rules": {
+        "multiline-ternary": [
+            "error",
+            "always-multiline"
+        ],
+        "no-console": [
+            "warn",
+            {
+                "allow": [
+                    "log",
+                    "warn",
+                    "info",
+                    "error"
+                ]
+            }
+        ],
+        // Indent with 4 spaces
+        "indent": [
+            "error",
+            4
+        ],
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.ts",
+                "*.d.ts"
+            ],
+            "plugins": [
+                "@typescript-eslint"
+            ],
+            "extends": [
+                "standard",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "rules": {
+                "no-use-before-define": "off",
+                "@typescript-eslint/no-use-before-define": [
+                    "error"
+                ],
+                "no-console": [
+                    "warn",
+                    {
+                        "allow": [
+                            "log",
+                            "warn",
+                            "info",
+                            "error"
+                        ]
+                    }
+                ],
+                // Indent with 4 spaces
+                "indent": [
+                    "error",
+                    4
+                ]
+            }
+        }
+    ]
+}

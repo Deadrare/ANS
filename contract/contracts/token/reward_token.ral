@@ -1,0 +1,44 @@
+import "std/fungible_token_interface"
+
+Contract RewardToken(
+    parentId: ByteVec,
+    symbol: ByteVec,
+    name: ByteVec,
+    decimals: U256,
+    mut totalSupply: U256
+) extends Constants() implements IFungibleToken {
+
+    @using(assetsInContract = true, checkExternalCaller = false, updateFields = true)
+    pub fn mintTokens(to: Address, amount: U256) -> () {
+        let caller = callerContractId!()
+        checkCaller!(parentId == caller, ErrorCodes.OnlyParentAllowed)
+
+        totalSupply = totalSupply + amount
+        transferTokenFromSelf!(to, selfTokenId!(), amount)
+    }
+
+    @using(preapprovedAssets = true, assetsInContract = true, checkExternalCaller = false, updateFields = true)
+    pub fn burnTokens(from: Address, amount: U256) -> () {
+        let caller = callerContractId!()
+        checkCaller!(parentId == caller, ErrorCodes.OnlyParentAllowed)
+
+        totalSupply = totalSupply - amount
+        transferTokenToSelf!(from, selfTokenId!(), amount)
+    }
+
+    pub fn getSymbol() -> ByteVec {
+        return symbol
+    }
+
+    pub fn getName() -> ByteVec {
+        return name
+    }
+
+    pub fn getDecimals() -> U256 {
+        return decimals
+    }
+
+    pub fn getTotalSupply() -> U256 {
+        return totalSupply
+    }
+}

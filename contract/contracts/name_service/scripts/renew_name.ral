@@ -1,0 +1,14 @@
+TxScript RenewName(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let rewardToken = resolver.getRewardToken()
+    let rewardTokenId = tokenId!(rewardToken)
+    resolver.renewName{caller -> 
+        rewardTokenId: tokenRemaining!(caller, rewardTokenId)
+    }(
+        name
+    )
+}

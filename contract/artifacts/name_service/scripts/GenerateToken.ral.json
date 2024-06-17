@@ -1,0 +1,25 @@
+{
+  "version": "v2.14.0",
+  "name": "GenerateToken",
+  "bytecodeTemplate": "0101030002000cb41700{0}17011600d1a20c0d1601010b18",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId"
+    ],
+    "types": [
+      "ByteVec"
+    ],
+    "isMutable": [
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

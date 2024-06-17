@@ -1,0 +1,256 @@
+import "std/nft_collection_interface"
+
+Contract ForwardNameResolver(
+    nameTemplateId: ByteVec,
+    tokenTemplateId: ByteVec,
+    collectionUri: ByteVec,
+    renewLength: U256,
+    earliestRenew: U256,
+    mut totalSupply: U256
+) extends Constants(), Events() implements INFTCollection {
+
+    mapping[ByteVec, U256] nameNftIndex
+
+    pub fn getCollectionUri() -> ByteVec {
+        return collectionUri
+    }
+
+    pub fn totalSupply() -> U256 {
+        return totalSupply
+    }
+
+    pub fn getNftKey(nftIndex: U256) -> ByteVec {
+        return Keys.Names ++ toByteVec!(nftIndex)
+    }
+
+    pub fn getRewardTokenKey() -> ByteVec {
+        return Keys.Token
+    }
+
+    pub fn getNftByName(name: ByteVec) -> Name {
+        let nftIndex = nameNftIndex[name]
+        return Name(subContractId!(getNftKey(nftIndex)))
+    }
+
+    pub fn coontainsNftByName(name: ByteVec) -> Bool {
+        return nameNftIndex.contains!(name)
+    }
+
+    pub fn getRewardToken() -> RewardToken {
+        return RewardToken(subContractId!(getRewardTokenKey()))
+    }
+
+    @using(checkExternalCaller = false)
+    pub fn nftByIndex(index: U256) -> INFT {
+        let nftTokenId = subContractId!(getNftKey(index))
+        assert!(contractExists!(nftTokenId), ErrorCodes.NFTNotFound)
+
+        return INFT(nftTokenId)
+    }
+
+    @using(checkExternalCaller = false)
+    pub fn validateNFT(nftId: ByteVec, nftIndex: U256) -> () {
+        let expectedTokenContract = nftByIndex(nftIndex)
+        assert!(nftId == contractId!(expectedTokenContract), ErrorCodes.NFTNotPartOfCollection)
+    }
+
+    pub fn hasExpired(nft: Name) -> Bool {
+        let now = blockTimeStamp!()
+        let expires = nft.getExpires()
+        return expires < now
+    }
+
+    pub fn canRenew(nft: Name) -> Bool {
+        let now = blockTimeStamp!()
+        let expires = nft.getExpires()
+        return (expires - earliestRenew) < now
+    }
+
+    @using(preapprovedAssets = true, checkExternalCaller = false)
+    pub fn generateToken() -> ByteVec {
+        let tokenExists = contractExists!(subContractId!(getRewardTokenKey()))
+        assert!(!tokenExists, ErrorCodes.TokenAlreadyGenerated)
+        let caller = callerAddress!()
+
+        let (encodeImmutableFields, encodeMutableFields) = RewardToken.encodeFields!(
+            selfContractId!(),
+            b`ANS`,
+            b`Alephium Name Service`,
+            18,
+            0
+        )
+
+        return copyCreateSubContractWithToken!{caller -> ALPH: minimalContractDeposit!()}(
+            getRewardTokenKey(),
+            tokenTemplateId,
+            encodeImmutableFields,
+            encodeMutableFields,
+            u256Max!()
+        )
+    }
+
+    @using(preapprovedAssets = true)
+    fn createName(minter: Address, index: U256, name: ByteVec, capitalisation: ByteVec) -> ByteVec {
+        let now = blockTimeStamp!()
+        let expires = now + renewLength
+        let (encodeImmutableFields, encodeMutableFields) = Name.encodeFields!(
+            selfContractId!(),  // <- collectionId
+            index,              // <- nftIndex
+            name,               // <- name
+            capitalisation,     // <- capitalisation
+            minter,             // <- initialAddress
+            expires             // <- expires
+        )
+
+        let newContractId = copyCreateSubContractWithToken!{minter -> ALPH: minimalContractDeposit!()}(
+            getNftKey(index),
+            nameTemplateId,
+            encodeImmutableFields,
+            encodeMutableFields,
+            1,
+            minter
+        )
+
+        emit NameCreated(
+            index,
+            name,
+            capitalisation,
+            minter,
+            expires
+        )
+
+        return newContractId
+    }
+
+    @using(preapprovedAssets = true)
+    fn handleRewardTokens(caller: Address, name: ByteVec) -> () {
+        let nameLength = size!(name)
+        let rewardToken = getRewardToken()
+        let rewardTokenId = tokenId!(rewardToken)
+
+        if (nameLength > 8) {
+            rewardToken.mintTokens(caller, 1)
+        }
+        if (nameLength <= 8) {
+            let cost = (9 - nameLength) * 100
+            rewardToken.burnTokens{caller -> rewardTokenId: cost}(caller, cost)
+        }
+    }
+
+    @using(preapprovedAssets = true, updateFields = true, checkExternalCaller = false)
+    pub fn mint(name: ByteVec, capitalisation: ByteVec) -> ByteVec {
+        let caller = callerAddress!()
+        totalSupply = totalSupply + 1
+        let rewardToken = getRewardToken()
+        let rewardTokenId = tokenId!(rewardToken)
+        
+        if (nameNftIndex.contains!(name)) {
+            let existingNft = getNftByName(name)
+            let expired = hasExpired(existingNft)
+            assert!(expired, ErrorCodes.NameHasNotExpired)
+            existingNft.delete(caller)
+            nameNftIndex[name] = totalSupply
+        } else {
+            nameNftIndex.insert!(
+                caller,
+                name,
+                totalSupply
+            )
+        }
+
+        handleRewardTokens{caller -> rewardTokenId: tokenRemaining!(caller, rewardTokenId)}(
+            caller,
+            name
+        )
+
+        return createName{caller -> ALPH: minimalContractDeposit!()}(
+            caller,
+            totalSupply,
+            name,
+            capitalisation
+        )
+    }
+
+    @using(preapprovedAssets = true)
+    pub fn setAddress(name: ByteVec, newAddress: Address) -> () {
+        let caller = callerAddress!()
+        let nft = getNftByName(name)
+        let tokenId = tokenId!(nft)
+
+        checkCaller!(tokenRemaining!(caller, tokenId) == 1, ErrorCodes.OnlyNftOwnerAllowed)
+        nft.setAddress(newAddress)
+
+        emit AddressSet(
+            nft.getNFTIndex(),
+            name,
+            newAddress
+        )
+    }
+
+    @using(preapprovedAssets = true)
+    pub fn setCapitalisation(name: ByteVec, newCapitalisation: ByteVec) -> () {
+        let caller = callerAddress!()
+        let nft = getNftByName(name)
+        let tokenId = tokenId!(nft)
+        let isNftHolder = tokenRemaining!(caller, tokenId) == 1
+        let isCurrentAddress = caller == nft.getAddress()
+
+        checkCaller!(isNftHolder || isCurrentAddress, ErrorCodes.OnlyNftOwnerOrHolderAllowed)
+        nft.setCapitalisation(newCapitalisation)
+
+        emit CapitalisationSet(
+            nft.getNFTIndex(),
+            name,
+            newCapitalisation
+        )
+    }
+
+    // Allow anybody to renew a Name so 3rd parties can implement auto renew
+    @using(preapprovedAssets = true, checkExternalCaller = false)
+    pub fn renewName(name: ByteVec) -> () {
+        let caller = callerAddress!()
+        let nft = getNftByName(name)
+        let rewardToken = getRewardToken()
+        let rewardTokenId = tokenId!(rewardToken)
+
+        assert!(canRenew(nft), ErrorCodes.CannotRenewName)
+
+        handleRewardTokens{caller -> rewardTokenId: tokenRemaining!(caller, rewardTokenId)}(
+            caller,
+            name
+        )
+
+        let now = blockTimeStamp!()
+        let expires = now + renewLength
+        nft.setExpires(expires)
+
+        emit NameRenewed(
+            nft.getNFTIndex(),
+            name,
+            caller,
+            expires
+        )
+    }
+
+    // Allow anybody to delete an expired Name so 3rd parties can clean up expired NFTs
+    @using(updateFields = true, checkExternalCaller = false)
+    pub fn deleteExpired(name: ByteVec) -> () {
+        let caller = callerAddress!()
+        totalSupply = totalSupply + 1
+
+        assert!(nameNftIndex.contains!(name), ErrorCodes.NFTNotFound)
+        
+        let existingNft = getNftByName(name)
+        let nftIndex = existingNft.getNFTIndex()
+        let expired = hasExpired(existingNft)
+        assert!(expired, ErrorCodes.NameHasNotExpired)
+        existingNft.delete(caller)
+        nameNftIndex.remove!(caller, name)
+
+        emit NameDeleted(
+            nftIndex,
+            name,
+            caller
+        )
+    }
+}

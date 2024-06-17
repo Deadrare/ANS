@@ -1,0 +1,132 @@
+{
+  "fullNodeVersion": "v2.14.0",
+  "compilerOptionsUsed": {
+    "ignoreUnusedConstantsWarnings": true,
+    "ignoreUnusedVariablesWarnings": false,
+    "ignoreUnusedFieldsWarnings": false,
+    "ignoreUnusedPrivateFunctionsWarnings": false,
+    "ignoreUpdateFieldsCheckWarnings": false,
+    "ignoreCheckExternalCallerWarnings": false
+  },
+  "infos": {
+    "Constants": {
+      "sourceFile": "name_service/constants.ral",
+      "sourceCodeHash": "71c85fd882ee3b4667e2a317c7c243dc094ea50720c620aceb13ea656f4df470",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "DeleteExpired": {
+      "sourceFile": "name_service/scripts/delete_expired.ral",
+      "sourceCodeHash": "aae8231b3894c318c7a72d8bddf42fb1d32de1508c16873850342b16a82965ff",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "Events": {
+      "sourceFile": "name_service/events.ral",
+      "sourceCodeHash": "81620b6a1d8af42595400d13bd6ef7caacd47d83fbd98c14df61017a9660f715",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "ForwardNameResolver": {
+      "sourceFile": "name_service/forward_name_resolver.ral",
+      "sourceCodeHash": "8bac6275b534a1eb1c5ca4ae0eb0a41b2b2c0cae92f2275e4b31f8546db1dbc1",
+      "bytecodeDebugPatch": "=58-6+93=2-1+c=3+11=1-1+36=1+43e=1-2=975-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=504-2+30=168+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+      "codeHashDebug": "e8c02f47aac8f6f7206b63d532226eab98141e7c7f05887d095405f6a44c5101",
+      "warnings": []
+    },
+    "GenerateToken": {
+      "sourceFile": "name_service/scripts/generate_token.ral",
+      "sourceCodeHash": "0fd002e15b7dc8ba9e4798d551084a248238923dfa39fa94df7eccda4d9a61d8",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "IFungibleToken": {
+      "sourceFile": "../node_modules/@alephium/web3/std/fungible_token_interface.ral",
+      "sourceCodeHash": "62910bf11e1eeb6cb2fd468626ff606a9b06306b2b81590c3b10f6deb5966bde",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "INFT": {
+      "sourceFile": "../node_modules/@alephium/web3/std/nft_interface.ral",
+      "sourceCodeHash": "acff0211f936d18d3f4a01ddd8f4fe8fbdf0dba9e8b9204b233a48cba1c80d8b",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "INFTCollection": {
+      "sourceFile": "../node_modules/@alephium/web3/std/nft_collection_interface.ral",
+      "sourceCodeHash": "9b199426ea89c188ce858b48ab809f13b9fc1ed0d64ca91e3d600eda8fbf6c42",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "MintName": {
+      "sourceFile": "name_service/scripts/mint_name.ral",
+      "sourceCodeHash": "ce3aa5c9f708a8609148b60f8225bb28fb5f7038a132886b0a0c330da0cdf7b8",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "Name": {
+      "sourceFile": "name_service/name.ral",
+      "sourceCodeHash": "ea46ce909dbe45f4e697d6568d47cb50ca925c40919fcc8905efed0908ee7c97",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "99a5853e42af9ececde3caab5deb2a7bfc515c87856c82be9aa921c7e5a6fb44",
+      "warnings": []
+    },
+    "RemoveReverseAddressName": {
+      "sourceFile": "name_service/scripts/remove_reverse_address_name.ral",
+      "sourceCodeHash": "b5715cbb05d51b96bfebe0eb16d003d696a6f76c6efa34b4138a5483eea12424",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "RenewName": {
+      "sourceFile": "name_service/scripts/renew_name.ral",
+      "sourceCodeHash": "d8ed28adb445581eaf5b24d919a5d1d9ac5b8907a944e5862a9d6bb4704ce2b0",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "ReverseNameResolver": {
+      "sourceFile": "name_service/reverse_name_resolver.ral",
+      "sourceCodeHash": "83d8a76e7ee0ad122fb73fc48fea20c1df2d49a93e693f1a8b8f4c45d834e286",
+      "bytecodeDebugPatch": "=14-2+cc=1-1+13=1-1=141-1+5=55-1+b=40+7a7e021472656d6f7665206174206d617020706174683a2000=46+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
+      "codeHashDebug": "78c283265238aa84445945472c2692a7587743bd4843a527a288d88bbe3b6a07",
+      "warnings": []
+    },
+    "RewardToken": {
+      "sourceFile": "token/reward_token.ral",
+      "sourceCodeHash": "20992da9c45f60fc06eb29acff4c5c26b28815bba912ccad9fee49e8b88cf722",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f",
+      "warnings": []
+    },
+    "SetAddress": {
+      "sourceFile": "name_service/scripts/set_address.ral",
+      "sourceCodeHash": "9a42da0a2a13ac02e6ceed6ceab171f564f0302ce3963e5e6aa8cd12a626592f",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "SetCapitalisation": {
+      "sourceFile": "name_service/scripts/set_capitalisation.ral",
+      "sourceCodeHash": "3ee1b371b3170c5658a751efc75eb4ea8478b0625645d4675eb7baa80c7cb148",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "SetReverseAddressName": {
+      "sourceFile": "name_service/scripts/set_reverse_address_name.ral",
+      "sourceCodeHash": "846b73bfb54ab5a7cf8bac105a8ab7b1680f8f0f0630417ba369ddbce0ea3922",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    }
+  }
+}

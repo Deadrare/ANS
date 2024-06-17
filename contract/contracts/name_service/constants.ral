@@ -1,0 +1,19 @@
+Abstract Contract Constants() {
+
+    enum ErrorCodes {
+        OnlyParentAllowed = 0
+        NFTNotFound = 1
+        NFTNotPartOfCollection = 2
+        OnlyNftOwnerAllowed = 3
+        NameHasNotExpired = 4
+        CannotRenewName = 5
+        TokenAlreadyGenerated = 6
+        ReverseAddressNotFound = 7
+        OnlyNftOwnerOrHolderAllowed = 8
+    }
+
+    enum Keys {
+        Names = #01
+        Token = #02
+    }
+}

@@ -1,0 +1,7 @@
+TxScript GenerateToken(
+    forwardNameResolverId: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let _ = resolver.generateToken{caller -> ALPH: minimalContractDeposit!()}()
+}
