@@ -129,11 +129,11 @@ Contract ForwardNameResolver(
         let rewardTokenId = tokenId!(rewardToken)
 
         if (nameLength > 8) {
-            rewardToken.mintTokens(caller, 1)
+            rewardToken.mintTokens(caller, 1 alph)
         }
         if (nameLength <= 8) {
             let cost = (9 - nameLength) * 100
-            rewardToken.burnTokens{caller -> rewardTokenId: cost}(caller, cost)
+            rewardToken.burnTokens{caller -> rewardTokenId: cost * 1 alph}(caller, cost * 1 alph)
         }
     }
 

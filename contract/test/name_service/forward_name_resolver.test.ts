@@ -245,7 +245,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 31_536_000_000) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('cannot replace NFT before it has expired', async () => {
@@ -277,7 +277,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('can replace NFT after it has expired', async () => {
@@ -308,7 +308,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
     }, 300000)
 
     test('cannot renew NFT before the earliest renew time', async () => {
@@ -340,7 +340,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('can renew NFT after the earliest renew time', async () => {
@@ -371,7 +371,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
     }, 300000)
 
     test('cannot delete NFT before it has expired', async () => {
@@ -403,7 +403,7 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('can delete NFT after it has expired', async () => {
@@ -426,7 +426,7 @@ describe('ForwardNameResolver', function () {
         const getNftByNameResult = forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })
         await expect(getNftByNameResult).rejects.toThrow(Error)
 
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('cannot mint a name shorter than 8 with no tokens', async () => {
@@ -460,11 +460,11 @@ describe('ForwardNameResolver', function () {
             await mockMintName(signer, forwardNameResolverId, name, name)
             limit -= 1
         }
-        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n)
+        expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n * ONE_ALPH)
 
         // When
         const newName = '12345678'
-        await mockMintName(signer, forwardNameResolverId, newName, newName, 100n)
+        await mockMintName(signer, forwardNameResolverId, newName, newName, 100n * ONE_ALPH)
 
         // Then
         const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
@@ -549,7 +549,7 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signer2Address)
 
-        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('can setCapitalisation using NFT ownership', async () => {
@@ -580,7 +580,7 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer1Address)
 
-        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
 
     test('can setCapitalisation using address asignment', async () => {
@@ -612,6 +612,6 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer2Address)
 
-        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(1n)
+        expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
 })

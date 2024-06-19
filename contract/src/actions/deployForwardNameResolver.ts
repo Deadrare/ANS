@@ -30,9 +30,9 @@ const run = async () => {
     console.log(`ForwardNameResolver contract address: ${result.contractInstance.address}`)
 
     // staging
-    // Transaction ID: 6943881e5952882d4a8088a9d5e634981c7a4e6dc9867447430d0046d4df08d8
-    // ForwardNameResolver contract ID: f4e1b0238ff61f062ad937070b34f1a1195256b17856175976917f4bed0e5d00
-    // ForwardNameResolver contract address: 2BAsC1S1z9o1TU48NWvH8jZtVidb9SECYvsjRV67txqoD
+    // Transaction ID: c3df867b4540c8db63e11ddf16ff90f8acc2165c39db64c5b3a3034500fbb8c1
+    // ForwardNameResolver contract ID: 610cb9f87ac60c3a6320ff353f90ce66707adbca65dd4057722ce3b0902c8800
+    // ForwardNameResolver contract address: 21Dnv1MYPrqNujyvkpJ9mDwnSkje217tUEAiaJ49qS247
 }
 
 run()

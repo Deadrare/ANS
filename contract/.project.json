@@ -32,9 +32,9 @@
     },
     "ForwardNameResolver": {
       "sourceFile": "name_service/forward_name_resolver.ral",
-      "sourceCodeHash": "8bac6275b534a1eb1c5ca4ae0eb0a41b2b2c0cae92f2275e4b31f8546db1dbc1",
-      "bytecodeDebugPatch": "=58-6+93=2-1+c=3+11=1-1+36=1+43e=1-2=975-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=504-2+30=168+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-      "codeHashDebug": "e8c02f47aac8f6f7206b63d532226eab98141e7c7f05887d095405f6a44c5101",
+      "sourceCodeHash": "55780d30a1d72d1543059dff78adf87892225a93e9a2fbf1f216cd44b7b80649",
+      "bytecodeDebugPatch": "=58-2+b2=2-1=1-3=3-2+30=2-1+8344=1+2=1037-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=504-2+30=168+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+      "codeHashDebug": "8cfa8568f11494cef04cbbe40dafa57e14a50dbe82df3f4655ca971b1ccd0e26",
       "warnings": []
     },
     "GenerateToken": {
