@@ -4,10 +4,13 @@ TxScript RenewName(
 ) {
     let caller = callerAddress!()
     let resolver = ForwardNameResolver(forwardNameResolverId)
+    let nft = resolver.getNftByName(name)
+    let tokenId = tokenId!(nft)
     let rewardToken = resolver.getRewardToken()
     let rewardTokenId = tokenId!(rewardToken)
     resolver.renewName{caller -> 
-        rewardTokenId: tokenRemaining!(caller, rewardTokenId)
+        rewardTokenId: tokenRemaining!(caller, rewardTokenId),
+        tokenId: 1
     }(
         name
     )

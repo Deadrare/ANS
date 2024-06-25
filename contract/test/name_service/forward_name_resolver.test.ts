@@ -13,9 +13,14 @@ import {
 } from '@alephium/web3'
 import { getSigners, randomContractAddress, randomContractId } from '@alephium/web3-test'
 import {
+    Crop,
+    CropInstance,
     DeleteExpired,
+    Farm,
+    FarmInstance,
     ForwardNameResolver,
     ForwardNameResolverInstance,
+    GenerateFarm,
     GenerateToken,
     MintName,
     Name,
@@ -62,6 +67,35 @@ export const mockRewardToken = async (signer: SignerProvider): Promise<DeployCon
     )
 }
 
+export const mockCrop = async (signer: SignerProvider): Promise<DeployContractResult<CropInstance>> => {
+    return await Crop.deploy(
+        signer,
+        {
+            initialFields: {
+                collectionId: randomContractId(),
+                nftIndex: 0n,
+                name: '',
+                expires: 0n
+            }
+        }
+    )
+}
+
+export const mockFarm = async (signer: SignerProvider): Promise<DeployContractResult<FarmInstance>> => {
+    return await Farm.deploy(
+        signer,
+        {
+            initialFields: {
+                cropTemplateId: randomContractId(),
+                parentId: randomContractId(),
+                collectionUri: '',
+                renewLength: 0n,
+                totalSupply: 0n
+            }
+        }
+    )
+}
+
 const mockGenerateToken = async (
     signer: SignerProvider,
     forwardNameResolverId: string
@@ -77,22 +111,48 @@ const mockGenerateToken = async (
     )
 }
 
-const mockForwardNameResolver = async (
+const mockGenerateFarm = async (
+    signer: SignerProvider,
+    forwardNameResolverId: string
+): Promise<ExecuteScriptResult> => {
+    return await GenerateFarm.execute(
+        signer,
+        {
+            initialFields: {
+                forwardNameResolverId
+            },
+            attoAlphAmount: ONE_ALPH + DUST_AMOUNT
+        }
+    )
+}
+
+export const mockForwardNameResolver = async (
     signer: SignerProvider,
     renewLength = 31_536_000_000n,
     earliestRenew = 2_592_000_000n
 ): Promise<DeployContractResult<ForwardNameResolverInstance>> => {
     const result1 = await mockName(signer)
     const nameTemplateId = result1.contractInstance.contractId
+
     const result2 = await mockRewardToken(signer)
     const tokenTemplateId = result2.contractInstance.contractId
+
+    const result3 = await mockFarm(signer)
+    const farmTemplateId = result3.contractInstance.contractId
+
+    const result4 = await mockCrop(signer)
+    const cropTemplateId = result4.contractInstance.contractId
+
     const forwardNameResolver = await ForwardNameResolver.deploy(
         signer,
         {
             initialFields: {
                 nameTemplateId,
                 tokenTemplateId,
+                cropTemplateId,
+                farmTemplateId,
                 collectionUri: '',
+                farmCollectionUri: '',
                 totalSupply: 0n,
                 renewLength: renewLength,
                 earliestRenew: earliestRenew
@@ -101,6 +161,7 @@ const mockForwardNameResolver = async (
     )
     const forwardNameResolverId = forwardNameResolver.contractInstance.contractId
     await mockGenerateToken(signer, forwardNameResolverId)
+    await mockGenerateFarm(signer, forwardNameResolverId)
     return forwardNameResolver
 }
 
@@ -135,8 +196,10 @@ const mockRenewName = async (
     tokenAmount = 0n
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
+    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
     const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
     const tokenTransfer = { id: rewardTokenId, amount: tokenAmount }
+    const nftTransfer = { id: nftId, amount: 1n }
     return await RenewName.execute(
         signer,
         {
@@ -144,8 +207,8 @@ const mockRenewName = async (
                 forwardNameResolverId,
                 name: stringToHex(name)
             },
-            attoAlphAmount: DUST_AMOUNT,
-            tokens: tokenAmount > 0n ? [tokenTransfer] : []
+            attoAlphAmount: 2n * DUST_AMOUNT,
+            tokens: tokenAmount > 0n ? [tokenTransfer, nftTransfer] : [nftTransfer]
         }
     )
 }
@@ -155,6 +218,8 @@ const mockDeleteExpired = async (
     forwardNameResolverId: string,
     name: string
 ): Promise<ExecuteScriptResult> => {
+    const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
+    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
     return await DeleteExpired.execute(
         signer,
         {
@@ -162,7 +227,10 @@ const mockDeleteExpired = async (
                 forwardNameResolverId,
                 name: stringToHex(name)
             },
-            attoAlphAmount: DUST_AMOUNT
+            attoAlphAmount: DUST_AMOUNT,
+            tokens: [
+                { id: nftId, amount: 1n }
+            ]
         }
     )
 }

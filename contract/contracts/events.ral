@@ -41,4 +41,16 @@ Abstract Contract Events() {
         address: Address,
         name: ByteVec
     )
+
+    event CropCreated(
+        nftIndex: U256,
+        amount: U256,
+        creator: Address,
+        expires: U256
+    )
+
+    event CropDeleted(
+        nftIndex: U256,
+        deleter: Address
+    )
 }

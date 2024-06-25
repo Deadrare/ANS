@@ -31,7 +31,7 @@ import {
   addStdIdToFields,
   encodeContractFields,
 } from "@alephium/web3";
-import { default as NameContractJson } from "../name_service/Name.ral.json";
+import { default as NameContractJson } from "../forward_name_resolver/Name.ral.json";
 import { getContractByCodeHash } from "./contracts";
 
 // Custom types for the contract
@@ -182,8 +182,12 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
       TokenAlreadyGenerated: BigInt(6),
       ReverseAddressNotFound: BigInt(7),
       OnlyNftOwnerOrHolderAllowed: BigInt(8),
+      IncorrectFarmInputAmount: BigInt(9),
+      CropHasNotExpired: BigInt(10),
+      FarmInputAmountNotConsumed: BigInt(11),
+      FarmAlreadyGenerated: BigInt(12),
     },
-    Keys: { Names: "01", Token: "02" },
+    Keys: { Names: "01", Token: "02", Farm: "03" },
   };
 
   at(address: string): NameInstance {

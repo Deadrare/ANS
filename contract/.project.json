@@ -10,35 +10,70 @@
   },
   "infos": {
     "Constants": {
-      "sourceFile": "name_service/constants.ral",
-      "sourceCodeHash": "71c85fd882ee3b4667e2a317c7c243dc094ea50720c620aceb13ea656f4df470",
+      "sourceFile": "constants.ral",
+      "sourceCodeHash": "3cb7732845906278453fe67a0535fa3b7d7cb1abfe32f788458e3fc214b48e26",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "Crop": {
+      "sourceFile": "farm/crop.ral",
+      "sourceCodeHash": "d8de040b4da6fe50bb6f3d584a4b0ffecb4ef592338efbf2bd559116221fa676",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "917eef1cc9857beb73a481c1d1e5eb8145569f68dc7a95a4c605062d76cbb964",
+      "warnings": []
+    },
+    "DeleteCrop": {
+      "sourceFile": "scripts/delete_crop.ral",
+      "sourceCodeHash": "6de68b8d6f36de2c96c78aa94300ade925e89ae43dc8633ca8e7320030a5d36b",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "DeleteExpired": {
-      "sourceFile": "name_service/scripts/delete_expired.ral",
-      "sourceCodeHash": "aae8231b3894c318c7a72d8bddf42fb1d32de1508c16873850342b16a82965ff",
+      "sourceFile": "scripts/delete_expired.ral",
+      "sourceCodeHash": "a8d53f432b02a89e93a754df8e902254be6b9f0855d86dcf7deb44d81888c574",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "Events": {
-      "sourceFile": "name_service/events.ral",
-      "sourceCodeHash": "81620b6a1d8af42595400d13bd6ef7caacd47d83fbd98c14df61017a9660f715",
+      "sourceFile": "events.ral",
+      "sourceCodeHash": "e56a831462984575d5b45846187f3a21385b2e2f6bf2a9267cc4704733ccaa97",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "Farm": {
+      "sourceFile": "farm/farm.ral",
+      "sourceCodeHash": "a6967ba23b3cad0e558a6154e71eacd3ef01d800f578465054bfba9342cea5e8",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "534cbff88b29c40c7cb3199b7cc38e13c6005ce63445ea2798f2f479c72174a9",
+      "warnings": []
+    },
+    "FarmController": {
+      "sourceFile": "forward_name_resolver/farm_controller.ral",
+      "sourceCodeHash": "cb2e4d61a14332b08f48f024b9dd9bc8cc6e21e3f3040044851764f0378d6945",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "ForwardNameResolver": {
-      "sourceFile": "name_service/forward_name_resolver.ral",
-      "sourceCodeHash": "55780d30a1d72d1543059dff78adf87892225a93e9a2fbf1f216cd44b7b80649",
-      "bytecodeDebugPatch": "=58-2+b2=2-1=1-3=3-2+30=2-1+8344=1+2=1037-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=504-2+30=168+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-      "codeHashDebug": "8cfa8568f11494cef04cbbe40dafa57e14a50dbe82df3f4655ca971b1ccd0e26",
+      "sourceFile": "forward_name_resolver/forward_name_resolver.ral",
+      "sourceCodeHash": "6ac202cdf3d2d16d5a6769d1df662358f3e7d92204651fb74ca1049d46e856f1",
+      "bytecodeDebugPatch": "=82-2+e5=2-1=1+a=2-2+63=2-2+c3=2-2+36=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=531-1+e=144+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+      "codeHashDebug": "2d0afba0805f22776dfc5d86a35a1aa49dd9fa4f9f4e0b814632c517273ecb8c",
+      "warnings": []
+    },
+    "GenerateFarm": {
+      "sourceFile": "scripts/generate_farm.ral",
+      "sourceCodeHash": "705ab6ffa1e65a5d68ae9c57859ed2062c7b7739cd11d29cd4559a39424aa425",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
       "warnings": []
     },
     "GenerateToken": {
-      "sourceFile": "name_service/scripts/generate_token.ral",
+      "sourceFile": "scripts/generate_token.ral",
       "sourceCodeHash": "0fd002e15b7dc8ba9e4798d551084a248238923dfa39fa94df7eccda4d9a61d8",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
@@ -65,64 +100,71 @@
       "codeHashDebug": "",
       "warnings": []
     },
+    "MintCrop": {
+      "sourceFile": "scripts/mint_crop.ral",
+      "sourceCodeHash": "a816ba3545849fc0affd2d1f52de8aef631a86b2e7bd3f2216e2c8ecc68acd3c",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
     "MintName": {
-      "sourceFile": "name_service/scripts/mint_name.ral",
+      "sourceFile": "scripts/mint_name.ral",
       "sourceCodeHash": "ce3aa5c9f708a8609148b60f8225bb28fb5f7038a132886b0a0c330da0cdf7b8",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "Name": {
-      "sourceFile": "name_service/name.ral",
+      "sourceFile": "forward_name_resolver/name.ral",
       "sourceCodeHash": "ea46ce909dbe45f4e697d6568d47cb50ca925c40919fcc8905efed0908ee7c97",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "99a5853e42af9ececde3caab5deb2a7bfc515c87856c82be9aa921c7e5a6fb44",
       "warnings": []
     },
     "RemoveReverseAddressName": {
-      "sourceFile": "name_service/scripts/remove_reverse_address_name.ral",
+      "sourceFile": "scripts/remove_reverse_address_name.ral",
       "sourceCodeHash": "b5715cbb05d51b96bfebe0eb16d003d696a6f76c6efa34b4138a5483eea12424",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "RenewName": {
-      "sourceFile": "name_service/scripts/renew_name.ral",
-      "sourceCodeHash": "d8ed28adb445581eaf5b24d919a5d1d9ac5b8907a944e5862a9d6bb4704ce2b0",
+      "sourceFile": "scripts/renew_name.ral",
+      "sourceCodeHash": "b7eea0e1b790f9924a1f201c4380aa37503ae057f61b37a913b6865d70815ce2",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "ReverseNameResolver": {
-      "sourceFile": "name_service/reverse_name_resolver.ral",
+      "sourceFile": "reverse_name_resolver/reverse_name_resolver.ral",
       "sourceCodeHash": "83d8a76e7ee0ad122fb73fc48fea20c1df2d49a93e693f1a8b8f4c45d834e286",
       "bytecodeDebugPatch": "=14-2+cc=1-1+13=1-1=141-1+5=55-1+b=40+7a7e021472656d6f7665206174206d617020706174683a2000=46+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
       "codeHashDebug": "78c283265238aa84445945472c2692a7587743bd4843a527a288d88bbe3b6a07",
       "warnings": []
     },
     "RewardToken": {
-      "sourceFile": "token/reward_token.ral",
+      "sourceFile": "forward_name_resolver/reward_token.ral",
       "sourceCodeHash": "20992da9c45f60fc06eb29acff4c5c26b28815bba912ccad9fee49e8b88cf722",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f",
       "warnings": []
     },
     "SetAddress": {
-      "sourceFile": "name_service/scripts/set_address.ral",
+      "sourceFile": "scripts/set_address.ral",
       "sourceCodeHash": "9a42da0a2a13ac02e6ceed6ceab171f564f0302ce3963e5e6aa8cd12a626592f",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "SetCapitalisation": {
-      "sourceFile": "name_service/scripts/set_capitalisation.ral",
+      "sourceFile": "scripts/set_capitalisation.ral",
       "sourceCodeHash": "3ee1b371b3170c5658a751efc75eb4ea8478b0625645d4675eb7baa80c7cb148",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "SetReverseAddressName": {
-      "sourceFile": "name_service/scripts/set_reverse_address_name.ral",
+      "sourceFile": "scripts/set_reverse_address_name.ral",
       "sourceCodeHash": "846b73bfb54ab5a7cf8bac105a8ab7b1680f8f0f0630417ba369ddbce0ea3922",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",

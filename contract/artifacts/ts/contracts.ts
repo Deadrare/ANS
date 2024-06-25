@@ -3,12 +3,26 @@
 /* eslint-disable */
 
 import { Contract, ContractFactory } from "@alephium/web3";
-import { ForwardNameResolver, Name, ReverseNameResolver, RewardToken } from ".";
+import {
+  Crop,
+  Farm,
+  ForwardNameResolver,
+  Name,
+  ReverseNameResolver,
+  RewardToken,
+} from ".";
 
 let contracts: ContractFactory<any>[] | undefined = undefined;
 export function getContractByCodeHash(codeHash: string): Contract {
   if (contracts === undefined) {
-    contracts = [ForwardNameResolver, Name, ReverseNameResolver, RewardToken];
+    contracts = [
+      Crop,
+      Farm,
+      ForwardNameResolver,
+      Name,
+      ReverseNameResolver,
+      RewardToken,
+    ];
   }
   const c = contracts.find(
     (c) =>

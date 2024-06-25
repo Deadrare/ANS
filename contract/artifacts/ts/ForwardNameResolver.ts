@@ -31,7 +31,7 @@ import {
   addStdIdToFields,
   encodeContractFields,
 } from "@alephium/web3";
-import { default as ForwardNameResolverContractJson } from "../name_service/ForwardNameResolver.ral.json";
+import { default as ForwardNameResolverContractJson } from "../forward_name_resolver/ForwardNameResolver.ral.json";
 import { getContractByCodeHash } from "./contracts";
 
 import { RalphMap } from "@alephium/web3";
@@ -41,7 +41,10 @@ export namespace ForwardNameResolverTypes {
   export type Fields = {
     nameTemplateId: HexString;
     tokenTemplateId: HexString;
+    cropTemplateId: HexString;
+    farmTemplateId: HexString;
     collectionUri: HexString;
+    farmCollectionUri: HexString;
     renewLength: bigint;
     earliestRenew: bigint;
     totalSupply: bigint;
@@ -85,6 +88,16 @@ export namespace ForwardNameResolverTypes {
     address: Address;
     name: HexString;
   }>;
+  export type CropCreatedEvent = ContractEvent<{
+    nftIndex: bigint;
+    amount: bigint;
+    creator: Address;
+    expires: bigint;
+  }>;
+  export type CropDeletedEvent = ContractEvent<{
+    nftIndex: bigint;
+    deleter: Address;
+  }>;
 
   export interface CallMethodTable {
     getCollectionUri: {
@@ -101,6 +114,26 @@ export namespace ForwardNameResolverTypes {
     };
     validateNFT: {
       params: CallContractParams<{ nftId: HexString; nftIndex: bigint }>;
+      result: CallContractResult<null>;
+    };
+    getFarmKey: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<HexString>;
+    };
+    getFarm: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<HexString>;
+    };
+    generateFarm: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<HexString>;
+    };
+    mintCrop: {
+      params: CallContractParams<{ alphAmount: bigint }>;
+      result: CallContractResult<HexString>;
+    };
+    deleteCrop: {
+      params: CallContractParams<{ nftIndex: bigint }>;
       result: CallContractResult<null>;
     };
     getNftKey: {
@@ -195,6 +228,26 @@ export namespace ForwardNameResolverTypes {
       }>;
       result: SignExecuteScriptTxResult;
     };
+    getFarmKey: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    getFarm: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    generateFarm: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    mintCrop: {
+      params: SignExecuteContractMethodParams<{ alphAmount: bigint }>;
+      result: SignExecuteScriptTxResult;
+    };
+    deleteCrop: {
+      params: SignExecuteContractMethodParams<{ nftIndex: bigint }>;
+      result: SignExecuteScriptTxResult;
+    };
     getNftKey: {
       params: SignExecuteContractMethodParams<{ nftIndex: bigint }>;
       result: SignExecuteScriptTxResult;
@@ -287,6 +340,8 @@ class Factory extends ContractFactory<
     NameDeleted: 4,
     ReverseAddressSet: 5,
     ReverseAddressDeleted: 6,
+    CropCreated: 7,
+    CropDeleted: 8,
   };
   consts = {
     ErrorCodes: {
@@ -299,8 +354,12 @@ class Factory extends ContractFactory<
       TokenAlreadyGenerated: BigInt(6),
       ReverseAddressNotFound: BigInt(7),
       OnlyNftOwnerOrHolderAllowed: BigInt(8),
+      IncorrectFarmInputAmount: BigInt(9),
+      CropHasNotExpired: BigInt(10),
+      FarmInputAmountNotConsumed: BigInt(11),
+      FarmAlreadyGenerated: BigInt(12),
     },
-    Keys: { Names: "01", Token: "02" },
+    Keys: { Names: "01", Token: "02", Farm: "03" },
   };
 
   at(address: string): ForwardNameResolverInstance {
@@ -362,6 +421,86 @@ class Factory extends ContractFactory<
       TestContractResult<null, { nameNftIndex?: Map<HexString, bigint> }>
     > => {
       return testMethod(this, "validateNFT", params, getContractByCodeHash);
+    },
+    getFarmKey: async (
+      params: Omit<
+        TestContractParams<
+          ForwardNameResolverTypes.Fields,
+          never,
+          { nameNftIndex?: Map<HexString, bigint> }
+        >,
+        "testArgs"
+      >
+    ): Promise<
+      TestContractResult<HexString, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(this, "getFarmKey", params, getContractByCodeHash);
+    },
+    getFarm: async (
+      params: Omit<
+        TestContractParams<
+          ForwardNameResolverTypes.Fields,
+          never,
+          { nameNftIndex?: Map<HexString, bigint> }
+        >,
+        "testArgs"
+      >
+    ): Promise<
+      TestContractResult<HexString, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(this, "getFarm", params, getContractByCodeHash);
+    },
+    generateFarm: async (
+      params: Omit<
+        TestContractParams<
+          ForwardNameResolverTypes.Fields,
+          never,
+          { nameNftIndex?: Map<HexString, bigint> }
+        >,
+        "testArgs"
+      >
+    ): Promise<
+      TestContractResult<HexString, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(this, "generateFarm", params, getContractByCodeHash);
+    },
+    handleCropRewardTokens: async (
+      params: TestContractParams<
+        ForwardNameResolverTypes.Fields,
+        { caller: Address; rewardTokenAmount: bigint },
+        { nameNftIndex?: Map<HexString, bigint> }
+      >
+    ): Promise<
+      TestContractResult<null, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(
+        this,
+        "handleCropRewardTokens",
+        params,
+        getContractByCodeHash
+      );
+    },
+    mintCrop: async (
+      params: TestContractParams<
+        ForwardNameResolverTypes.Fields,
+        { alphAmount: bigint },
+        { nameNftIndex?: Map<HexString, bigint> }
+      >
+    ): Promise<
+      TestContractResult<HexString, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(this, "mintCrop", params, getContractByCodeHash);
+    },
+    deleteCrop: async (
+      params: TestContractParams<
+        ForwardNameResolverTypes.Fields,
+        { nftIndex: bigint },
+        { nameNftIndex?: Map<HexString, bigint> }
+      >
+    ): Promise<
+      TestContractResult<null, { nameNftIndex?: Map<HexString, bigint> }>
+    > => {
+      return testMethod(this, "deleteCrop", params, getContractByCodeHash);
     },
     getNftKey: async (
       params: TestContractParams<
@@ -569,8 +708,8 @@ class Factory extends ContractFactory<
 export const ForwardNameResolver = new Factory(
   Contract.fromJson(
     ForwardNameResolverContractJson,
-    "=58-2+b2=2-1=1-3=3-2+30=2-1+8344=1+2=1037-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=504-2+30=168+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-    "8cfa8568f11494cef04cbbe40dafa57e14a50dbe82df3f4655ca971b1ccd0e26",
+    "=82-2+e5=2-1=1+a=2-2+63=2-2+c3=2-2+36=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=531-1+e=144+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+    "2d0afba0805f22776dfc5d86a35a1aa49dd9fa4f9f4e0b814632c517273ecb8c",
     []
   )
 );
@@ -688,6 +827,32 @@ export class ForwardNameResolverInstance extends ContractInstance {
     );
   }
 
+  subscribeCropCreatedEvent(
+    options: EventSubscribeOptions<ForwardNameResolverTypes.CropCreatedEvent>,
+    fromCount?: number
+  ): EventSubscription {
+    return subscribeContractEvent(
+      ForwardNameResolver.contract,
+      this,
+      options,
+      "CropCreated",
+      fromCount
+    );
+  }
+
+  subscribeCropDeletedEvent(
+    options: EventSubscribeOptions<ForwardNameResolverTypes.CropDeletedEvent>,
+    fromCount?: number
+  ): EventSubscription {
+    return subscribeContractEvent(
+      ForwardNameResolver.contract,
+      this,
+      options,
+      "CropDeleted",
+      fromCount
+    );
+  }
+
   subscribeAllEvents(
     options: EventSubscribeOptions<
       | ForwardNameResolverTypes.NameCreatedEvent
@@ -697,6 +862,8 @@ export class ForwardNameResolverInstance extends ContractInstance {
       | ForwardNameResolverTypes.NameDeletedEvent
       | ForwardNameResolverTypes.ReverseAddressSetEvent
       | ForwardNameResolverTypes.ReverseAddressDeletedEvent
+      | ForwardNameResolverTypes.CropCreatedEvent
+      | ForwardNameResolverTypes.CropDeletedEvent
     >,
     fromCount?: number
   ): EventSubscription {
@@ -751,6 +918,61 @@ export class ForwardNameResolverInstance extends ContractInstance {
         ForwardNameResolver,
         this,
         "validateNFT",
+        params,
+        getContractByCodeHash
+      );
+    },
+    getFarmKey: async (
+      params?: ForwardNameResolverTypes.CallMethodParams<"getFarmKey">
+    ): Promise<ForwardNameResolverTypes.CallMethodResult<"getFarmKey">> => {
+      return callMethod(
+        ForwardNameResolver,
+        this,
+        "getFarmKey",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    getFarm: async (
+      params?: ForwardNameResolverTypes.CallMethodParams<"getFarm">
+    ): Promise<ForwardNameResolverTypes.CallMethodResult<"getFarm">> => {
+      return callMethod(
+        ForwardNameResolver,
+        this,
+        "getFarm",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    generateFarm: async (
+      params?: ForwardNameResolverTypes.CallMethodParams<"generateFarm">
+    ): Promise<ForwardNameResolverTypes.CallMethodResult<"generateFarm">> => {
+      return callMethod(
+        ForwardNameResolver,
+        this,
+        "generateFarm",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    mintCrop: async (
+      params: ForwardNameResolverTypes.CallMethodParams<"mintCrop">
+    ): Promise<ForwardNameResolverTypes.CallMethodResult<"mintCrop">> => {
+      return callMethod(
+        ForwardNameResolver,
+        this,
+        "mintCrop",
+        params,
+        getContractByCodeHash
+      );
+    },
+    deleteCrop: async (
+      params: ForwardNameResolverTypes.CallMethodParams<"deleteCrop">
+    ): Promise<ForwardNameResolverTypes.CallMethodResult<"deleteCrop">> => {
+      return callMethod(
+        ForwardNameResolver,
+        this,
+        "deleteCrop",
         params,
         getContractByCodeHash
       );
@@ -951,6 +1173,44 @@ export class ForwardNameResolverInstance extends ContractInstance {
         "validateNFT",
         params
       );
+    },
+    getFarmKey: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"getFarmKey">
+    ): Promise<
+      ForwardNameResolverTypes.SignExecuteMethodResult<"getFarmKey">
+    > => {
+      return signExecuteMethod(ForwardNameResolver, this, "getFarmKey", params);
+    },
+    getFarm: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"getFarm">
+    ): Promise<ForwardNameResolverTypes.SignExecuteMethodResult<"getFarm">> => {
+      return signExecuteMethod(ForwardNameResolver, this, "getFarm", params);
+    },
+    generateFarm: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"generateFarm">
+    ): Promise<
+      ForwardNameResolverTypes.SignExecuteMethodResult<"generateFarm">
+    > => {
+      return signExecuteMethod(
+        ForwardNameResolver,
+        this,
+        "generateFarm",
+        params
+      );
+    },
+    mintCrop: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"mintCrop">
+    ): Promise<
+      ForwardNameResolverTypes.SignExecuteMethodResult<"mintCrop">
+    > => {
+      return signExecuteMethod(ForwardNameResolver, this, "mintCrop", params);
+    },
+    deleteCrop: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"deleteCrop">
+    ): Promise<
+      ForwardNameResolverTypes.SignExecuteMethodResult<"deleteCrop">
+    > => {
+      return signExecuteMethod(ForwardNameResolver, this, "deleteCrop", params);
     },
     getNftKey: async (
       params: ForwardNameResolverTypes.SignExecuteMethodParams<"getNftKey">

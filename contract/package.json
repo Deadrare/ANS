@@ -9,6 +9,7 @@
         "deployForwardNameResolver": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployForwardNameResolver.ts",
         "deployReverseNameResolvers": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployReverseNameResolvers.ts",
         "deployTemplates": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployTemplates.ts",
+        "generateFarm": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/generateFarm.ts",
         "generateRewardToken": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/generateRewardToken.ts",
         "deploy": "npx @alephium/cli deploy",
         "type": "tsc ",

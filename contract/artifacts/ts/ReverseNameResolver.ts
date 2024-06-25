@@ -31,7 +31,7 @@ import {
   addStdIdToFields,
   encodeContractFields,
 } from "@alephium/web3";
-import { default as ReverseNameResolverContractJson } from "../name_service/ReverseNameResolver.ral.json";
+import { default as ReverseNameResolverContractJson } from "../reverse_name_resolver/ReverseNameResolver.ral.json";
 import { getContractByCodeHash } from "./contracts";
 
 import { RalphMap } from "@alephium/web3";
@@ -74,6 +74,16 @@ export namespace ReverseNameResolverTypes {
   export type ReverseAddressDeletedEvent = ContractEvent<{
     address: Address;
     name: HexString;
+  }>;
+  export type CropCreatedEvent = ContractEvent<{
+    nftIndex: bigint;
+    amount: bigint;
+    creator: Address;
+    expires: bigint;
+  }>;
+  export type CropDeletedEvent = ContractEvent<{
+    nftIndex: bigint;
+    deleter: Address;
   }>;
 
   export interface CallMethodTable {
@@ -144,6 +154,8 @@ class Factory extends ContractFactory<ReverseNameResolverInstance, {}> {
     NameDeleted: 4,
     ReverseAddressSet: 5,
     ReverseAddressDeleted: 6,
+    CropCreated: 7,
+    CropDeleted: 8,
   };
   consts = {
     ErrorCodes: {
@@ -156,8 +168,12 @@ class Factory extends ContractFactory<ReverseNameResolverInstance, {}> {
       TokenAlreadyGenerated: BigInt(6),
       ReverseAddressNotFound: BigInt(7),
       OnlyNftOwnerOrHolderAllowed: BigInt(8),
+      IncorrectFarmInputAmount: BigInt(9),
+      CropHasNotExpired: BigInt(10),
+      FarmInputAmountNotConsumed: BigInt(11),
+      FarmAlreadyGenerated: BigInt(12),
     },
-    Keys: { Names: "01", Token: "02" },
+    Keys: { Names: "01", Token: "02", Farm: "03" },
   };
 
   at(address: string): ReverseNameResolverInstance {
@@ -362,6 +378,32 @@ export class ReverseNameResolverInstance extends ContractInstance {
     );
   }
 
+  subscribeCropCreatedEvent(
+    options: EventSubscribeOptions<ReverseNameResolverTypes.CropCreatedEvent>,
+    fromCount?: number
+  ): EventSubscription {
+    return subscribeContractEvent(
+      ReverseNameResolver.contract,
+      this,
+      options,
+      "CropCreated",
+      fromCount
+    );
+  }
+
+  subscribeCropDeletedEvent(
+    options: EventSubscribeOptions<ReverseNameResolverTypes.CropDeletedEvent>,
+    fromCount?: number
+  ): EventSubscription {
+    return subscribeContractEvent(
+      ReverseNameResolver.contract,
+      this,
+      options,
+      "CropDeleted",
+      fromCount
+    );
+  }
+
   subscribeAllEvents(
     options: EventSubscribeOptions<
       | ReverseNameResolverTypes.NameCreatedEvent
@@ -371,6 +413,8 @@ export class ReverseNameResolverInstance extends ContractInstance {
       | ReverseNameResolverTypes.NameDeletedEvent
       | ReverseNameResolverTypes.ReverseAddressSetEvent
       | ReverseNameResolverTypes.ReverseAddressDeletedEvent
+      | ReverseNameResolverTypes.CropCreatedEvent
+      | ReverseNameResolverTypes.CropDeletedEvent
     >,
     fromCount?: number
   ): EventSubscription {

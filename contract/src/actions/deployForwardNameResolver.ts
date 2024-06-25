@@ -2,7 +2,7 @@ import { stringToHex, web3 } from '@alephium/web3'
 import { ForwardNameResolver } from '../../artifacts/ts'
 import { PrivateKeyWallet } from '@alephium/web3-wallet'
 import getConfig from '../config'
-import { COLLECTION_URL } from './dataUris'
+import { FARM_COLLECTION_URL, NAME_COLLECTION_URL } from './dataUris'
 
 const config = getConfig()
 
@@ -18,7 +18,10 @@ const run = async () => {
             initialFields: {
                 nameTemplateId: config.NAME_ID,
                 tokenTemplateId: config.REWARD_TOKEN_ID,
-                collectionUri: stringToHex(COLLECTION_URL),
+                cropTemplateId: config.CROP_ID,
+                farmTemplateId: config.FARM_ID,
+                collectionUri: stringToHex(NAME_COLLECTION_URL),
+                farmCollectionUri: stringToHex(FARM_COLLECTION_URL),
                 renewLength: 31_536_000_000n,
                 earliestRenew: 2_592_000_000n,
                 totalSupply: 0n
@@ -30,9 +33,9 @@ const run = async () => {
     console.log(`ForwardNameResolver contract address: ${result.contractInstance.address}`)
 
     // staging
-    // Transaction ID: c3df867b4540c8db63e11ddf16ff90f8acc2165c39db64c5b3a3034500fbb8c1
-    // ForwardNameResolver contract ID: 610cb9f87ac60c3a6320ff353f90ce66707adbca65dd4057722ce3b0902c8800
-    // ForwardNameResolver contract address: 21Dnv1MYPrqNujyvkpJ9mDwnSkje217tUEAiaJ49qS247
+    // Transaction ID: c6d8a3b501d95bcdf3b111f3d7b68b409c5b6a4bfb65f8aa658457ad72970d51
+    // ForwardNameResolver contract ID: 8bf1df996f237a53bd4e37898769e5ded4e924c126705274db8a6aadf78e8a00
+    // ForwardNameResolver contract address: 247EhNDSPMcvgrLiqyPcCmMh6hpytdnYiNBMcBpZV4dXm
 }
 
 run()

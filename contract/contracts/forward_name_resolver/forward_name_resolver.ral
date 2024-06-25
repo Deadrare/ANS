@@ -3,11 +3,14 @@ import "std/nft_collection_interface"
 Contract ForwardNameResolver(
     nameTemplateId: ByteVec,
     tokenTemplateId: ByteVec,
+    cropTemplateId: ByteVec,
+    farmTemplateId: ByteVec,
     collectionUri: ByteVec,
+    farmCollectionUri: ByteVec,
     renewLength: U256,
     earliestRenew: U256,
     mut totalSupply: U256
-) extends Constants(), Events() implements INFTCollection {
+) extends FarmController(), Constants(), Events() implements INFTCollection {
 
     mapping[ByteVec, U256] nameNftIndex
 
@@ -205,11 +208,13 @@ Contract ForwardNameResolver(
         )
     }
 
-    // Allow anybody to renew a Name so 3rd parties can implement auto renew
-    @using(preapprovedAssets = true, checkExternalCaller = false)
+    @using(preapprovedAssets = true)
     pub fn renewName(name: ByteVec) -> () {
         let caller = callerAddress!()
         let nft = getNftByName(name)
+        let tokenId = tokenId!(nft)
+        checkCaller!(tokenRemaining!(caller, tokenId) == 1, ErrorCodes.OnlyNftOwnerAllowed)
+
         let rewardToken = getRewardToken()
         let rewardTokenId = tokenId!(rewardToken)
 
@@ -232,15 +237,13 @@ Contract ForwardNameResolver(
         )
     }
 
-    // Allow anybody to delete an expired Name so 3rd parties can clean up expired NFTs
-    @using(updateFields = true, checkExternalCaller = false)
+    @using(preapprovedAssets = true)
     pub fn deleteExpired(name: ByteVec) -> () {
         let caller = callerAddress!()
-        totalSupply = totalSupply + 1
-
-        assert!(nameNftIndex.contains!(name), ErrorCodes.NFTNotFound)
-        
         let existingNft = getNftByName(name)
+        let tokenId = tokenId!(existingNft)
+        checkCaller!(tokenRemaining!(caller, tokenId) == 1, ErrorCodes.OnlyNftOwnerAllowed)
+
         let nftIndex = existingNft.getNFTIndex()
         let expired = hasExpired(existingNft)
         assert!(expired, ErrorCodes.NameHasNotExpired)

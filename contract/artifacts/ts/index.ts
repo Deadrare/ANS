@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export * from "./Crop";
+export * from "./Farm";
 export * from "./ForwardNameResolver";
 export * from "./Name";
 export * from "./ReverseNameResolver";

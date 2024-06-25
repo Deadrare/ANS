@@ -1,0 +1,14 @@
+TxScript DeleteCrop(
+    forwardNameResolverId: ByteVec,
+    nftIndex: U256
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let farm = resolver.getFarm()
+    let crop = farm.getCrop(nftIndex)
+    let tokenId = tokenId!(crop)
+    
+    resolver.deleteCrop{caller -> tokenId: 1}(
+        nftIndex
+    )
+}

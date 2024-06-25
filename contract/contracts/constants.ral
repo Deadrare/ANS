@@ -10,10 +10,15 @@ Abstract Contract Constants() {
         TokenAlreadyGenerated = 6
         ReverseAddressNotFound = 7
         OnlyNftOwnerOrHolderAllowed = 8
+        IncorrectFarmInputAmount = 9
+        CropHasNotExpired = 10
+        FarmInputAmountNotConsumed = 11
+        FarmAlreadyGenerated = 12
     }
 
     enum Keys {
         Names = #01
         Token = #02
+        Farm = #03
     }
 }

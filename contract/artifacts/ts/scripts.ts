@@ -11,23 +11,40 @@ import {
   SignerProvider,
   HexString,
 } from "@alephium/web3";
-import { default as DeleteExpiredScriptJson } from "../name_service/scripts/DeleteExpired.ral.json";
-import { default as GenerateTokenScriptJson } from "../name_service/scripts/GenerateToken.ral.json";
-import { default as MintNameScriptJson } from "../name_service/scripts/MintName.ral.json";
-import { default as RemoveReverseAddressNameScriptJson } from "../name_service/scripts/RemoveReverseAddressName.ral.json";
-import { default as RenewNameScriptJson } from "../name_service/scripts/RenewName.ral.json";
-import { default as SetAddressScriptJson } from "../name_service/scripts/SetAddress.ral.json";
-import { default as SetCapitalisationScriptJson } from "../name_service/scripts/SetCapitalisation.ral.json";
-import { default as SetReverseAddressNameScriptJson } from "../name_service/scripts/SetReverseAddressName.ral.json";
+import { default as DeleteCropScriptJson } from "../scripts/DeleteCrop.ral.json";
+import { default as DeleteExpiredScriptJson } from "../scripts/DeleteExpired.ral.json";
+import { default as GenerateFarmScriptJson } from "../scripts/GenerateFarm.ral.json";
+import { default as GenerateTokenScriptJson } from "../scripts/GenerateToken.ral.json";
+import { default as MintCropScriptJson } from "../scripts/MintCrop.ral.json";
+import { default as MintNameScriptJson } from "../scripts/MintName.ral.json";
+import { default as RemoveReverseAddressNameScriptJson } from "../scripts/RemoveReverseAddressName.ral.json";
+import { default as RenewNameScriptJson } from "../scripts/RenewName.ral.json";
+import { default as SetAddressScriptJson } from "../scripts/SetAddress.ral.json";
+import { default as SetCapitalisationScriptJson } from "../scripts/SetCapitalisation.ral.json";
+import { default as SetReverseAddressNameScriptJson } from "../scripts/SetReverseAddressName.ral.json";
+
+export const DeleteCrop = new ExecutableScript<{
+  forwardNameResolverId: HexString;
+  nftIndex: bigint;
+}>(Script.fromJson(DeleteCropScriptJson, "", []));
 
 export const DeleteExpired = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
 }>(Script.fromJson(DeleteExpiredScriptJson, "", []));
 
+export const GenerateFarm = new ExecutableScript<{
+  forwardNameResolverId: HexString;
+}>(Script.fromJson(GenerateFarmScriptJson, "", []));
+
 export const GenerateToken = new ExecutableScript<{
   forwardNameResolverId: HexString;
 }>(Script.fromJson(GenerateTokenScriptJson, "", []));
+
+export const MintCrop = new ExecutableScript<{
+  forwardNameResolverId: HexString;
+  alphAmount: bigint;
+}>(Script.fromJson(MintCropScriptJson, "", []));
 
 export const MintName = new ExecutableScript<{
   forwardNameResolverId: HexString;

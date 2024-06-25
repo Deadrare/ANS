@@ -1,5 +1,5 @@
 import { DUST_AMOUNT, ONE_ALPH, web3 } from '@alephium/web3'
-import { GenerateToken } from '../../artifacts/ts'
+import { GenerateFarm, GenerateToken } from '../../artifacts/ts'
 import { PrivateKeyWallet } from '@alephium/web3-wallet'
 import getConfig from '../config'
 
@@ -11,7 +11,7 @@ const run = async () => {
         privateKey: config.PRIVATE_KEY_GROUP_0
     })
 
-    const result = await GenerateToken.execute(
+    const result = await GenerateFarm.execute(
         wallet,
         {
             initialFields: {
@@ -23,7 +23,7 @@ const run = async () => {
     console.log(`Transaction ID: ${result.txId}`)
 
     // staging
-    // Transaction ID: a4f5a90c175a25a8154d3336c799ce66163272768617a637767ad324d416c3a3
+    // Transaction ID: 43caf05f3e5fadcaa2787bf7250f347a84dabcd411fa94e36bae1e6a2dc1f3b4
 }
 
 run()

@@ -31,7 +31,7 @@ import {
   addStdIdToFields,
   encodeContractFields,
 } from "@alephium/web3";
-import { default as RewardTokenContractJson } from "../token/RewardToken.ral.json";
+import { default as RewardTokenContractJson } from "../forward_name_resolver/RewardToken.ral.json";
 import { getContractByCodeHash } from "./contracts";
 
 // Custom types for the contract
@@ -147,8 +147,12 @@ class Factory extends ContractFactory<
       TokenAlreadyGenerated: BigInt(6),
       ReverseAddressNotFound: BigInt(7),
       OnlyNftOwnerOrHolderAllowed: BigInt(8),
+      IncorrectFarmInputAmount: BigInt(9),
+      CropHasNotExpired: BigInt(10),
+      FarmInputAmountNotConsumed: BigInt(11),
+      FarmAlreadyGenerated: BigInt(12),
     },
-    Keys: { Names: "01", Token: "02" },
+    Keys: { Names: "01", Token: "02", Farm: "03" },
   };
 
   at(address: string): RewardTokenInstance {

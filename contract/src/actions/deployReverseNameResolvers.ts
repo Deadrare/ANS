@@ -62,18 +62,18 @@ const run = async () => {
     console.log(`ForwardNameResolver3 contract address: ${result3.contractInstance.address}`)
 
     // Staging
-    // Transaction ID0: e44a9d35dc67eb18b7f6b2e0bf03b7492fcd48bc958f74adb2a6af94ff7cfb56
-    // ForwardNameResolver0 contract ID: 83bc9f1c520b30b8907453d94ecd45901931444c169a6d2248fab50b26125700
-    // ForwardNameResolver0 contract address: 23ZCLcSUWg2Zp5qjaHZJgid4Fw8jYx6Ck52ZGEnrM71wu
-    // Transaction ID1: 2948572bbe79174668e4550093ea4cfebdab7e497e739aa56d3d1e9e2a129473
-    // ForwardNameResolver1 contract ID: 059da838ab8b14dba00409c46aac4521d5df56fdb1b0f9f3957faeb075ee7501
-    // ForwardNameResolver1 contract address: u4sapctcGuP6G6R3q3n9sPKqGSLgrn2rA4WSVN5SkYGx
-    // Transaction ID2: a91cf38f93daee76d110356fe25190613242a2eab556f1e341a442f25655c67c
-    // ForwardNameResolver2 contract ID: 15a531841592a44a53cc4b2db96c10566e50edd94407435f9af280d260703c02
-    // ForwardNameResolver2 contract address: v9Smk6sjYDx7L6gUPEzoR3JYCtZZYz3T5TgFKSJnGXff
-    // Transaction ID3: 36791f2da0f15d4efd4562e717127478e7659ea9a994a8cbec0449d94cb32f79
-    // ForwardNameResolver3 contract ID: 58e5a842044b8463ea6fc385488ba85bd4ee759db9e6f759b27018cc2bc5c203
-    // ForwardNameResolver3 contract address: zfy6m8jxVtHp7u8RFYspXwdRNLR4HsbcUC4LDT9WF7ar
+    // Transaction ID0: 8eec46e44000bccaf5e4217704c977bc8bf4b43f9ae64132201e8d91b1b14a4e
+    // ForwardNameResolver0 contract ID: fddd4f37b256b3663dc201015ed4949cc49f8672c34936aa8b9324bd58776500
+    // ForwardNameResolver0 contract address: 2BmvzDx5FYJjwLpEuTxZYxeJhWRQo4wScHraisBuGoUK1
+    // Transaction ID1: a686114198f20697ec60fff85187bc847f71b0eaf58e3e70224a07e0ffb2743d
+    // ForwardNameResolver1 contract ID: 8354ca6867366d81ebce93b54c29aaccf589bb8232716b32ad5f98f856827001
+    // ForwardNameResolver1 contract address: 23XcWZCobjKR8GRUhro5pavYFyZhXnjXq9mm7rGewNHfW
+    // Transaction ID2: fd960fe5647050f15a72d9a8b39373d99b38ee9a0a809ba5794ddb390521d7f2
+    // ForwardNameResolver2 contract ID: e9a194abc1b26d199abd62702cb0cae4f53065d2f7b919d632caf5f92629e702
+    // ForwardNameResolver2 contract address: 2AQx1UtRSfXPgts1yWx7o8LqvvcnLDGPSiwGQ6mT4SUdw
+    // Transaction ID3: b212e79da328559c50e6bbe64dbe077988aa064edc4a590df23e7375bd847deb
+    // ForwardNameResolver3 contract ID: 1fe03363b1661c825a27178ee61d5e1a93966365a03a7fbe8f443df730964303
+    // ForwardNameResolver3 contract address: vqP321RezH4x8eeRckgb2AserkDSd8L3vPgtN48MwS6E
 }
 
 run()
