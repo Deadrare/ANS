@@ -8,7 +8,7 @@ Contract RewardToken(
     mut totalSupply: U256
 ) extends Constants() implements IFungibleToken {
 
-    @using(assetsInContract = true, checkExternalCaller = false, updateFields = true)
+    @using(assetsInContract = true, updateFields = true)
     pub fn mintTokens(to: Address, amount: U256) -> () {
         let caller = callerContractId!()
         checkCaller!(parentId == caller, ErrorCodes.OnlyParentAllowed)
@@ -17,7 +17,7 @@ Contract RewardToken(
         transferTokenFromSelf!(to, selfTokenId!(), amount)
     }
 
-    @using(preapprovedAssets = true, assetsInContract = true, checkExternalCaller = false, updateFields = true)
+    @using(preapprovedAssets = true, assetsInContract = true, updateFields = true)
     pub fn burnTokens(from: Address, amount: U256) -> () {
         let caller = callerContractId!()
         checkCaller!(parentId == caller, ErrorCodes.OnlyParentAllowed)

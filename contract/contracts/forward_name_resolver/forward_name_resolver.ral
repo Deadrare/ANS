@@ -35,7 +35,7 @@ Contract ForwardNameResolver(
         return Name(subContractId!(getNftKey(nftIndex)))
     }
 
-    pub fn coontainsNftByName(name: ByteVec) -> Bool {
+    pub fn containsNftByName(name: ByteVec) -> Bool {
         return nameNftIndex.contains!(name)
     }
 
@@ -133,8 +133,7 @@ Contract ForwardNameResolver(
 
         if (nameLength > 8) {
             rewardToken.mintTokens(caller, 1 alph)
-        }
-        if (nameLength <= 8) {
+        } else {
             let cost = (9 - nameLength) * 100
             rewardToken.burnTokens{caller -> rewardTokenId: cost * 1 alph}(caller, cost * 1 alph)
         }

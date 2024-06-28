@@ -148,7 +148,7 @@ export namespace ForwardNameResolverTypes {
       params: CallContractParams<{ name: HexString }>;
       result: CallContractResult<HexString>;
     };
-    coontainsNftByName: {
+    containsNftByName: {
       params: CallContractParams<{ name: HexString }>;
       result: CallContractResult<boolean>;
     };
@@ -260,7 +260,7 @@ export namespace ForwardNameResolverTypes {
       params: SignExecuteContractMethodParams<{ name: HexString }>;
       result: SignExecuteScriptTxResult;
     };
-    coontainsNftByName: {
+    containsNftByName: {
       params: SignExecuteContractMethodParams<{ name: HexString }>;
       result: SignExecuteScriptTxResult;
     };
@@ -543,7 +543,7 @@ class Factory extends ContractFactory<
     > => {
       return testMethod(this, "getNftByName", params, getContractByCodeHash);
     },
-    coontainsNftByName: async (
+    containsNftByName: async (
       params: TestContractParams<
         ForwardNameResolverTypes.Fields,
         { name: HexString },
@@ -554,7 +554,7 @@ class Factory extends ContractFactory<
     > => {
       return testMethod(
         this,
-        "coontainsNftByName",
+        "containsNftByName",
         params,
         getContractByCodeHash
       );
@@ -708,8 +708,8 @@ class Factory extends ContractFactory<
 export const ForwardNameResolver = new Factory(
   Contract.fromJson(
     ForwardNameResolverContractJson,
-    "=82-2+e5=2-1=1+a=2-2+63=2-2+c3=2-2+36=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=531-1+e=144+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-    "2d0afba0805f22776dfc5d86a35a1aa49dd9fa4f9f4e0b814632c517273ecb8c",
+    "=82-6+e0=2-1+1=3-1=1+e=2-2+be4531=1641-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=531-1+e=144+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+    "966acbd1cdb1c51f90783a46361bdcb84bcba93833c16118179bfb5a2d73c5b3",
     []
   )
 );
@@ -1012,15 +1012,15 @@ export class ForwardNameResolverInstance extends ContractInstance {
         getContractByCodeHash
       );
     },
-    coontainsNftByName: async (
-      params: ForwardNameResolverTypes.CallMethodParams<"coontainsNftByName">
+    containsNftByName: async (
+      params: ForwardNameResolverTypes.CallMethodParams<"containsNftByName">
     ): Promise<
-      ForwardNameResolverTypes.CallMethodResult<"coontainsNftByName">
+      ForwardNameResolverTypes.CallMethodResult<"containsNftByName">
     > => {
       return callMethod(
         ForwardNameResolver,
         this,
-        "coontainsNftByName",
+        "containsNftByName",
         params,
         getContractByCodeHash
       );
@@ -1243,15 +1243,15 @@ export class ForwardNameResolverInstance extends ContractInstance {
         params
       );
     },
-    coontainsNftByName: async (
-      params: ForwardNameResolverTypes.SignExecuteMethodParams<"coontainsNftByName">
+    containsNftByName: async (
+      params: ForwardNameResolverTypes.SignExecuteMethodParams<"containsNftByName">
     ): Promise<
-      ForwardNameResolverTypes.SignExecuteMethodResult<"coontainsNftByName">
+      ForwardNameResolverTypes.SignExecuteMethodResult<"containsNftByName">
     > => {
       return signExecuteMethod(
         ForwardNameResolver,
         this,
-        "coontainsNftByName",
+        "containsNftByName",
         params
       );
     },
