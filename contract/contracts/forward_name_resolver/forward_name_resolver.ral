@@ -236,12 +236,10 @@ Contract ForwardNameResolver(
         )
     }
 
-    @using(preapprovedAssets = true)
+    @using(checkExternalCaller = false)
     pub fn deleteExpired(name: ByteVec) -> () {
         let caller = callerAddress!()
         let existingNft = getNftByName(name)
-        let tokenId = tokenId!(existingNft)
-        checkCaller!(tokenRemaining!(caller, tokenId) == 1, ErrorCodes.OnlyNftOwnerAllowed)
 
         let nftIndex = existingNft.getNFTIndex()
         let expired = hasExpired(existingNft)

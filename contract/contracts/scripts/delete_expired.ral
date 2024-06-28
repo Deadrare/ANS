@@ -2,11 +2,8 @@ TxScript DeleteExpired(
     forwardNameResolverId: ByteVec,
     name: ByteVec
 ) {
-    let caller = callerAddress!()
     let resolver = ForwardNameResolver(forwardNameResolverId)
-    let nft = resolver.getNftByName(name)
-    let tokenId = tokenId!(nft)
-    resolver.deleteExpired{caller -> tokenId: 1}(
+    resolver.deleteExpired(
         name
     )
 }
