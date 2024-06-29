@@ -63,7 +63,7 @@ const StagingConfig: Config = {
     ...DefaultConfig,
     DEPLOYMENT: 'STAGING',
     NETWORK: 'testnet',
-    NODE_URL: 'https://wallet-v20.testnet.alephium.org',
+    NODE_URL: process.env.NODE_URL ?? 'https://wallet-v20.testnet.alephium.org',
     EXPLORER_URL: 'https://backend-v113.testnet.alephium.org',
 
     NAME_ID: '18a9958f73cffaf31973c90ac834a16be8b24a2a30fdd87a42f9763f13547700',
@@ -93,7 +93,7 @@ const ProductionConfig: Config = {
     ...DefaultConfig,
     DEPLOYMENT: 'PRODUCTION',
     NETWORK: 'mainnet',
-    NODE_URL: 'https://wallet-v20.mainnet.alephium.org',
+    NODE_URL: process.env.NODE_URL ?? 'https://wallet-v20.mainnet.alephium.org',
     EXPLORER_URL: 'https://backend-v113.mainnet.alephium.org',
 
     NAME_ID: '',
