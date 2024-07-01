@@ -1,0 +1,11 @@
+TxScript MintCrop(
+    forwardNameResolverId: ByteVec,
+    alphAmount: U256
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    
+    let _ = resolver.mintCrop{caller -> ALPH: alphAmount}(
+        alphAmount
+    )
+}

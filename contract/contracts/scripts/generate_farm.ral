@@ -1,0 +1,7 @@
+TxScript GenerateFarm(
+    forwardNameResolverId: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let _ = resolver.generateFarm{caller -> ALPH: minimalContractDeposit!()}()
+}

@@ -1,0 +1,18 @@
+TxScript MintName(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec,
+    capitalisation: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let rewardToken = resolver.getRewardToken()
+    let rewardTokenId = tokenId!(rewardToken)
+    
+    let _ = resolver.mint{caller -> 
+        ALPH: minimalContractDeposit!() + mapEntryDeposit!(),
+        rewardTokenId: tokenRemaining!(caller, rewardTokenId)
+    }(
+        name,
+        capitalisation
+    )
+}

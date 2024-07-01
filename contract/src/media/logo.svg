@@ -1,0 +1,12 @@
+<svg width="1248px" height="1248px" viewBox="0 0 1248 1248" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <rect id="Rectangle" fill="#000000" x="0" y="0" width="1248" height="1248"></rect>
+    <g id="Group-8" transform="translate(171.1533, 203)">
+        <g id="Group-6" transform="translate(52.8467, 0)">
+            <polygon id="Triangle" fill="#FFFFFF" points="400 0 800 800 0 800"></polygon>
+            <polygon id="Triangle-Copy" fill="#000000" points="400 601 500 801 300 801"></polygon>
+        </g>
+        <text id="NS" stroke="#000000" stroke-width="10" transform="translate(359.5947, 526.1643) rotate(-20) translate(-359.5947, -526.1643)" font-family="HanziPenSC-W5, HanziPen SC" font-size="350" font-weight="bold" fill="#000000">
+            <tspan x="168.494719" y="652.164337">NS</tspan>
+        </text>
+    </g>
+</svg>

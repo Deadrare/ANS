@@ -1,0 +1,14 @@
+TxScript SetCapitalisation(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec,
+    newCapitalisation: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let nft = resolver.getNftByName(name)
+    let tokenId = tokenId!(nft)
+    resolver.setCapitalisation{caller -> tokenId: tokenRemaining!(caller, tokenId)}(
+        name,
+        newCapitalisation
+    )
+}

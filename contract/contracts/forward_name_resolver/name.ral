@@ -1,0 +1,68 @@
+import "std/nft_interface"
+
+Contract Name(
+    collectionId: ByteVec,
+    nftIndex: U256,
+    name: ByteVec,
+    mut capitalisation: ByteVec,
+    mut address: Address,
+    mut expires: U256
+) extends Constants() implements INFT {
+
+    pub fn getTokenUri() -> ByteVec {
+        return b`data:application/json,{"name":"` ++ name ++ b`"}`
+    }
+
+    pub fn getNFTIndex() -> U256 {
+        return nftIndex
+    }
+
+    pub fn getCollectionIndex() -> (ByteVec, U256) {
+        return collectionId, nftIndex
+    }
+
+    pub fn getName() -> ByteVec {
+        return name
+    }
+
+    pub fn getCapitalisation() -> ByteVec {
+        return capitalisation
+    }
+
+    pub fn getExpires() -> U256 {
+        return expires
+    }
+
+    pub fn getAddress() -> Address {
+        return address
+    }
+
+    @using(updateFields = true)
+    pub fn setAddress(newAddress: Address) -> () {
+        let caller = callerContractId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        address = newAddress
+    }
+
+    @using(updateFields = true)
+    pub fn setCapitalisation(newCapitalisation: ByteVec) -> () {
+        let caller = callerContractId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        capitalisation = newCapitalisation
+    }
+
+    @using(updateFields = true)
+    pub fn setExpires(newExpires: U256) -> () {
+        let caller = callerContractId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        expires = newExpires
+    }
+
+    @using(assetsInContract = true)
+    pub fn delete(refundAddress: Address) -> () {
+        let caller = callerContractId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        // we cannot burnToken!() becuase the old owner is not involved in this transaction
+        destroySelf!(refundAddress)
+    }
+}

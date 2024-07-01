@@ -1,0 +1,45 @@
+import "std/nft_interface"
+
+Contract Crop(
+    collectionId: ByteVec,
+    nftIndex: U256,
+    name: ByteVec,
+    mut expires: U256
+) extends Constants() implements INFT {
+
+    pub fn getTokenUri() -> ByteVec {
+        return b`data:application/json,{"name":"` ++ name ++ b`"}`
+    }
+
+    pub fn getNFTIndex() -> U256 {
+        return nftIndex
+    }
+
+    pub fn getCollectionIndex() -> (ByteVec, U256) {
+        return collectionId, nftIndex
+    }
+
+    pub fn getName() -> ByteVec {
+        return name
+    }
+
+    pub fn getExpires() -> U256 {
+        return expires
+    }
+
+    @using(updateFields = true)
+    pub fn setExpires(newExpires: U256) -> () {
+        let caller = callerContractId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        expires = newExpires
+    }
+
+    @using(assetsInContract = true, preapprovedAssets = true)
+    pub fn delete(refundAddress: Address) -> () {
+        let caller = callerContractId!()
+        let tokenId = selfTokenId!()
+        checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
+        burnToken!(refundAddress, tokenId, 1)
+        destroySelf!(refundAddress)
+    }
+}
