@@ -42,7 +42,7 @@ Abstract Contract FarmController() extends Constants(), Events() {
         let caller = callerAddress!()
         let alphPerToken = minimalContractDeposit!() + mapEntryDeposit!()
         let rewardTokenAmount = alphAmount / alphPerToken
-        assert!(rewardTokenAmount * alphPerToken == alphAmount, ErrorCodes.IncorrectFarmInputAmount)
+        assert!(rewardTokenAmount != 0 && rewardTokenAmount * alphPerToken == alphAmount, ErrorCodes.IncorrectFarmInputAmount)
 
         handleCropRewardTokens(
             caller,

@@ -46,23 +46,23 @@
     },
     "Farm": {
       "sourceFile": "farm/farm.ral",
-      "sourceCodeHash": "a6967ba23b3cad0e558a6154e71eacd3ef01d800f578465054bfba9342cea5e8",
+      "sourceCodeHash": "36501d612072d2fc4f574ebb2d43eb0d3e35658691112bb82892a4f57f1f820d",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "534cbff88b29c40c7cb3199b7cc38e13c6005ce63445ea2798f2f479c72174a9",
       "warnings": []
     },
     "FarmController": {
       "sourceFile": "forward_name_resolver/farm_controller.ral",
-      "sourceCodeHash": "cb2e4d61a14332b08f48f024b9dd9bc8cc6e21e3f3040044851764f0378d6945",
+      "sourceCodeHash": "6619d17481b5200c17f2f80d4ab451f81dc3f1a27195ed697d72b7bc5360fe2d",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
     },
     "ForwardNameResolver": {
       "sourceFile": "forward_name_resolver/forward_name_resolver.ral",
-      "sourceCodeHash": "262402a83e5d349acfbe526dafd0852ff769a63e62394db455831852fb1cd369",
-      "bytecodeDebugPatch": "=82-7+e0=2+1=3-1=1+e=2-1+be45=1+4=1641-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=531-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-      "codeHashDebug": "333d45105aee46bbdcca35dd811ef12a8a041548c0c81ad8430fdc81f16b2222",
+      "sourceCodeHash": "78d319e02a43d9b03ed813b25fb5748d10e0361a46aa2e115d946f7cb0932840",
+      "bytecodeDebugPatch": "=82-2+e5=2-1=1+a=2+63=1-1=1+d=1-2=2-2+3a=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+      "codeHashDebug": "f365259b2727cd8f2b8a14f6ab1f8521d6a76ff7f56b57b13538be177cf24d8e",
       "warnings": []
     },
     "GenerateFarm": {
@@ -137,9 +137,9 @@
     },
     "ReverseNameResolver": {
       "sourceFile": "reverse_name_resolver/reverse_name_resolver.ral",
-      "sourceCodeHash": "83d8a76e7ee0ad122fb73fc48fea20c1df2d49a93e693f1a8b8f4c45d834e286",
-      "bytecodeDebugPatch": "=14-2+cc=1-1+13=1-1=141-1+5=55-1+b=40+7a7e021472656d6f7665206174206d617020706174683a2000=46+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
-      "codeHashDebug": "78c283265238aa84445945472c2692a7587743bd4843a527a288d88bbe3b6a07",
+      "sourceCodeHash": "f8922e3439ce173786c0cda25dfe2ea8940eb72a7e391aa9828c1b34c1de467d",
+      "bytecodeDebugPatch": "=14-2+b6=1-3+129=141-1+5=107-1+c=40+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
+      "codeHashDebug": "57983c35b982d4623e6ac3dd4406f25e4c4e3f20715733488625a08d47f22fd5",
       "warnings": []
     },
     "RewardToken": {

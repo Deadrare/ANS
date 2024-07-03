@@ -25,8 +25,8 @@ Contract Farm(
     }
 
     pub fn getCrop(index: U256) -> Crop {
-        let farmId = subContractId!(toByteVec!(index))
-        return Crop(farmId)
+        let cropId = subContractId!(toByteVec!(index))
+        return Crop(cropId)
     }
 
     @using(checkExternalCaller = false)

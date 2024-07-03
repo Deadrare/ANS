@@ -224,15 +224,15 @@ Contract ForwardNameResolver(
             name
         )
 
-        let now = blockTimeStamp!()
-        let expires = now + renewLength
-        nft.setExpires(expires)
+        let expired = hasExpired(nft)
+        let newExpires = if (!expired) nft.getExpires() + renewLength else blockTimeStamp!() + renewLength
+        nft.setExpires(newExpires)
 
         emit NameRenewed(
             nft.getNFTIndex(),
             name,
             caller,
-            expires
+            newExpires
         )
     }
 

@@ -14,9 +14,10 @@ Contract ReverseNameResolver() extends Constants(), Events() {
     pub fn setAddressName(name: ByteVec) -> () {
         let caller = callerAddress!()
         if (addressNames.contains!(caller)) {
-            addressNames.remove!(caller, caller)
+            addressNames[caller] = name
+        } else {
+            addressNames.insert!(caller, caller, name)
         }
-        addressNames.insert!(caller, caller, name)
 
         emit ReverseAddressSet(
             caller,
