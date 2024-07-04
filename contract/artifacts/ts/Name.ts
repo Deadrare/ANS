@@ -33,6 +33,7 @@ import {
 } from "@alephium/web3";
 import { default as NameContractJson } from "../forward_name_resolver/Name.ral.json";
 import { getContractByCodeHash } from "./contracts";
+import { Trait, AllStructs } from "./types";
 
 // Custom types for the contract
 export namespace NameTypes {
@@ -47,6 +48,8 @@ export namespace NameTypes {
 
   export type State = ContractState<Fields>;
 
+  export type MetadataUpdatedEvent = ContractEvent<{ tokenId: HexString }>;
+
   export interface CallMethodTable {
     getTokenUri: {
       params: Omit<CallContractParams<{}>, "args">;
@@ -56,13 +59,29 @@ export namespace NameTypes {
       params: Omit<CallContractParams<{}>, "args">;
       result: CallContractResult<[HexString, bigint]>;
     };
-    getNFTIndex: {
-      params: Omit<CallContractParams<{}>, "args">;
-      result: CallContractResult<bigint>;
-    };
     getName: {
       params: Omit<CallContractParams<{}>, "args">;
       result: CallContractResult<HexString>;
+    };
+    getDescription: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<HexString>;
+    };
+    getImage: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<HexString>;
+    };
+    getTraitCount: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<bigint>;
+    };
+    getTraitAtIndex: {
+      params: CallContractParams<{ index: bigint }>;
+      result: CallContractResult<Trait>;
+    };
+    getNFTIndex: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<bigint>;
     };
     getCapitalisation: {
       params: Omit<CallContractParams<{}>, "args">;
@@ -92,6 +111,10 @@ export namespace NameTypes {
       params: CallContractParams<{ refundAddress: Address }>;
       result: CallContractResult<null>;
     };
+    getTraits: {
+      params: Omit<CallContractParams<{}>, "args">;
+      result: CallContractResult<[Trait, Trait, Trait]>;
+    };
   }
   export type CallMethodParams<T extends keyof CallMethodTable> =
     CallMethodTable[T]["params"];
@@ -115,11 +138,27 @@ export namespace NameTypes {
       params: Omit<SignExecuteContractMethodParams<{}>, "args">;
       result: SignExecuteScriptTxResult;
     };
-    getNFTIndex: {
+    getName: {
       params: Omit<SignExecuteContractMethodParams<{}>, "args">;
       result: SignExecuteScriptTxResult;
     };
-    getName: {
+    getDescription: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    getImage: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    getTraitCount: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
+    getTraitAtIndex: {
+      params: SignExecuteContractMethodParams<{ index: bigint }>;
+      result: SignExecuteScriptTxResult;
+    };
+    getNFTIndex: {
       params: Omit<SignExecuteContractMethodParams<{}>, "args">;
       result: SignExecuteScriptTxResult;
     };
@@ -151,6 +190,10 @@ export namespace NameTypes {
       params: SignExecuteContractMethodParams<{ refundAddress: Address }>;
       result: SignExecuteScriptTxResult;
     };
+    getTraits: {
+      params: Omit<SignExecuteContractMethodParams<{}>, "args">;
+      result: SignExecuteScriptTxResult;
+    };
   }
   export type SignExecuteMethodParams<T extends keyof SignExecuteMethodTable> =
     SignExecuteMethodTable[T]["params"];
@@ -163,7 +206,7 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
     return encodeContractFields(
       addStdIdToFields(this.contract, fields),
       this.contract.fieldsSig,
-      []
+      AllStructs
     );
   }
 
@@ -171,6 +214,7 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
     return this.contract.getInitialFieldsWithDefaultValues() as NameTypes.Fields;
   }
 
+  eventIndex = { MetadataUpdated: 0 };
   consts = {
     ErrorCodes: {
       OnlyParentAllowed: BigInt(0),
@@ -216,14 +260,6 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
         getContractByCodeHash
       );
     },
-    getNFTIndex: async (
-      params: Omit<
-        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
-        "testArgs"
-      >
-    ): Promise<TestContractResultWithoutMaps<bigint>> => {
-      return testMethod(this, "getNFTIndex", params, getContractByCodeHash);
-    },
     getName: async (
       params: Omit<
         TestContractParamsWithoutMaps<NameTypes.Fields, never>,
@@ -231,6 +267,43 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
       >
     ): Promise<TestContractResultWithoutMaps<HexString>> => {
       return testMethod(this, "getName", params, getContractByCodeHash);
+    },
+    getDescription: async (
+      params: Omit<
+        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
+        "testArgs"
+      >
+    ): Promise<TestContractResultWithoutMaps<HexString>> => {
+      return testMethod(this, "getDescription", params, getContractByCodeHash);
+    },
+    getImage: async (
+      params: Omit<
+        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
+        "testArgs"
+      >
+    ): Promise<TestContractResultWithoutMaps<HexString>> => {
+      return testMethod(this, "getImage", params, getContractByCodeHash);
+    },
+    getTraitCount: async (
+      params: Omit<
+        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
+        "testArgs"
+      >
+    ): Promise<TestContractResultWithoutMaps<bigint>> => {
+      return testMethod(this, "getTraitCount", params, getContractByCodeHash);
+    },
+    getTraitAtIndex: async (
+      params: TestContractParamsWithoutMaps<NameTypes.Fields, { index: bigint }>
+    ): Promise<TestContractResultWithoutMaps<Trait>> => {
+      return testMethod(this, "getTraitAtIndex", params, getContractByCodeHash);
+    },
+    getNFTIndex: async (
+      params: Omit<
+        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
+        "testArgs"
+      >
+    ): Promise<TestContractResultWithoutMaps<bigint>> => {
+      return testMethod(this, "getNFTIndex", params, getContractByCodeHash);
     },
     getCapitalisation: async (
       params: Omit<
@@ -298,6 +371,14 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
     ): Promise<TestContractResultWithoutMaps<null>> => {
       return testMethod(this, "delete", params, getContractByCodeHash);
     },
+    getTraits: async (
+      params: Omit<
+        TestContractParamsWithoutMaps<NameTypes.Fields, never>,
+        "testArgs"
+      >
+    ): Promise<TestContractResultWithoutMaps<[Trait, Trait, Trait]>> => {
+      return testMethod(this, "getTraits", params, getContractByCodeHash);
+    },
   };
 }
 
@@ -306,8 +387,8 @@ export const Name = new Factory(
   Contract.fromJson(
     NameContractJson,
     "",
-    "99a5853e42af9ececde3caab5deb2a7bfc515c87856c82be9aa921c7e5a6fb44",
-    []
+    "5b3092fece31b5b441fac3a3c8f7e5f6f09d65da3a5dc6779ac1eef47eedf3c9",
+    AllStructs
   )
 );
 
@@ -319,6 +400,23 @@ export class NameInstance extends ContractInstance {
 
   async fetchState(): Promise<NameTypes.State> {
     return fetchContractState(Name, this);
+  }
+
+  async getContractEventsCurrentCount(): Promise<number> {
+    return getContractEventsCurrentCount(this.address);
+  }
+
+  subscribeMetadataUpdatedEvent(
+    options: EventSubscribeOptions<NameTypes.MetadataUpdatedEvent>,
+    fromCount?: number
+  ): EventSubscription {
+    return subscribeContractEvent(
+      Name.contract,
+      this,
+      options,
+      "MetadataUpdated",
+      fromCount
+    );
   }
 
   methods = {
@@ -344,17 +442,6 @@ export class NameInstance extends ContractInstance {
         getContractByCodeHash
       );
     },
-    getNFTIndex: async (
-      params?: NameTypes.CallMethodParams<"getNFTIndex">
-    ): Promise<NameTypes.CallMethodResult<"getNFTIndex">> => {
-      return callMethod(
-        Name,
-        this,
-        "getNFTIndex",
-        params === undefined ? {} : params,
-        getContractByCodeHash
-      );
-    },
     getName: async (
       params?: NameTypes.CallMethodParams<"getName">
     ): Promise<NameTypes.CallMethodResult<"getName">> => {
@@ -362,6 +449,61 @@ export class NameInstance extends ContractInstance {
         Name,
         this,
         "getName",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    getDescription: async (
+      params?: NameTypes.CallMethodParams<"getDescription">
+    ): Promise<NameTypes.CallMethodResult<"getDescription">> => {
+      return callMethod(
+        Name,
+        this,
+        "getDescription",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    getImage: async (
+      params?: NameTypes.CallMethodParams<"getImage">
+    ): Promise<NameTypes.CallMethodResult<"getImage">> => {
+      return callMethod(
+        Name,
+        this,
+        "getImage",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    getTraitCount: async (
+      params?: NameTypes.CallMethodParams<"getTraitCount">
+    ): Promise<NameTypes.CallMethodResult<"getTraitCount">> => {
+      return callMethod(
+        Name,
+        this,
+        "getTraitCount",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
+    getTraitAtIndex: async (
+      params: NameTypes.CallMethodParams<"getTraitAtIndex">
+    ): Promise<NameTypes.CallMethodResult<"getTraitAtIndex">> => {
+      return callMethod(
+        Name,
+        this,
+        "getTraitAtIndex",
+        params,
+        getContractByCodeHash
+      );
+    },
+    getNFTIndex: async (
+      params?: NameTypes.CallMethodParams<"getNFTIndex">
+    ): Promise<NameTypes.CallMethodResult<"getNFTIndex">> => {
+      return callMethod(
+        Name,
+        this,
+        "getNFTIndex",
         params === undefined ? {} : params,
         getContractByCodeHash
       );
@@ -437,6 +579,17 @@ export class NameInstance extends ContractInstance {
     ): Promise<NameTypes.CallMethodResult<"delete">> => {
       return callMethod(Name, this, "delete", params, getContractByCodeHash);
     },
+    getTraits: async (
+      params?: NameTypes.CallMethodParams<"getTraits">
+    ): Promise<NameTypes.CallMethodResult<"getTraits">> => {
+      return callMethod(
+        Name,
+        this,
+        "getTraits",
+        params === undefined ? {} : params,
+        getContractByCodeHash
+      );
+    },
   };
 
   view = this.methods;
@@ -452,15 +605,35 @@ export class NameInstance extends ContractInstance {
     ): Promise<NameTypes.SignExecuteMethodResult<"getCollectionIndex">> => {
       return signExecuteMethod(Name, this, "getCollectionIndex", params);
     },
-    getNFTIndex: async (
-      params: NameTypes.SignExecuteMethodParams<"getNFTIndex">
-    ): Promise<NameTypes.SignExecuteMethodResult<"getNFTIndex">> => {
-      return signExecuteMethod(Name, this, "getNFTIndex", params);
-    },
     getName: async (
       params: NameTypes.SignExecuteMethodParams<"getName">
     ): Promise<NameTypes.SignExecuteMethodResult<"getName">> => {
       return signExecuteMethod(Name, this, "getName", params);
+    },
+    getDescription: async (
+      params: NameTypes.SignExecuteMethodParams<"getDescription">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getDescription">> => {
+      return signExecuteMethod(Name, this, "getDescription", params);
+    },
+    getImage: async (
+      params: NameTypes.SignExecuteMethodParams<"getImage">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getImage">> => {
+      return signExecuteMethod(Name, this, "getImage", params);
+    },
+    getTraitCount: async (
+      params: NameTypes.SignExecuteMethodParams<"getTraitCount">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getTraitCount">> => {
+      return signExecuteMethod(Name, this, "getTraitCount", params);
+    },
+    getTraitAtIndex: async (
+      params: NameTypes.SignExecuteMethodParams<"getTraitAtIndex">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getTraitAtIndex">> => {
+      return signExecuteMethod(Name, this, "getTraitAtIndex", params);
+    },
+    getNFTIndex: async (
+      params: NameTypes.SignExecuteMethodParams<"getNFTIndex">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getNFTIndex">> => {
+      return signExecuteMethod(Name, this, "getNFTIndex", params);
     },
     getCapitalisation: async (
       params: NameTypes.SignExecuteMethodParams<"getCapitalisation">
@@ -496,6 +669,11 @@ export class NameInstance extends ContractInstance {
       params: NameTypes.SignExecuteMethodParams<"delete">
     ): Promise<NameTypes.SignExecuteMethodResult<"delete">> => {
       return signExecuteMethod(Name, this, "delete", params);
+    },
+    getTraits: async (
+      params: NameTypes.SignExecuteMethodParams<"getTraits">
+    ): Promise<NameTypes.SignExecuteMethodResult<"getTraits">> => {
+      return signExecuteMethod(Name, this, "getTraits", params);
     },
   };
 

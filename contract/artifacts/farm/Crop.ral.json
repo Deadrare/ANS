@@ -1,13 +1,14 @@
 {
   "version": "v2.14.0",
   "name": "Crop",
-  "bytecode": "05074030403b404940574065407e409f010000000106141f646174613a6170706c69636174696f6e2f6a736f6e2c7b226e616d65223a22ce02441402227d4402010000000203ce00ce0102010000000103d310a20164ce0102010000000103d3f4544ae5ce0202010000000103d3e6287b64a0000201000102000ad3836882f0b31701ce001601410c7b1600a100010101030010d3933e388bb31701b11702ce001601410c7b160016020dbd1600b0",
-  "codeHash": "917eef1cc9857beb73a481c1d1e5eb8145569f68dc7a95a4c605062d76cbb964",
+  "bytecode": "060d4030403b4044404d4056405e4087409540a340b140cd40ee410f010000000106141f646174613a6170706c69636174696f6e2f6a736f6e2c7b226e616d65223a22ce02441402227d4402010000000203ce00ce0102010000000102ce02020100000001021400020100000001021400020100000001020e0201000105021c000c170417031702170116007a0e314d0e2c0d2a7816007a0e314d0e2c0d2a0d2a7802010000000103d310a20164ce0102010000000103d3e6287b64a00002010000000103d3e0f9eb3dce030201000102000dd3836882f0b31701ce001601410c7b1600a10005b15e010101030010d3933e388bb31701b11702ce001601410c7b160016020dbd1600b0010000000408d3f5f84915140745787069726573a000891404414c5048ce038902",
+  "codeHash": "1f9838a682e20b0854d197cf6529731f9667e99e11b29a73dffa99660bc4eeb1",
   "fieldsSig": {
     "names": [
       "collectionId",
       "nftIndex",
       "name",
+      "alphAmount",
       "expires",
       "__stdInterfaceId"
     ],
@@ -16,9 +17,11 @@
       "U256",
       "ByteVec",
       "U256",
+      "U256",
       "ByteVec"
     ],
     "isMutable": [
+      false,
       false,
       false,
       false,
@@ -26,7 +29,17 @@
       false
     ]
   },
-  "eventsSig": [],
+  "eventsSig": [
+    {
+      "name": "MetadataUpdated",
+      "fieldNames": [
+        "tokenId"
+      ],
+      "fieldTypes": [
+        "ByteVec"
+      ]
+    }
+  ],
   "functions": [
     {
       "name": "getTokenUri",
@@ -48,15 +61,6 @@
       ]
     },
     {
-      "name": "getNFTIndex",
-      "paramNames": [],
-      "paramTypes": [],
-      "paramIsMutable": [],
-      "returnTypes": [
-        "U256"
-      ]
-    },
-    {
       "name": "getName",
       "paramNames": [],
       "paramTypes": [],
@@ -66,7 +70,67 @@
       ]
     },
     {
+      "name": "getDescription",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getImage",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getTraitCount",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "getTraitAtIndex",
+      "paramNames": [
+        "index"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "Trait"
+      ]
+    },
+    {
+      "name": "getNFTIndex",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
       "name": "getExpires",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "getAlphAmount",
       "paramNames": [],
       "paramTypes": [],
       "paramIsMutable": [],
@@ -99,6 +163,15 @@
         false
       ],
       "returnTypes": []
+    },
+    {
+      "name": "getTraits",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "[Trait;2]"
+      ]
     }
   ],
   "constants": [],
@@ -226,5 +299,5 @@
       ]
     }
   ],
-  "stdInterfaceId": "0003"
+  "stdInterfaceId": "000301"
 }

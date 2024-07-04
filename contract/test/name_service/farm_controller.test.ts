@@ -6,6 +6,7 @@ import {
     ONE_ALPH,
     SignerProvider,
     sleep,
+    stringToHex,
     web3
 } from '@alephium/web3'
 import { getSigners } from '@alephium/web3-test'
@@ -91,6 +92,13 @@ describe('FarmController', function () {
         expect(hexToString(nftState.fields.name)).toEqual('1 crops')
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 28_944_000_000) / 2000, 0)
 
+        const traitsCount = (await crop.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(2n)
+        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
+        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
+
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
         expect(await alphBalanceOf(addressFromContractId(cropId))).toEqual(alphAmount)
     }, 300000)
@@ -120,6 +128,13 @@ describe('FarmController', function () {
         expect(nftState.fields.nftIndex).toEqual(1n)
         expect(hexToString(nftState.fields.name)).toEqual('100 crops')
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 28_944_000_000) / 2000, 0)
+
+        const traitsCount = (await crop.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(2n)
+        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
+        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n * ONE_ALPH)
         expect(await alphBalanceOf(addressFromContractId(cropId))).toEqual(alphAmount)
@@ -168,6 +183,13 @@ describe('FarmController', function () {
         expect(nftState.fields.nftIndex).toEqual(1n)
         expect(hexToString(nftState.fields.name)).toEqual('100 crops')
         expect(Number(nftState.fields.expires) / 3000).toBeCloseTo((Date.now() + 2000) / 3000, 0)
+
+        const traitsCount = (await crop.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(2n)
+        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
+        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n * ONE_ALPH)
         expect(await alphBalanceOf(addressFromContractId(cropId))).toEqual(alphAmount)

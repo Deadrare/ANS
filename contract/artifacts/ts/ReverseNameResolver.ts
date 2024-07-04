@@ -33,7 +33,7 @@ import {
 } from "@alephium/web3";
 import { default as ReverseNameResolverContractJson } from "../reverse_name_resolver/ReverseNameResolver.ral.json";
 import { getContractByCodeHash } from "./contracts";
-
+import { Trait, AllStructs } from "./types";
 import { RalphMap } from "@alephium/web3";
 
 // Custom types for the contract
@@ -143,7 +143,7 @@ export namespace ReverseNameResolverTypes {
 
 class Factory extends ContractFactory<ReverseNameResolverInstance, {}> {
   encodeFields() {
-    return encodeContractFields({}, this.contract.fieldsSig, []);
+    return encodeContractFields({}, this.contract.fieldsSig, AllStructs);
   }
 
   eventIndex = {
@@ -261,7 +261,7 @@ export const ReverseNameResolver = new Factory(
     ReverseNameResolverContractJson,
     "=14-2+b6=1-3+129=141-1+5=107-1+c=40+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
     "57983c35b982d4623e6ac3dd4406f25e4c4e3f20715733488625a08d47f22fd5",
-    []
+    AllStructs
   )
 );
 

@@ -4,9 +4,9 @@ Contract Crop(
     collectionId: ByteVec,
     nftIndex: U256,
     name: ByteVec,
+    alphAmount: U256,
     mut expires: U256
-) extends Constants() implements INFT {
-
+) extends Constants() implements IDynamicNFT {
     pub fn getTokenUri() -> ByteVec {
         return b`data:application/json,{"name":"` ++ name ++ b`"}`
     }
@@ -19,12 +19,12 @@ Contract Crop(
         return collectionId, nftIndex
     }
 
-    pub fn getName() -> ByteVec {
-        return name
-    }
-
     pub fn getExpires() -> U256 {
         return expires
+    }
+
+    pub fn getAlphAmount() -> U256 {
+        return alphAmount
     }
 
     @using(updateFields = true)
@@ -32,6 +32,7 @@ Contract Crop(
         let caller = callerContractId!()
         checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
         expires = newExpires
+        emit MetadataUpdated(selfTokenId!())
     }
 
     @using(assetsInContract = true, preapprovedAssets = true)
@@ -41,5 +42,40 @@ Contract Crop(
         checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
         burnToken!(refundAddress, tokenId, 1)
         destroySelf!(refundAddress)
+    }
+
+    // DynamicNFT methods
+
+    pub fn getName() -> ByteVec {
+        return name
+    }
+
+    pub fn getDescription() -> ByteVec {
+        return b``
+    }
+
+    pub fn getImage() -> ByteVec {
+        return b``
+    }
+
+    pub fn getTraits() -> [Trait; 2] {
+        return [
+            Trait {
+                traitType: b`Expires`,
+                value: u256ToString!(expires)
+            },
+            Trait {
+                traitType: b`ALPH`,
+                value: u256ToString!(alphAmount)
+            }
+        ]
+    }
+
+    pub fn getTraitCount() -> U256 {
+        return 2
+    }
+
+    pub fn getTraitAtIndex(index: U256) -> Trait {
+        return getTraits()[index]
     }
 }

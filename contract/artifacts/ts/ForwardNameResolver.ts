@@ -33,7 +33,7 @@ import {
 } from "@alephium/web3";
 import { default as ForwardNameResolverContractJson } from "../forward_name_resolver/ForwardNameResolver.ral.json";
 import { getContractByCodeHash } from "./contracts";
-
+import { Trait, AllStructs } from "./types";
 import { RalphMap } from "@alephium/web3";
 
 // Custom types for the contract
@@ -324,7 +324,7 @@ class Factory extends ContractFactory<
     return encodeContractFields(
       addStdIdToFields(this.contract, fields),
       this.contract.fieldsSig,
-      []
+      AllStructs
     );
   }
 
@@ -708,9 +708,9 @@ class Factory extends ContractFactory<
 export const ForwardNameResolver = new Factory(
   Contract.fromJson(
     ForwardNameResolverContractJson,
-    "=82-2+e5=2-1=1+a=2+63=1-1=1+d=1-2=2-2+3a=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-    "f365259b2727cd8f2b8a14f6ab1f8521d6a76ff7f56b57b13538be177cf24d8e",
-    []
+    "=82-2+e8=2-1+1d=2+66=3-4+7=2-2+3d=1657-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+    "12d5fe816ec12ff59234e5e6da6a8a4d67f16aaa3d6c1799be5e8c115f99ba0c",
+    AllStructs
   )
 );
 

@@ -33,6 +33,7 @@ import {
 } from "@alephium/web3";
 import { default as FarmContractJson } from "../farm/Farm.ral.json";
 import { getContractByCodeHash } from "./contracts";
+import { Trait, AllStructs } from "./types";
 
 // Custom types for the contract
 export namespace FarmTypes {
@@ -122,6 +123,7 @@ export namespace FarmTypes {
       params: CallContractParams<{
         minter: Address;
         rewardTokenAmount: bigint;
+        alphAmount: bigint;
       }>;
       result: CallContractResult<bigint>;
     };
@@ -175,6 +177,7 @@ export namespace FarmTypes {
       params: SignExecuteContractMethodParams<{
         minter: Address;
         rewardTokenAmount: bigint;
+        alphAmount: bigint;
       }>;
       result: SignExecuteScriptTxResult;
     };
@@ -197,7 +200,7 @@ class Factory extends ContractFactory<FarmInstance, FarmTypes.Fields> {
     return encodeContractFields(
       addStdIdToFields(this.contract, fields),
       this.contract.fieldsSig,
-      []
+      AllStructs
     );
   }
 
@@ -290,7 +293,7 @@ class Factory extends ContractFactory<FarmInstance, FarmTypes.Fields> {
     createCrop: async (
       params: TestContractParamsWithoutMaps<
         FarmTypes.Fields,
-        { minter: Address; rewardTokenAmount: bigint }
+        { minter: Address; rewardTokenAmount: bigint; alphAmount: bigint }
       >
     ): Promise<TestContractResultWithoutMaps<bigint>> => {
       return testMethod(this, "createCrop", params, getContractByCodeHash);
@@ -311,8 +314,8 @@ export const Farm = new Factory(
   Contract.fromJson(
     FarmContractJson,
     "",
-    "534cbff88b29c40c7cb3199b7cc38e13c6005ce63445ea2798f2f479c72174a9",
-    []
+    "4cafea5ed660e0edd4c4a863b813eca220d89ec28631d67fce5e8a8f755b58e1",
+    AllStructs
   )
 );
 

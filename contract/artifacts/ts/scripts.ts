@@ -22,58 +22,59 @@ import { default as RenewNameScriptJson } from "../scripts/RenewName.ral.json";
 import { default as SetAddressScriptJson } from "../scripts/SetAddress.ral.json";
 import { default as SetCapitalisationScriptJson } from "../scripts/SetCapitalisation.ral.json";
 import { default as SetReverseAddressNameScriptJson } from "../scripts/SetReverseAddressName.ral.json";
+import { Trait, AllStructs } from "./types";
 
 export const DeleteCrop = new ExecutableScript<{
   forwardNameResolverId: HexString;
   nftIndex: bigint;
-}>(Script.fromJson(DeleteCropScriptJson, "", []));
+}>(Script.fromJson(DeleteCropScriptJson, "", AllStructs));
 
 export const DeleteExpired = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(DeleteExpiredScriptJson, "", []));
+}>(Script.fromJson(DeleteExpiredScriptJson, "", AllStructs));
 
 export const GenerateFarm = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(GenerateFarmScriptJson, "", []));
+}>(Script.fromJson(GenerateFarmScriptJson, "", AllStructs));
 
 export const GenerateToken = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(GenerateTokenScriptJson, "", []));
+}>(Script.fromJson(GenerateTokenScriptJson, "", AllStructs));
 
 export const MintCrop = new ExecutableScript<{
   forwardNameResolverId: HexString;
   alphAmount: bigint;
-}>(Script.fromJson(MintCropScriptJson, "", []));
+}>(Script.fromJson(MintCropScriptJson, "", AllStructs));
 
 export const MintName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   capitalisation: HexString;
-}>(Script.fromJson(MintNameScriptJson, "", []));
+}>(Script.fromJson(MintNameScriptJson, "", AllStructs));
 
 export const RemoveReverseAddressName = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(RemoveReverseAddressNameScriptJson, "", []));
+}>(Script.fromJson(RemoveReverseAddressNameScriptJson, "", AllStructs));
 
 export const RenewName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(RenewNameScriptJson, "", []));
+}>(Script.fromJson(RenewNameScriptJson, "", AllStructs));
 
 export const SetAddress = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   address: Address;
-}>(Script.fromJson(SetAddressScriptJson, "", []));
+}>(Script.fromJson(SetAddressScriptJson, "", AllStructs));
 
 export const SetCapitalisation = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   newCapitalisation: HexString;
-}>(Script.fromJson(SetCapitalisationScriptJson, "", []));
+}>(Script.fromJson(SetCapitalisationScriptJson, "", AllStructs));
 
 export const SetReverseAddressName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(SetReverseAddressNameScriptJson, "", []));
+}>(Script.fromJson(SetReverseAddressNameScriptJson, "", AllStructs));

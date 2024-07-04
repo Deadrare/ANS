@@ -7,7 +7,7 @@ Contract Name(
     mut capitalisation: ByteVec,
     mut address: Address,
     mut expires: U256
-) extends Constants() implements INFT {
+) extends Constants() implements IDynamicNFT {
 
     pub fn getTokenUri() -> ByteVec {
         return b`data:application/json,{"name":"` ++ name ++ b`"}`
@@ -19,10 +19,6 @@ Contract Name(
 
     pub fn getCollectionIndex() -> (ByteVec, U256) {
         return collectionId, nftIndex
-    }
-
-    pub fn getName() -> ByteVec {
-        return name
     }
 
     pub fn getCapitalisation() -> ByteVec {
@@ -56,6 +52,7 @@ Contract Name(
         let caller = callerContractId!()
         checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
         expires = newExpires
+        emit MetadataUpdated(selfTokenId!())
     }
 
     @using(assetsInContract = true)
@@ -64,5 +61,46 @@ Contract Name(
         checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
         // we cannot burnToken!() becuase the old owner is not involved in this transaction
         destroySelf!(refundAddress)
+    }
+
+    // DynamicNFT methods
+
+    pub fn getName() -> ByteVec {
+        return name
+    }
+
+    pub fn getDescription() -> ByteVec {
+        return b``
+    }
+
+    pub fn getImage() -> ByteVec {
+        return b``
+    }
+
+    pub fn getTraits() -> [Trait; 3] {
+        let nameLength = size!(name)
+        let cost = if (nameLength > 8) 1 else (9 - nameLength) * 100
+        return [
+            Trait {
+                traitType: b`Expires`,
+                value: u256ToString!(expires)
+            },
+            Trait {
+                traitType: b`ANS Cost`,
+                value: u256ToString!(cost)
+            },
+            Trait {
+                traitType: b`Length`,
+                value: u256ToString!(nameLength)
+            }
+        ]
+    }
+
+    pub fn getTraitCount() -> U256 {
+        return 3
+    }
+
+    pub fn getTraitAtIndex(index: U256) -> Trait {
+        return getTraits()[index]
     }
 }

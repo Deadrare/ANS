@@ -1,8 +1,8 @@
 {
   "version": "v2.14.0",
   "name": "Name",
-  "bytecode": "070b4030403b40494057406540734081409a40b340cc40e4010000000106141f646174613a6170706c69636174696f6e2f6a736f6e2c7b226e616d65223a22ce02441402227d4402010000000203ce00ce0102010000000103d310a20164ce0102010000000103d3f4544ae5ce0202010000000103d384892b19a00002010000000103d3e6287b64a00202010000000103d3acb775bea0010201000102000ad36c21114ab31701ce001601410c7b1600a10101000102000ad3f8803725b31701ce001601410c7b1600a10001000102000ad3836882f0b31701ce001601410c7b1600a10201020102000ad3933e388bb31701ce001601410c7b1600b0",
-  "codeHash": "99a5853e42af9ececde3caab5deb2a7bfc515c87856c82be9aa921c7e5a6fb44",
+  "bytecode": "07104030403b4044404d4056405e408b409940a740b540c340dc40f5411141294173010000000106141f646174613a6170706c69636174696f6e2f6a736f6e2c7b226e616d65223a22ce02441402227d4402010000000203ce00ce0102010000000102ce02020100000001021400020100000001021400020100000001020f0201000107021e000f17061705170417031702170116007a0f314d0e2c0d2a7816007a0f314d0e2c0d2a0d2a7802010000000103d310a20164ce0102010000000103d384892b19a00002010000000103d3e6287b64a00202010000000103d3acb775bea0010201000102000ad36c21114ab31701ce001601410c7b1600a10101000102000ad3f8803725b31701ce001601410c7b1600a10001000102000dd3836882f0b31701ce001601410c7b1600a10205b15e01020102000ad3933e388bb31701ce001601410c7b1600b001000002061ad34ddff791ce0243170016001308334c020d4a05130916002b1340642c1701140745787069726573a002891408414e5320436f737416018914064c656e67746816008902",
+  "codeHash": "5b3092fece31b5b441fac3a3c8f7e5f6f09d65da3a5dc6779ac1eef47eedf3c9",
   "fieldsSig": {
     "names": [
       "collectionId",
@@ -32,7 +32,17 @@
       false
     ]
   },
-  "eventsSig": [],
+  "eventsSig": [
+    {
+      "name": "MetadataUpdated",
+      "fieldNames": [
+        "tokenId"
+      ],
+      "fieldTypes": [
+        "ByteVec"
+      ]
+    }
+  ],
   "functions": [
     {
       "name": "getTokenUri",
@@ -54,7 +64,34 @@
       ]
     },
     {
-      "name": "getNFTIndex",
+      "name": "getName",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getDescription",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getImage",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getTraitCount",
       "paramNames": [],
       "paramTypes": [],
       "paramIsMutable": [],
@@ -63,12 +100,27 @@
       ]
     },
     {
-      "name": "getName",
+      "name": "getTraitAtIndex",
+      "paramNames": [
+        "index"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "Trait"
+      ]
+    },
+    {
+      "name": "getNFTIndex",
       "paramNames": [],
       "paramTypes": [],
       "paramIsMutable": [],
       "returnTypes": [
-        "ByteVec"
+        "U256"
       ]
     },
     {
@@ -149,6 +201,15 @@
         false
       ],
       "returnTypes": []
+    },
+    {
+      "name": "getTraits",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "[Trait;3]"
+      ]
     }
   ],
   "constants": [],
@@ -276,5 +337,5 @@
       ]
     }
   ],
-  "stdInterfaceId": "0003"
+  "stdInterfaceId": "000301"
 }

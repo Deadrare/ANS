@@ -33,6 +33,7 @@ import {
 } from "@alephium/web3";
 import { default as RewardTokenContractJson } from "../forward_name_resolver/RewardToken.ral.json";
 import { getContractByCodeHash } from "./contracts";
+import { Trait, AllStructs } from "./types";
 
 // Custom types for the contract
 export namespace RewardTokenTypes {
@@ -128,7 +129,7 @@ class Factory extends ContractFactory<
     return encodeContractFields(
       addStdIdToFields(this.contract, fields),
       this.contract.fieldsSig,
-      []
+      AllStructs
     );
   }
 
@@ -217,7 +218,7 @@ export const RewardToken = new Factory(
     RewardTokenContractJson,
     "",
     "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f",
-    []
+    AllStructs
   )
 );
 

@@ -42,7 +42,7 @@ Contract Farm(
     }
 
     @using(preapprovedAssets = true, updateFields = true)
-    pub fn createCrop(minter: Address, rewardTokenAmount: U256) -> U256 {
+    pub fn createCrop(minter: Address, rewardTokenAmount: U256, alphAmount: U256) -> U256 {
         let caller = callerContractId!()
         checkCaller!(parentId == caller, ErrorCodes.OnlyParentAllowed)
 
@@ -53,6 +53,7 @@ Contract Farm(
             selfContractId!(),
             totalSupply,
             u256ToString!(rewardTokenAmount) ++ b` crops`,
+            alphAmount,
             expires
         )
 

@@ -64,7 +64,8 @@ const deployCrop = async (
                 collectionId: randomContractId(),
                 nftIndex: 0n,
                 name: '',
-                expires: 0n
+                expires: 0n,
+                alphAmount: 0n
             }
         }
     )

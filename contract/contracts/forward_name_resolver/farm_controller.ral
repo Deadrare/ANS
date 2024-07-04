@@ -52,7 +52,8 @@ Abstract Contract FarmController() extends Constants(), Events() {
         let farm = getFarm()
         let newCropIndex = farm.createCrop{caller -> ALPH: alphAmount}(
             caller,
-            rewardTokenAmount
+            rewardTokenAmount,
+            alphAmount
         )
         let crop = farm.getCrop(newCropIndex)
 

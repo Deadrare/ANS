@@ -18,9 +18,9 @@
     },
     "Crop": {
       "sourceFile": "farm/crop.ral",
-      "sourceCodeHash": "d8de040b4da6fe50bb6f3d584a4b0ffecb4ef592338efbf2bd559116221fa676",
+      "sourceCodeHash": "071bbee2413f857935581ca6f4bfdad0be9d360cf4923de478940f9346a77504",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "917eef1cc9857beb73a481c1d1e5eb8145569f68dc7a95a4c605062d76cbb964",
+      "codeHashDebug": "1f9838a682e20b0854d197cf6529731f9667e99e11b29a73dffa99660bc4eeb1",
       "warnings": []
     },
     "DeleteCrop": {
@@ -46,14 +46,14 @@
     },
     "Farm": {
       "sourceFile": "farm/farm.ral",
-      "sourceCodeHash": "36501d612072d2fc4f574ebb2d43eb0d3e35658691112bb82892a4f57f1f820d",
+      "sourceCodeHash": "075b06dabdb974dfddb66cee6130e4be7d8f35df90021837bd4fe58996a39f36",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "534cbff88b29c40c7cb3199b7cc38e13c6005ce63445ea2798f2f479c72174a9",
+      "codeHashDebug": "4cafea5ed660e0edd4c4a863b813eca220d89ec28631d67fce5e8a8f755b58e1",
       "warnings": []
     },
     "FarmController": {
       "sourceFile": "forward_name_resolver/farm_controller.ral",
-      "sourceCodeHash": "6619d17481b5200c17f2f80d4ab451f81dc3f1a27195ed697d72b7bc5360fe2d",
+      "sourceCodeHash": "961ecf7dc39544891d5c1fc20997a545a8f4bef4bf7b7028abc03e9bcb7e5be8",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
@@ -61,8 +61,8 @@
     "ForwardNameResolver": {
       "sourceFile": "forward_name_resolver/forward_name_resolver.ral",
       "sourceCodeHash": "78d319e02a43d9b03ed813b25fb5748d10e0361a46aa2e115d946f7cb0932840",
-      "bytecodeDebugPatch": "=82-2+e5=2-1=1+a=2+63=1-1=1+d=1-2=2-2+3a=1651-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-      "codeHashDebug": "f365259b2727cd8f2b8a14f6ab1f8521d6a76ff7f56b57b13538be177cf24d8e",
+      "bytecodeDebugPatch": "=82-2+e8=2-1+1d=2+66=3-4+7=2-2+3d=1657-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
+      "codeHashDebug": "12d5fe816ec12ff59234e5e6da6a8a4d67f16aaa3d6c1799be5e8c115f99ba0c",
       "warnings": []
     },
     "GenerateFarm": {
@@ -75,6 +75,13 @@
     "GenerateToken": {
       "sourceFile": "scripts/generate_token.ral",
       "sourceCodeHash": "0fd002e15b7dc8ba9e4798d551084a248238923dfa39fa94df7eccda4d9a61d8",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "IDynamicNFT": {
+      "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
+      "sourceCodeHash": "cb124ad59c201ce5e405dcd30b08aa43ca9c6f1afd4894a13dc6731e9395d282",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
@@ -116,9 +123,9 @@
     },
     "Name": {
       "sourceFile": "forward_name_resolver/name.ral",
-      "sourceCodeHash": "ea46ce909dbe45f4e697d6568d47cb50ca925c40919fcc8905efed0908ee7c97",
+      "sourceCodeHash": "94bb924fa1d977cec85800648111dced91345c950b62e5db1630305152ff5f26",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "99a5853e42af9ececde3caab5deb2a7bfc515c87856c82be9aa921c7e5a6fb44",
+      "codeHashDebug": "5b3092fece31b5b441fac3a3c8f7e5f6f09d65da3a5dc6779ac1eef47eedf3c9",
       "warnings": []
     },
     "RemoveReverseAddressName": {
@@ -166,6 +173,13 @@
     "SetReverseAddressName": {
       "sourceFile": "scripts/set_reverse_address_name.ral",
       "sourceCodeHash": "846b73bfb54ab5a7cf8bac105a8ab7b1680f8f0f0630417ba369ddbce0ea3922",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": "",
+      "warnings": []
+    },
+    "Trait": {
+      "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
+      "sourceCodeHash": "cb124ad59c201ce5e405dcd30b08aa43ca9c6f1afd4894a13dc6731e9395d282",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []

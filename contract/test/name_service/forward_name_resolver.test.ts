@@ -1,5 +1,6 @@
 import {
     addressFromContractId,
+    binToHex,
     DeployContractResult,
     DUST_AMOUNT,
     ExecuteScriptResult,
@@ -75,7 +76,8 @@ export const mockCrop = async (signer: SignerProvider): Promise<DeployContractRe
                 collectionId: randomContractId(),
                 nftIndex: 0n,
                 name: '',
-                expires: 0n
+                expires: 0n,
+                alphAmount: 0n
             }
         }
     )
@@ -313,6 +315,15 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 31_536_000_000) / 2000, 0)
 
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
+
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
@@ -345,6 +356,15 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
+
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
@@ -375,6 +395,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
+
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
     }, 300000)
@@ -408,6 +437,15 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
+
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
 
@@ -438,6 +476,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
+
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
     }, 300000)
@@ -470,6 +517,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
+
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
     }, 300000)
@@ -546,6 +602,15 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 31_536_000_000) / 2000, 0)
 
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('100')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('8')})
+
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(0n)
     }, 300000)
 
@@ -617,6 +682,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signer2Address)
 
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
+
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
 
@@ -647,6 +721,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.name)).toEqual(newName)
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer1Address)
+
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
@@ -679,6 +762,15 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.name)).toEqual(newName)
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer2Address)
+
+        const traitsCount = (await nft.methods.getTraitCount()).returns
+        expect(traitsCount).toEqual(3n)
+        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
+        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
+        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
     }, 300000)
