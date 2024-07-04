@@ -62,18 +62,32 @@ const run = async () => {
     console.log(`ReverseNameResolver3 contract address: ${result3.contractInstance.address}`)
 
     // Staging
-    // Transaction ID0: ee02e930681dfdc07b8bed92c041b59384407acee8b704e9beeff7ef30e0db8f
-    // ReverseNameResolver0 contract ID: 95a9496a638a1923413f1618b7178afdd6b57bdec777be3180dda41229063400
-    // ReverseNameResolver0 contract address: 24mAaToaWj4VtMmhycJpBVwZvyUkQp7xz6zA1M6GyBxMD
-    // Transaction ID1: 718bd904d18220e79e8045d9cbc3bc9536fcc38cf8f390af3c869393b71b9bf9
-    // ReverseNameResolver1 contract ID: 1d01c3693bf2ffe2c1d09d0ac60fa25e97d05f6484eed86c0a72dc0bed664d01
-    // ReverseNameResolver1 contract address: veBVgs7wSNSpw7jNvCtcRkvQepPAYPXoXiPZqir15HUc
-    // Transaction ID2: 19dfe58898e47ce3b4bd1b2b6014f6777e29f1f031d9bdc063f351c7198f3e3c
-    // ReverseNameResolver2 contract ID: dd566d8414d8b63073eb2455bee90af322f54a67b6d17f8945862268a170f202
-    // ReverseNameResolver2 contract address: 29axeiVy5yVWWZLx7rnnsLT3pB6zr6YwvqtjEYDRFcPA9
-    // Transaction ID3: a6861df5ba3c9fbca048e68d14d8684260dff3db62c39e409450ab003fa06422
-    // ReverseNameResolver3 contract ID: 3b0a24b081303da1493bbebf867e5edf3a340f59e86e320dbb9a8644da817b03
-    // ReverseNameResolver3 contract address: xfR8wNCcSkToA15vgrvkXLykUTuSDqC5vL4rtYqu91dU
+    // Transaction ID0: 09f7d6d26e4aacd39d9d2f60ddc63d84cc3efc97d055e0082b07bb1fedde4e81
+    // ReverseNameResolver0 contract ID: c8b65a9f52eb420f0158733206d73dad7b83df51bf15c130b099088547baee00
+    // ReverseNameResolver0 contract address: 28CSviqSVutT62i9xKxp6eKFbuS9ArkjzSFssgzaRdJmd
+    // Transaction ID1: 3db4922e3f2f72d6d39dc2197c439938fcf6f29ea9fd36118f3859ae820b8c9c
+    // ReverseNameResolver1 contract ID: 39eee9d263f830f1a0757a52b3cd587b7770c6cdf23a7e6698b62120dd5a9d01
+    // ReverseNameResolver1 contract address: xb6eWzL7cM7g4Wi5eYWvX917f6sJLemSjdHYbVRYApgx
+    // Transaction ID2: a645dade7be444271c8e83e46a187d399021575aef1ba124263f9bedbe2a7ce5
+    // ReverseNameResolver2 contract ID: 934e62d332144f1cfc17be69d9c21c10ea73eb0a594dff74e0d7992fd81b9a02
+    // ReverseNameResolver2 contract address: 24byNNVeNhieJ4aVy593MAuuuAfqhrd9dfWjx6RqvVs4V
+    // Transaction ID3: d0f7bedfba61926f65609933a86f6d0087b4850461beaf25db7134486c12c223
+    // ReverseNameResolver3 contract ID: a319e97ddf01e539b736176b71a00437a5f3b96cfab7088df6ae581beb77bb03
+    // ReverseNameResolver3 contract address: 25fdV37n3JiHgGoBFGXDqim7wfP2QRxSp4xg9VTv8uJsU
+
+    //production
+    // Transaction ID0: a8da29350655215ad6bca7456cadab60580732b34b3353a5bd42567073c07a43
+    // ReverseNameResolver0 contract ID: 6c7075ed4c407c4e20ae39341820240a4065fe69c3840960d2ee2633daf8b000
+    // ReverseNameResolver0 contract address: 21zFc2tYNKbSWHnL2Mb1FT8kd95cgnFhqtDFqbig1QbEF
+    // Transaction ID1: f9e939af0508b4ab3f187eb7ebf372acfd0c303c4fe39e324f1c268cb693bc30
+    // ReverseNameResolver1 contract ID: 40be2751efbf30395c079278972fbe6838f53a6e240f7b30ebfe877b7dddcd01
+    // ReverseNameResolver1 contract address: y3gNtNXxSBRvM3LiXHKzH1N28TKRkjRBjeUoK43Hmpec
+    // Transaction ID2: 812c8a8462edd04fc3a800246d5661b5c7f25c7846e031bf5534f1176ff6e76c
+    // ReverseNameResolver2 contract ID: cff6d6016d3160fd5818d92effa79594a4dceec572895d953f1a76f0163ff902
+    // ReverseNameResolver2 contract address: 28gkot6FiXpVo7yh3nNVGg82mb4XQBSBvycmbXkYyL77w
+    // Transaction ID3: 8753314eb56d8c1d78060cf5ef98270b5243f15d075e3df441732982196f94a8
+    // ReverseNameResolver3 contract ID: 5777c6381f8dd67297793a4eb6d1e8a1f0de545f5fa4e129d25f4f08d382bd03
+    // ReverseNameResolver3 contract address: zaPWcb17opQfnoy9LGuax2QaJmhYf6KG4QNTwGoD1wEz
 }
 
 run()

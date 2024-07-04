@@ -1,5 +1,5 @@
 {
-  "fullNodeVersion": "v2.14.0",
+  "fullNodeVersion": "v3.2.0",
   "compilerOptionsUsed": {
     "ignoreUnusedConstantsWarnings": true,
     "ignoreUnusedVariablesWarnings": false,
@@ -18,9 +18,9 @@
     },
     "Crop": {
       "sourceFile": "farm/crop.ral",
-      "sourceCodeHash": "071bbee2413f857935581ca6f4bfdad0be9d360cf4923de478940f9346a77504",
+      "sourceCodeHash": "c4e002de97e384ff9947707d2906978835d32a8bc72b73b18fb8c04aa05ca2b0",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "1f9838a682e20b0854d197cf6529731f9667e99e11b29a73dffa99660bc4eeb1",
+      "codeHashDebug": "1b2f163495ed25072e283e298f15097b0299fd16e910722521cda99deeb877a0",
       "warnings": []
     },
     "DeleteCrop": {
@@ -81,7 +81,7 @@
     },
     "IDynamicNFT": {
       "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
-      "sourceCodeHash": "cb124ad59c201ce5e405dcd30b08aa43ca9c6f1afd4894a13dc6731e9395d282",
+      "sourceCodeHash": "873bc547d23f025871668faf1f6c67bd509c76bdd3187fb70ffb358127b59749",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []
@@ -123,9 +123,9 @@
     },
     "Name": {
       "sourceFile": "forward_name_resolver/name.ral",
-      "sourceCodeHash": "94bb924fa1d977cec85800648111dced91345c950b62e5db1630305152ff5f26",
+      "sourceCodeHash": "b0730f953207a219aa14f859d92ca3ab6bf264648fb61915595cc501adce157b",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "5b3092fece31b5b441fac3a3c8f7e5f6f09d65da3a5dc6779ac1eef47eedf3c9",
+      "codeHashDebug": "c87c1214c5bc7212c8c2ec57c8ea4876addee40b45c268bac30cfbd15cd79008",
       "warnings": []
     },
     "RemoveReverseAddressName": {
@@ -179,7 +179,7 @@
     },
     "Trait": {
       "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
-      "sourceCodeHash": "cb124ad59c201ce5e405dcd30b08aa43ca9c6f1afd4894a13dc6731e9395d282",
+      "sourceCodeHash": "873bc547d23f025871668faf1f6c67bd509c76bdd3187fb70ffb358127b59749",
       "bytecodeDebugPatch": "",
       "codeHashDebug": "",
       "warnings": []

@@ -45,7 +45,7 @@ const mockDeleteCrop = async (
     nftId: string
 ): Promise<ExecuteScriptResult> => {
     const crop = new CropInstance(addressFromContractId(nftId))
-    const nftIndex = (await crop.methods.getNFTIndex()).returns
+    const nftIndex = (await crop.view.getNFTIndex()).returns
     return await DeleteCrop.execute(
         signer,
         {
@@ -74,16 +74,16 @@ describe('FarmController', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
 
         // When
         const alphAmount = (2n * ONE_ALPH) / 10n
         await mockMintCrop(signer, forwardNameResolverId, alphAmount)
 
         // Then
-        const farmId = (await forwardNameResolver.methods.getFarm()).returns
+        const farmId = (await forwardNameResolver.view.getFarm()).returns
         const farm = new FarmInstance(addressFromContractId(farmId))
-        const cropId = (await farm.methods.getCrop({ args: { index: 1n } })).returns
+        const cropId = (await farm.view.getCrop({ args: { index: 1n } })).returns
         const crop = new CropInstance(addressFromContractId(cropId))
 
         const nftState = await crop.fetchState()
@@ -92,11 +92,11 @@ describe('FarmController', function () {
         expect(hexToString(nftState.fields.name)).toEqual('1 crops')
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 28_944_000_000) / 2000, 0)
 
-        const traitsCount = (await crop.methods.getTraitCount()).returns
+        const traitsCount = (await crop.view.getTraitCount()).returns
         expect(traitsCount).toEqual(2n)
-        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await crop.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
-        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await crop.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -111,16 +111,16 @@ describe('FarmController', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
 
         // When
         const alphAmount = 100n * (2n * ONE_ALPH) / 10n
         await mockMintCrop(signer, forwardNameResolverId, alphAmount)
 
         // Then
-        const farmId = (await forwardNameResolver.methods.getFarm()).returns
+        const farmId = (await forwardNameResolver.view.getFarm()).returns
         const farm = new FarmInstance(addressFromContractId(farmId))
-        const cropId = (await farm.methods.getCrop({ args: { index: 1n } })).returns
+        const cropId = (await farm.view.getCrop({ args: { index: 1n } })).returns
         const crop = new CropInstance(addressFromContractId(cropId))
 
         const nftState = await crop.fetchState()
@@ -129,11 +129,11 @@ describe('FarmController', function () {
         expect(hexToString(nftState.fields.name)).toEqual('100 crops')
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 28_944_000_000) / 2000, 0)
 
-        const traitsCount = (await crop.methods.getTraitCount()).returns
+        const traitsCount = (await crop.view.getTraitCount()).returns
         expect(traitsCount).toEqual(2n)
-        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await crop.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
-        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await crop.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n * ONE_ALPH)
@@ -164,12 +164,12 @@ describe('FarmController', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const alphAmount = 100n * (2n * ONE_ALPH) / 10n
         await mockMintCrop(signer, forwardNameResolverId, alphAmount)
-        const farmId = (await forwardNameResolver.methods.getFarm()).returns
+        const farmId = (await forwardNameResolver.view.getFarm()).returns
         const farm = new FarmInstance(addressFromContractId(farmId))
-        const cropId = (await farm.methods.getCrop({ args: { index: 1n } })).returns
+        const cropId = (await farm.view.getCrop({ args: { index: 1n } })).returns
         const crop = new CropInstance(addressFromContractId(cropId))
 
         // When
@@ -184,11 +184,11 @@ describe('FarmController', function () {
         expect(hexToString(nftState.fields.name)).toEqual('100 crops')
         expect(Number(nftState.fields.expires) / 3000).toBeCloseTo((Date.now() + 2000) / 3000, 0)
 
-        const traitsCount = (await crop.methods.getTraitCount()).returns
+        const traitsCount = (await crop.view.getTraitCount()).returns
         expect(traitsCount).toEqual(2n)
-        const trait0 = (await crop.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await crop.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(nftState.fields.expires.toString())})
-        const trait1 = (await crop.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await crop.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ALPH'), value: stringToHex(alphAmount.toString())})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(100n * ONE_ALPH)
@@ -203,12 +203,12 @@ describe('FarmController', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 100n, 10n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const alphAmount = 100n * (2n * ONE_ALPH) / 10n
         await mockMintCrop(signer, forwardNameResolverId, alphAmount)
-        const farmId = (await forwardNameResolver.methods.getFarm()).returns
+        const farmId = (await forwardNameResolver.view.getFarm()).returns
         const farm = new FarmInstance(addressFromContractId(farmId))
-        const cropId = (await farm.methods.getCrop({ args: { index: 1n } })).returns
+        const cropId = (await farm.view.getCrop({ args: { index: 1n } })).returns
         const crop = new CropInstance(addressFromContractId(cropId))
         await sleep(100)
 

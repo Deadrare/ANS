@@ -159,19 +159,19 @@ class Factory extends ContractFactory<ReverseNameResolverInstance, {}> {
   };
   consts = {
     ErrorCodes: {
-      OnlyParentAllowed: BigInt(0),
-      NFTNotFound: BigInt(1),
-      NFTNotPartOfCollection: BigInt(2),
-      OnlyNftOwnerAllowed: BigInt(3),
-      NameHasNotExpired: BigInt(4),
-      CannotRenewName: BigInt(5),
-      TokenAlreadyGenerated: BigInt(6),
-      ReverseAddressNotFound: BigInt(7),
-      OnlyNftOwnerOrHolderAllowed: BigInt(8),
-      IncorrectFarmInputAmount: BigInt(9),
-      CropHasNotExpired: BigInt(10),
-      FarmInputAmountNotConsumed: BigInt(11),
-      FarmAlreadyGenerated: BigInt(12),
+      OnlyParentAllowed: BigInt("0"),
+      NFTNotFound: BigInt("1"),
+      NFTNotPartOfCollection: BigInt("2"),
+      OnlyNftOwnerAllowed: BigInt("3"),
+      NameHasNotExpired: BigInt("4"),
+      CannotRenewName: BigInt("5"),
+      TokenAlreadyGenerated: BigInt("6"),
+      ReverseAddressNotFound: BigInt("7"),
+      OnlyNftOwnerOrHolderAllowed: BigInt("8"),
+      IncorrectFarmInputAmount: BigInt("9"),
+      CropHasNotExpired: BigInt("10"),
+      FarmInputAmountNotConsumed: BigInt("11"),
+      FarmAlreadyGenerated: BigInt("12"),
     },
     Keys: { Names: "01", Token: "02", Farm: "03" },
   };
@@ -426,7 +426,7 @@ export class ReverseNameResolverInstance extends ContractInstance {
     );
   }
 
-  methods = {
+  view = {
     getNameByAddress: async (
       params: ReverseNameResolverTypes.CallMethodParams<"getNameByAddress">
     ): Promise<
@@ -476,8 +476,6 @@ export class ReverseNameResolverInstance extends ContractInstance {
       );
     },
   };
-
-  view = this.methods;
 
   transact = {
     getNameByAddress: async (

@@ -1,5 +1,5 @@
 {
-  "version": "v2.14.0",
+  "version": "v3.2.0",
   "name": "DeleteCrop",
   "bytecodeTemplate": "0101030005001ab41700{0}17010c0d160101051702{1}0d0d16020104170316031704160016040da3{1}0d0c16010109",
   "fieldsSig": {

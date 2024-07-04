@@ -221,19 +221,19 @@ class Factory extends ContractFactory<FarmInstance, FarmTypes.Fields> {
   };
   consts = {
     ErrorCodes: {
-      OnlyParentAllowed: BigInt(0),
-      NFTNotFound: BigInt(1),
-      NFTNotPartOfCollection: BigInt(2),
-      OnlyNftOwnerAllowed: BigInt(3),
-      NameHasNotExpired: BigInt(4),
-      CannotRenewName: BigInt(5),
-      TokenAlreadyGenerated: BigInt(6),
-      ReverseAddressNotFound: BigInt(7),
-      OnlyNftOwnerOrHolderAllowed: BigInt(8),
-      IncorrectFarmInputAmount: BigInt(9),
-      CropHasNotExpired: BigInt(10),
-      FarmInputAmountNotConsumed: BigInt(11),
-      FarmAlreadyGenerated: BigInt(12),
+      OnlyParentAllowed: BigInt("0"),
+      NFTNotFound: BigInt("1"),
+      NFTNotPartOfCollection: BigInt("2"),
+      OnlyNftOwnerAllowed: BigInt("3"),
+      NameHasNotExpired: BigInt("4"),
+      CannotRenewName: BigInt("5"),
+      TokenAlreadyGenerated: BigInt("6"),
+      ReverseAddressNotFound: BigInt("7"),
+      OnlyNftOwnerOrHolderAllowed: BigInt("8"),
+      IncorrectFarmInputAmount: BigInt("9"),
+      CropHasNotExpired: BigInt("10"),
+      FarmInputAmountNotConsumed: BigInt("11"),
+      FarmAlreadyGenerated: BigInt("12"),
     },
     Keys: { Names: "01", Token: "02", Farm: "03" },
   };
@@ -467,7 +467,7 @@ export class FarmInstance extends ContractInstance {
     return subscribeContractEvents(Farm.contract, this, options, fromCount);
   }
 
-  methods = {
+  view = {
     getCollectionUri: async (
       params?: FarmTypes.CallMethodParams<"getCollectionUri">
     ): Promise<FarmTypes.CallMethodResult<"getCollectionUri">> => {
@@ -551,8 +551,6 @@ export class FarmInstance extends ContractInstance {
       );
     },
   };
-
-  view = this.methods;
 
   transact = {
     getCollectionUri: async (

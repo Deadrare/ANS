@@ -52,7 +52,7 @@ Contract Name(
         let caller = callerContractId!()
         checkCaller!(collectionId == caller, ErrorCodes.OnlyParentAllowed)
         expires = newExpires
-        emit MetadataUpdated(selfTokenId!())
+        emit MetadataUpdated()
     }
 
     @using(assetsInContract = true)

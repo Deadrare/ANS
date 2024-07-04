@@ -48,7 +48,7 @@ export namespace NameTypes {
 
   export type State = ContractState<Fields>;
 
-  export type MetadataUpdatedEvent = ContractEvent<{ tokenId: HexString }>;
+  export type MetadataUpdatedEvent = ContractEvent<{}>;
 
   export interface CallMethodTable {
     getTokenUri: {
@@ -217,19 +217,19 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
   eventIndex = { MetadataUpdated: 0 };
   consts = {
     ErrorCodes: {
-      OnlyParentAllowed: BigInt(0),
-      NFTNotFound: BigInt(1),
-      NFTNotPartOfCollection: BigInt(2),
-      OnlyNftOwnerAllowed: BigInt(3),
-      NameHasNotExpired: BigInt(4),
-      CannotRenewName: BigInt(5),
-      TokenAlreadyGenerated: BigInt(6),
-      ReverseAddressNotFound: BigInt(7),
-      OnlyNftOwnerOrHolderAllowed: BigInt(8),
-      IncorrectFarmInputAmount: BigInt(9),
-      CropHasNotExpired: BigInt(10),
-      FarmInputAmountNotConsumed: BigInt(11),
-      FarmAlreadyGenerated: BigInt(12),
+      OnlyParentAllowed: BigInt("0"),
+      NFTNotFound: BigInt("1"),
+      NFTNotPartOfCollection: BigInt("2"),
+      OnlyNftOwnerAllowed: BigInt("3"),
+      NameHasNotExpired: BigInt("4"),
+      CannotRenewName: BigInt("5"),
+      TokenAlreadyGenerated: BigInt("6"),
+      ReverseAddressNotFound: BigInt("7"),
+      OnlyNftOwnerOrHolderAllowed: BigInt("8"),
+      IncorrectFarmInputAmount: BigInt("9"),
+      CropHasNotExpired: BigInt("10"),
+      FarmInputAmountNotConsumed: BigInt("11"),
+      FarmAlreadyGenerated: BigInt("12"),
     },
     Keys: { Names: "01", Token: "02", Farm: "03" },
   };
@@ -387,7 +387,7 @@ export const Name = new Factory(
   Contract.fromJson(
     NameContractJson,
     "",
-    "5b3092fece31b5b441fac3a3c8f7e5f6f09d65da3a5dc6779ac1eef47eedf3c9",
+    "c87c1214c5bc7212c8c2ec57c8ea4876addee40b45c268bac30cfbd15cd79008",
     AllStructs
   )
 );
@@ -419,7 +419,7 @@ export class NameInstance extends ContractInstance {
     );
   }
 
-  methods = {
+  view = {
     getTokenUri: async (
       params?: NameTypes.CallMethodParams<"getTokenUri">
     ): Promise<NameTypes.CallMethodResult<"getTokenUri">> => {
@@ -591,8 +591,6 @@ export class NameInstance extends ContractInstance {
       );
     },
   };
-
-  view = this.methods;
 
   transact = {
     getTokenUri: async (

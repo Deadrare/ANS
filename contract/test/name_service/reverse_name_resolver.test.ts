@@ -81,7 +81,7 @@ describe('ReverseNameResolver', function () {
         await mockSetReverseAddressName(signer, forwardNameResolverId, newName)
 
         // Then
-        const name = (await forwardNameResolver.methods.getNameByAddress({ args: { address: signerAddress } })).returns
+        const name = (await forwardNameResolver.view.getNameByAddress({ args: { address: signerAddress } })).returns
         expect(hexToString(name)).toEqual(newName)
     }, 300000)
 
@@ -100,7 +100,7 @@ describe('ReverseNameResolver', function () {
         await mockSetReverseAddressName(signer1, forwardNameResolverId, newName)
 
         // Then
-        const name = (await forwardNameResolver.methods.getNameByAddress({ args: { address: signer1Address } })).returns
+        const name = (await forwardNameResolver.view.getNameByAddress({ args: { address: signer1Address } })).returns
         expect(hexToString(name)).toEqual(newName)
     }, 300000)
 
@@ -118,7 +118,7 @@ describe('ReverseNameResolver', function () {
         await mockRemoveReverseAddressName(signer1, forwardNameResolverId)
 
         // Then
-        const result = forwardNameResolver.methods.getNameByAddress({ args: { address: signer1Address } })
+        const result = forwardNameResolver.view.getNameByAddress({ args: { address: signer1Address } })
         await expect(result).rejects.toThrow(Error)
     }, 300000)
 })

@@ -1,5 +1,5 @@
 {
-  "version": "v2.14.0",
+  "version": "v3.2.0",
   "name": "SetCapitalisation",
   "bytecodeTemplate": "01010300040018b41700{0}1701{1}0d0d1601010c1702160217031600160316001603a5a3{1}{2}0e0c16010116",
   "fieldsSig": {

@@ -23,7 +23,10 @@ const run = async () => {
     console.log(`Transaction ID: ${result.txId}`)
 
     // staging
-    // Transaction ID: c81c7c97a366d1c635d8faec0e4a183905ce583684bcd845e4d12d29ce2286c4
+    // Transaction ID: c813e9bc3fe21874b958078e59df19903bf131651d70fca2e74d183f2cda44a2
+
+    // production
+    // Transaction ID: 38694a93ce0ed2bbe8e2b9b8118cb1638b2f4b9d41e4501bc64fbe322715f03e
 }
 
 run()

@@ -1,5 +1,5 @@
 {
-  "version": "v2.14.0",
+  "version": "v3.2.0",
   "name": "SetAddress",
   "bytecodeTemplate": "01010300040016b41700{0}1701{1}0d0d1601010c170216021703160016030da3{1}{2}0e0c16010115",
   "fieldsSig": {

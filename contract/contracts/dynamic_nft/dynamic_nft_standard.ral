@@ -8,9 +8,7 @@ struct Trait {
 @std(id = #000301)
 Interface IDynamicNFT extends INFT {
     // Emit when any metadata field changes
-    event MetadataUpdated(
-        tokenId: ByteVec
-    )
+    event MetadataUpdated()
 
     pub fn getName() -> ByteVec
 

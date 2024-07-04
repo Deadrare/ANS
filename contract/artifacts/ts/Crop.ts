@@ -47,7 +47,7 @@ export namespace CropTypes {
 
   export type State = ContractState<Fields>;
 
-  export type MetadataUpdatedEvent = ContractEvent<{ tokenId: HexString }>;
+  export type MetadataUpdatedEvent = ContractEvent<{}>;
 
   export interface CallMethodTable {
     getTokenUri: {
@@ -192,19 +192,19 @@ class Factory extends ContractFactory<CropInstance, CropTypes.Fields> {
   eventIndex = { MetadataUpdated: 0 };
   consts = {
     ErrorCodes: {
-      OnlyParentAllowed: BigInt(0),
-      NFTNotFound: BigInt(1),
-      NFTNotPartOfCollection: BigInt(2),
-      OnlyNftOwnerAllowed: BigInt(3),
-      NameHasNotExpired: BigInt(4),
-      CannotRenewName: BigInt(5),
-      TokenAlreadyGenerated: BigInt(6),
-      ReverseAddressNotFound: BigInt(7),
-      OnlyNftOwnerOrHolderAllowed: BigInt(8),
-      IncorrectFarmInputAmount: BigInt(9),
-      CropHasNotExpired: BigInt(10),
-      FarmInputAmountNotConsumed: BigInt(11),
-      FarmAlreadyGenerated: BigInt(12),
+      OnlyParentAllowed: BigInt("0"),
+      NFTNotFound: BigInt("1"),
+      NFTNotPartOfCollection: BigInt("2"),
+      OnlyNftOwnerAllowed: BigInt("3"),
+      NameHasNotExpired: BigInt("4"),
+      CannotRenewName: BigInt("5"),
+      TokenAlreadyGenerated: BigInt("6"),
+      ReverseAddressNotFound: BigInt("7"),
+      OnlyNftOwnerOrHolderAllowed: BigInt("8"),
+      IncorrectFarmInputAmount: BigInt("9"),
+      CropHasNotExpired: BigInt("10"),
+      FarmInputAmountNotConsumed: BigInt("11"),
+      FarmAlreadyGenerated: BigInt("12"),
     },
     Keys: { Names: "01", Token: "02", Farm: "03" },
   };
@@ -328,7 +328,7 @@ export const Crop = new Factory(
   Contract.fromJson(
     CropContractJson,
     "",
-    "1f9838a682e20b0854d197cf6529731f9667e99e11b29a73dffa99660bc4eeb1",
+    "1b2f163495ed25072e283e298f15097b0299fd16e910722521cda99deeb877a0",
     AllStructs
   )
 );
@@ -360,7 +360,7 @@ export class CropInstance extends ContractInstance {
     );
   }
 
-  methods = {
+  view = {
     getTokenUri: async (
       params?: CropTypes.CallMethodParams<"getTokenUri">
     ): Promise<CropTypes.CallMethodResult<"getTokenUri">> => {
@@ -499,8 +499,6 @@ export class CropInstance extends ContractInstance {
       );
     },
   };
-
-  view = this.methods;
 
   transact = {
     getTokenUri: async (

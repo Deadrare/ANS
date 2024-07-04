@@ -175,7 +175,7 @@ const mockMintName = async (
     tokenAmount = 0n
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
-    const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+    const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
     const tokenTransfer = { id: rewardTokenId, amount: tokenAmount }
     return await MintName.execute(
         signer,
@@ -198,8 +198,8 @@ const mockRenewName = async (
     tokenAmount = 0n
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
-    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
-    const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+    const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(name) } })).returns
+    const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
     const tokenTransfer = { id: rewardTokenId, amount: tokenAmount }
     const nftTransfer = { id: nftId, amount: 1n }
     return await RenewName.execute(
@@ -221,7 +221,7 @@ const mockDeleteExpired = async (
     name: string
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
-    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
+    const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(name) } })).returns
     return await DeleteExpired.execute(
         signer,
         {
@@ -244,7 +244,7 @@ const mockSetAddress = async (
     address: string
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
-    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
+    const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(name) } })).returns
     return await SetAddress.execute(
         signer,
         {
@@ -269,7 +269,7 @@ const mockSetCapitalisation = async (
     usingNft: boolean
 ): Promise<ExecuteScriptResult> => {
     const forwardNameResolver = new ForwardNameResolverInstance(addressFromContractId(forwardNameResolverId))
-    const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(name) } })).returns
+    const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(name) } })).returns
     return await SetCapitalisation.execute(
         signer,
         {
@@ -297,14 +297,14 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
 
         // When
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -315,13 +315,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 31_536_000_000) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -335,7 +335,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
 
@@ -345,7 +345,7 @@ describe('ForwardNameResolver', function () {
         // Then
         await expect(mintResult).rejects.toThrow(Error)
 
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -356,13 +356,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -376,7 +376,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 100n, 10n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
         await sleep(100)
@@ -385,7 +385,7 @@ describe('ForwardNameResolver', function () {
         await mockMintName(signer, forwardNameResolverId, newName, newName)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -396,13 +396,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
@@ -416,7 +416,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer1, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer1, forwardNameResolverId, newName, newName)
 
@@ -426,7 +426,7 @@ describe('ForwardNameResolver', function () {
         // Then
         await expect(renewResult).rejects.toThrow(Error)
 
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -437,13 +437,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -457,7 +457,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 100n, 10n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
         await sleep(100)
@@ -466,7 +466,7 @@ describe('ForwardNameResolver', function () {
         await mockRenewName(signer, forwardNameResolverId, newName)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -477,13 +477,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 100) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(2n * ONE_ALPH)
@@ -497,7 +497,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
 
@@ -507,7 +507,7 @@ describe('ForwardNameResolver', function () {
         // Then
         await expect(mintResult).rejects.toThrow(Error)
 
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -518,13 +518,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 2000) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -538,7 +538,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer, 100n, 10n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer, forwardNameResolverId, newName, newName)
         await sleep(100)
@@ -547,7 +547,7 @@ describe('ForwardNameResolver', function () {
         await mockDeleteExpired(signer, forwardNameResolverId, newName)
 
         // Then
-        const getNftByNameResult = forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })
+        const getNftByNameResult = forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })
         await expect(getNftByNameResult).rejects.toThrow(Error)
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(ONE_ALPH)
@@ -576,7 +576,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
 
         let limit = 100
         while (limit > 0) {
@@ -591,7 +591,7 @@ describe('ForwardNameResolver', function () {
         await mockMintName(signer, forwardNameResolverId, newName, newName, 100n * ONE_ALPH)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -602,13 +602,13 @@ describe('ForwardNameResolver', function () {
         expect(nftState.fields.address).toEqual(signerAddress)
         expect(Number(nftState.fields.expires) / 2000).toBeCloseTo((Date.now() + 31_536_000_000) / 2000, 0)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('100')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('8')})
 
         expect(await balanceOf(rewardTokenId, signerAddress)).toEqual(0n)
@@ -624,7 +624,7 @@ describe('ForwardNameResolver', function () {
     //     const forwardNameResolverDeployment = await mockForwardNameResolver(signer)
     //     const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
     //     const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-    //     const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+    //     const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
 
     //     let limit = 800
     //     while (limit > 0) {
@@ -642,7 +642,7 @@ describe('ForwardNameResolver', function () {
     //     await mockMintName(signer, forwardNameResolverId, newName, 800n)
 
     //     // Then
-    //     const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+    //     const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
     //     const nft = new NameInstance(addressFromContractId(nftId))
 
     //     const nftState = await nft.fetchState()
@@ -664,7 +664,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer1, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer1, forwardNameResolverId, newName, newName)
 
@@ -672,7 +672,7 @@ describe('ForwardNameResolver', function () {
         await mockSetAddress(signer1, forwardNameResolverId, newName, signer2Address)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -682,13 +682,13 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newName)
         expect(nftState.fields.address).toEqual(signer2Address)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
@@ -703,7 +703,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer1, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer1, forwardNameResolverId, newName, newName)
 
@@ -712,7 +712,7 @@ describe('ForwardNameResolver', function () {
         await mockSetCapitalisation(signer1, forwardNameResolverId, newName, newCapitalisation, true)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -722,13 +722,13 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer1Address)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
@@ -743,7 +743,7 @@ describe('ForwardNameResolver', function () {
         const forwardNameResolverDeployment = await mockForwardNameResolver(signer1, 2000n, 1000n)
         const forwardNameResolverId = forwardNameResolverDeployment.contractInstance.contractId
         const forwardNameResolver = forwardNameResolverDeployment.contractInstance
-        const rewardTokenId = (await forwardNameResolver.methods.getRewardToken()).returns
+        const rewardTokenId = (await forwardNameResolver.view.getRewardToken()).returns
         const newName = 'hello12345'
         await mockMintName(signer1, forwardNameResolverId, newName, newName)
         await mockSetAddress(signer1, forwardNameResolverId, newName, signer2Address)
@@ -753,7 +753,7 @@ describe('ForwardNameResolver', function () {
         await mockSetCapitalisation(signer2, forwardNameResolverId, newName, newCapitalisation, false)
 
         // Then
-        const nftId = (await forwardNameResolver.methods.getNftByName({ args: { name: stringToHex(newName) } })).returns
+        const nftId = (await forwardNameResolver.view.getNftByName({ args: { name: stringToHex(newName) } })).returns
         const nft = new NameInstance(addressFromContractId(nftId))
 
         const nftState = await nft.fetchState()
@@ -763,13 +763,13 @@ describe('ForwardNameResolver', function () {
         expect(hexToString(nftState.fields.capitalisation)).toEqual(newCapitalisation)
         expect(nftState.fields.address).toEqual(signer2Address)
 
-        const traitsCount = (await nft.methods.getTraitCount()).returns
+        const traitsCount = (await nft.view.getTraitCount()).returns
         expect(traitsCount).toEqual(3n)
-        const trait0 = (await nft.methods.getTraitAtIndex({ args: { index: 0n } })).returns
+        const trait0 = (await nft.view.getTraitAtIndex({ args: { index: 0n } })).returns
         expect(trait0).toEqual({traitType: stringToHex('Expires'), value: stringToHex(String(Number(nftState.fields.expires)))})
-        const trait1 = (await nft.methods.getTraitAtIndex({ args: { index: 1n } })).returns
+        const trait1 = (await nft.view.getTraitAtIndex({ args: { index: 1n } })).returns
         expect(trait1).toEqual({traitType: stringToHex('ANS Cost'), value: stringToHex('1')})
-        const trait2 = (await nft.methods.getTraitAtIndex({ args: { index: 2n } })).returns
+        const trait2 = (await nft.view.getTraitAtIndex({ args: { index: 2n } })).returns
         expect(trait2).toEqual({traitType: stringToHex('Length'), value: stringToHex('10')})
 
         expect(await balanceOf(rewardTokenId, signer1Address)).toEqual(ONE_ALPH)
