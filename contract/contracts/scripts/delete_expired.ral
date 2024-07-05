@@ -1,0 +1,9 @@
+TxScript DeleteExpired(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec
+) {
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    resolver.deleteExpired(
+        name
+    )
+}

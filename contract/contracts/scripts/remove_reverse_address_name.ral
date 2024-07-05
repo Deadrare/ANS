@@ -1,0 +1,6 @@
+TxScript RemoveReverseAddressName(
+    forwardNameResolverId: ByteVec
+) {
+    let resolver = ReverseNameResolver(forwardNameResolverId)
+    resolver.removeAddress()
+}

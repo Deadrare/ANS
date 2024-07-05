@@ -1,0 +1,10 @@
+TxScript SetReverseAddressName(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec
+) {
+    let caller = callerAddress!()
+    let resolver = ReverseNameResolver(forwardNameResolverId)
+    resolver.setAddressName{caller -> ALPH: mapEntryDeposit!()}(
+        name
+    )
+}
