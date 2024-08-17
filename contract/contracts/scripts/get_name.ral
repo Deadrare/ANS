@@ -1,0 +1,13 @@
+TxScript GetName(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec
+) {
+    pub fn main() -> (ByteVec, Address, ByteVec, U256) {
+        let resolver = ForwardNameResolver(forwardNameResolverId)
+        let nameNft = resolver.getNftByName(name)
+        let address = nameNft.getAddress()
+        let capitalisation = nameNft.getCapitalisation()
+        let expires = nameNft.getExpires()
+        return name, address, capitalisation, expires
+    }
+}

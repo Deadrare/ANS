@@ -115,6 +115,10 @@ export namespace CropTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getTokenUri: {
@@ -183,10 +187,6 @@ class Factory extends ContractFactory<CropInstance, CropTypes.Fields> {
       this.contract.fieldsSig,
       AllStructs
     );
-  }
-
-  getInitialFieldsWithDefaultValues() {
-    return this.contract.getInitialFieldsWithDefaultValues() as CropTypes.Fields;
   }
 
   eventIndex = { MetadataUpdated: 0 };
@@ -568,14 +568,14 @@ export class CropInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends CropTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<CropTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends CropTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<CropTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       Crop,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as CropTypes.MultiCallResults<Calls>;
+    )) as CropTypes.MulticallReturnType<Callss>;
   }
 }

@@ -144,6 +144,10 @@ export namespace FarmTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getCollectionUri: {
@@ -202,10 +206,6 @@ class Factory extends ContractFactory<FarmInstance, FarmTypes.Fields> {
       this.contract.fieldsSig,
       AllStructs
     );
-  }
-
-  getInitialFieldsWithDefaultValues() {
-    return this.contract.getInitialFieldsWithDefaultValues() as FarmTypes.Fields;
   }
 
   eventIndex = {
@@ -595,14 +595,14 @@ export class FarmInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends FarmTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<FarmTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends FarmTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<FarmTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       Farm,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as FarmTypes.MultiCallResults<Calls>;
+    )) as FarmTypes.MulticallReturnType<Callss>;
   }
 }

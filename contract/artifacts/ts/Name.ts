@@ -128,6 +128,10 @@ export namespace NameTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getTokenUri: {
@@ -208,10 +212,6 @@ class Factory extends ContractFactory<NameInstance, NameTypes.Fields> {
       this.contract.fieldsSig,
       AllStructs
     );
-  }
-
-  getInitialFieldsWithDefaultValues() {
-    return this.contract.getInitialFieldsWithDefaultValues() as NameTypes.Fields;
   }
 
   eventIndex = { MetadataUpdated: 0 };
@@ -675,14 +675,14 @@ export class NameInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends NameTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<NameTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends NameTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<NameTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       Name,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as NameTypes.MultiCallResults<Calls>;
+    )) as NameTypes.MulticallReturnType<Callss>;
   }
 }

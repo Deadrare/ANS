@@ -11,10 +11,12 @@ import {
   SignerProvider,
   HexString,
 } from "@alephium/web3";
+import { getContractByCodeHash } from "./contracts";
 import { default as DeleteCropScriptJson } from "../scripts/DeleteCrop.ral.json";
 import { default as DeleteExpiredScriptJson } from "../scripts/DeleteExpired.ral.json";
 import { default as GenerateFarmScriptJson } from "../scripts/GenerateFarm.ral.json";
 import { default as GenerateTokenScriptJson } from "../scripts/GenerateToken.ral.json";
+import { default as GetNameScriptJson } from "../scripts/GetName.ral.json";
 import { default as MintCropScriptJson } from "../scripts/MintCrop.ral.json";
 import { default as MintNameScriptJson } from "../scripts/MintName.ral.json";
 import { default as RemoveReverseAddressNameScriptJson } from "../scripts/RemoveReverseAddressName.ral.json";
@@ -27,54 +29,83 @@ import { Trait, AllStructs } from "./types";
 export const DeleteCrop = new ExecutableScript<{
   forwardNameResolverId: HexString;
   nftIndex: bigint;
-}>(Script.fromJson(DeleteCropScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(DeleteCropScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const DeleteExpired = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(DeleteExpiredScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(DeleteExpiredScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const GenerateFarm = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(GenerateFarmScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(GenerateFarmScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const GenerateToken = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(GenerateTokenScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(GenerateTokenScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
+
+export const GetName = new ExecutableScript<
+  { forwardNameResolverId: HexString; name: HexString },
+  [HexString, Address, HexString, bigint]
+>(Script.fromJson(GetNameScriptJson, "", AllStructs), getContractByCodeHash);
 
 export const MintCrop = new ExecutableScript<{
   forwardNameResolverId: HexString;
   alphAmount: bigint;
-}>(Script.fromJson(MintCropScriptJson, "", AllStructs));
+}>(Script.fromJson(MintCropScriptJson, "", AllStructs), getContractByCodeHash);
 
 export const MintName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   capitalisation: HexString;
-}>(Script.fromJson(MintNameScriptJson, "", AllStructs));
+}>(Script.fromJson(MintNameScriptJson, "", AllStructs), getContractByCodeHash);
 
 export const RemoveReverseAddressName = new ExecutableScript<{
   forwardNameResolverId: HexString;
-}>(Script.fromJson(RemoveReverseAddressNameScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(RemoveReverseAddressNameScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const RenewName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(RenewNameScriptJson, "", AllStructs));
+}>(Script.fromJson(RenewNameScriptJson, "", AllStructs), getContractByCodeHash);
 
 export const SetAddress = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   address: Address;
-}>(Script.fromJson(SetAddressScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(SetAddressScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const SetCapitalisation = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
   newCapitalisation: HexString;
-}>(Script.fromJson(SetCapitalisationScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(SetCapitalisationScriptJson, "", AllStructs),
+  getContractByCodeHash
+);
 
 export const SetReverseAddressName = new ExecutableScript<{
   forwardNameResolverId: HexString;
   name: HexString;
-}>(Script.fromJson(SetReverseAddressNameScriptJson, "", AllStructs));
+}>(
+  Script.fromJson(SetReverseAddressNameScriptJson, "", AllStructs),
+  getContractByCodeHash
+);

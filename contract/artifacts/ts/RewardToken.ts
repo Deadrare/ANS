@@ -85,6 +85,10 @@ export namespace RewardTokenTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getSymbol: {
@@ -131,10 +135,6 @@ class Factory extends ContractFactory<
       this.contract.fieldsSig,
       AllStructs
     );
-  }
-
-  getInitialFieldsWithDefaultValues() {
-    return this.contract.getInitialFieldsWithDefaultValues() as RewardTokenTypes.Fields;
   }
 
   consts = {
@@ -334,14 +334,14 @@ export class RewardTokenInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends RewardTokenTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<RewardTokenTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends RewardTokenTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<RewardTokenTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       RewardToken,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as RewardTokenTypes.MultiCallResults<Calls>;
+    )) as RewardTokenTypes.MulticallReturnType<Callss>;
   }
 }

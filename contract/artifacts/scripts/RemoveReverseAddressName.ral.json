@@ -1,5 +1,5 @@
 {
-  "version": "v3.2.0",
+  "version": "v3.5.0",
   "name": "RemoveReverseAddressName",
   "bytecodeTemplate": "01010300010006{0}17000c0c16000103",
   "fieldsSig": {

@@ -63,8 +63,8 @@ const StagingConfig: Config = {
     ...DefaultConfig,
     DEPLOYMENT: 'STAGING',
     NETWORK: 'testnet',
-    NODE_URL: process.env.NODE_URL ?? 'https://wallet-v20.testnet.alephium.org',
-    EXPLORER_URL: 'https://backend-v113.testnet.alephium.org',
+    NODE_URL: process.env.NODE_URL ?? 'https://wallet.testnet.alephium.org',
+    EXPLORER_URL: 'https://backend.testnet.alephium.org',
 
     NAME_ID: 'eae89175bac0ea6fae112dfa5947b4cb1e5c60de403f5b9cf7d8c329bcc88000',
     REWARD_TOKEN_ID: '7cdb83f533a71100ca8d4305891033ea9ad559ccbe5113416b2fef9892892300',
@@ -93,8 +93,8 @@ const ProductionConfig: Config = {
     ...DefaultConfig,
     DEPLOYMENT: 'PRODUCTION',
     NETWORK: 'mainnet',
-    NODE_URL: process.env.NODE_URL ?? 'https://wallet-v20.mainnet.alephium.org',
-    EXPLORER_URL: 'https://backend-v113.mainnet.alephium.org',
+    NODE_URL: process.env.NODE_URL ?? 'https://wallet.mainnet.alephium.org',
+    EXPLORER_URL: 'https://backend.mainnet.alephium.org',
 
     NAME_ID: '5dfe07546c34a9ae9e73cd0a94dc3468ba779bb9564febee5f10d6020e179900',
     REWARD_TOKEN_ID: 'eaf001abb8534bb085ed11e9450bbeddc06a1221ac012c81a60f59bc02b27100',

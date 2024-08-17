@@ -1,188 +1,170 @@
 {
-  "fullNodeVersion": "v3.2.0",
+  "fullNodeVersion": "v3.5.0",
   "compilerOptionsUsed": {
     "ignoreUnusedConstantsWarnings": true,
     "ignoreUnusedVariablesWarnings": false,
     "ignoreUnusedFieldsWarnings": false,
     "ignoreUnusedPrivateFunctionsWarnings": false,
     "ignoreUpdateFieldsCheckWarnings": false,
-    "ignoreCheckExternalCallerWarnings": false
+    "ignoreCheckExternalCallerWarnings": false,
+    "ignoreUnusedFunctionReturnWarnings": false
   },
   "infos": {
     "Constants": {
       "sourceFile": "constants.ral",
       "sourceCodeHash": "3cb7732845906278453fe67a0535fa3b7d7cb1abfe32f788458e3fc214b48e26",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "Crop": {
       "sourceFile": "farm/crop.ral",
       "sourceCodeHash": "c4e002de97e384ff9947707d2906978835d32a8bc72b73b18fb8c04aa05ca2b0",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "1b2f163495ed25072e283e298f15097b0299fd16e910722521cda99deeb877a0",
-      "warnings": []
+      "codeHashDebug": "1b2f163495ed25072e283e298f15097b0299fd16e910722521cda99deeb877a0"
     },
     "DeleteCrop": {
       "sourceFile": "scripts/delete_crop.ral",
       "sourceCodeHash": "6de68b8d6f36de2c96c78aa94300ade925e89ae43dc8633ca8e7320030a5d36b",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "DeleteExpired": {
       "sourceFile": "scripts/delete_expired.ral",
       "sourceCodeHash": "aae8231b3894c318c7a72d8bddf42fb1d32de1508c16873850342b16a82965ff",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "Events": {
       "sourceFile": "events.ral",
       "sourceCodeHash": "e56a831462984575d5b45846187f3a21385b2e2f6bf2a9267cc4704733ccaa97",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "Farm": {
       "sourceFile": "farm/farm.ral",
       "sourceCodeHash": "075b06dabdb974dfddb66cee6130e4be7d8f35df90021837bd4fe58996a39f36",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "4cafea5ed660e0edd4c4a863b813eca220d89ec28631d67fce5e8a8f755b58e1",
-      "warnings": []
+      "codeHashDebug": "4cafea5ed660e0edd4c4a863b813eca220d89ec28631d67fce5e8a8f755b58e1"
     },
     "FarmController": {
       "sourceFile": "forward_name_resolver/farm_controller.ral",
       "sourceCodeHash": "961ecf7dc39544891d5c1fc20997a545a8f4bef4bf7b7028abc03e9bcb7e5be8",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "ForwardNameResolver": {
       "sourceFile": "forward_name_resolver/forward_name_resolver.ral",
       "sourceCodeHash": "78d319e02a43d9b03ed813b25fb5748d10e0361a46aa2e115d946f7cb0932840",
       "bytecodeDebugPatch": "=82-2+e8=2-1+1d=2+66=3-4+7=2-2+3d=1657-1+6=179-1+b=38+7a7e0214696e73657274206174206d617020706174683a2000=565-1+5=118+7a7e021472656d6f7665206174206d617020706174683a2000=22",
-      "codeHashDebug": "12d5fe816ec12ff59234e5e6da6a8a4d67f16aaa3d6c1799be5e8c115f99ba0c",
-      "warnings": []
+      "codeHashDebug": "12d5fe816ec12ff59234e5e6da6a8a4d67f16aaa3d6c1799be5e8c115f99ba0c"
     },
     "GenerateFarm": {
       "sourceFile": "scripts/generate_farm.ral",
       "sourceCodeHash": "705ab6ffa1e65a5d68ae9c57859ed2062c7b7739cd11d29cd4559a39424aa425",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "GenerateToken": {
       "sourceFile": "scripts/generate_token.ral",
       "sourceCodeHash": "0fd002e15b7dc8ba9e4798d551084a248238923dfa39fa94df7eccda4d9a61d8",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
+    },
+    "GetName": {
+      "sourceFile": "scripts/get_name.ral",
+      "sourceCodeHash": "7ca084cc3edb1110fbf6bc535268e2f640ccbe2bf7bf1bdf97f07f468c9b713e",
+      "bytecodeDebugPatch": "",
+      "codeHashDebug": ""
     },
     "IDynamicNFT": {
       "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
       "sourceCodeHash": "873bc547d23f025871668faf1f6c67bd509c76bdd3187fb70ffb358127b59749",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "IFungibleToken": {
       "sourceFile": "../node_modules/@alephium/web3/std/fungible_token_interface.ral",
       "sourceCodeHash": "62910bf11e1eeb6cb2fd468626ff606a9b06306b2b81590c3b10f6deb5966bde",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "INFT": {
       "sourceFile": "../node_modules/@alephium/web3/std/nft_interface.ral",
-      "sourceCodeHash": "acff0211f936d18d3f4a01ddd8f4fe8fbdf0dba9e8b9204b233a48cba1c80d8b",
+      "sourceCodeHash": "92956f4e61c198f011b48dbda2ed76193ffc79ac9c39f60bf1763a34e02f2c41",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "INFTCollection": {
       "sourceFile": "../node_modules/@alephium/web3/std/nft_collection_interface.ral",
       "sourceCodeHash": "9b199426ea89c188ce858b48ab809f13b9fc1ed0d64ca91e3d600eda8fbf6c42",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "MintCrop": {
       "sourceFile": "scripts/mint_crop.ral",
       "sourceCodeHash": "a816ba3545849fc0affd2d1f52de8aef631a86b2e7bd3f2216e2c8ecc68acd3c",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "MintName": {
       "sourceFile": "scripts/mint_name.ral",
       "sourceCodeHash": "ce3aa5c9f708a8609148b60f8225bb28fb5f7038a132886b0a0c330da0cdf7b8",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "Name": {
       "sourceFile": "forward_name_resolver/name.ral",
       "sourceCodeHash": "b0730f953207a219aa14f859d92ca3ab6bf264648fb61915595cc501adce157b",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "c87c1214c5bc7212c8c2ec57c8ea4876addee40b45c268bac30cfbd15cd79008",
-      "warnings": []
+      "codeHashDebug": "c87c1214c5bc7212c8c2ec57c8ea4876addee40b45c268bac30cfbd15cd79008"
     },
     "RemoveReverseAddressName": {
       "sourceFile": "scripts/remove_reverse_address_name.ral",
       "sourceCodeHash": "b5715cbb05d51b96bfebe0eb16d003d696a6f76c6efa34b4138a5483eea12424",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "RenewName": {
       "sourceFile": "scripts/renew_name.ral",
       "sourceCodeHash": "b7eea0e1b790f9924a1f201c4380aa37503ae057f61b37a913b6865d70815ce2",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "ReverseNameResolver": {
       "sourceFile": "reverse_name_resolver/reverse_name_resolver.ral",
       "sourceCodeHash": "f8922e3439ce173786c0cda25dfe2ea8940eb72a7e391aa9828c1b34c1de467d",
       "bytecodeDebugPatch": "=14-2+b6=1-3+129=141-1+5=107-1+c=40+7a7e0214696e73657274206174206d617020706174683a2000=37-1+4=146+7a7e021472656d6f7665206174206d617020706174683a2000=20",
-      "codeHashDebug": "57983c35b982d4623e6ac3dd4406f25e4c4e3f20715733488625a08d47f22fd5",
-      "warnings": []
+      "codeHashDebug": "57983c35b982d4623e6ac3dd4406f25e4c4e3f20715733488625a08d47f22fd5"
     },
     "RewardToken": {
       "sourceFile": "forward_name_resolver/reward_token.ral",
       "sourceCodeHash": "1e2e76b5fcc93c462ba0a662ce5cd41f1f1f6419c63978da68f0fb77b62e6423",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f",
-      "warnings": []
+      "codeHashDebug": "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f"
     },
     "SetAddress": {
       "sourceFile": "scripts/set_address.ral",
       "sourceCodeHash": "9a42da0a2a13ac02e6ceed6ceab171f564f0302ce3963e5e6aa8cd12a626592f",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "SetCapitalisation": {
       "sourceFile": "scripts/set_capitalisation.ral",
       "sourceCodeHash": "3ee1b371b3170c5658a751efc75eb4ea8478b0625645d4675eb7baa80c7cb148",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "SetReverseAddressName": {
       "sourceFile": "scripts/set_reverse_address_name.ral",
       "sourceCodeHash": "846b73bfb54ab5a7cf8bac105a8ab7b1680f8f0f0630417ba369ddbce0ea3922",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     },
     "Trait": {
       "sourceFile": "dynamic_nft/dynamic_nft_standard.ral",
       "sourceCodeHash": "873bc547d23f025871668faf1f6c67bd509c76bdd3187fb70ffb358127b59749",
       "bytecodeDebugPatch": "",
-      "codeHashDebug": "",
-      "warnings": []
+      "codeHashDebug": ""
     }
   }
 }

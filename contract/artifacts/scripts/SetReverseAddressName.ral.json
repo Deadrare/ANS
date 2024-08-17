@@ -1,5 +1,5 @@
 {
-  "version": "v3.2.0",
+  "version": "v3.5.0",
   "name": "SetReverseAddressName",
   "bytecodeTemplate": "0101030002000cb41700{0}17011600d1a2{1}0d0c16010102",
   "fieldsSig": {

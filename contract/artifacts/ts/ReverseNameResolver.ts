@@ -116,6 +116,10 @@ export namespace ReverseNameResolverTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getNameByAddress: {
@@ -528,14 +532,14 @@ export class ReverseNameResolverInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends ReverseNameResolverTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<ReverseNameResolverTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends ReverseNameResolverTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<ReverseNameResolverTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       ReverseNameResolver,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as ReverseNameResolverTypes.MultiCallResults<Calls>;
+    )) as ReverseNameResolverTypes.MulticallReturnType<Callss>;
   }
 }

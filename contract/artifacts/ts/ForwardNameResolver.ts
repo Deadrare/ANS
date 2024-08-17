@@ -207,6 +207,10 @@ export namespace ForwardNameResolverTypes {
       ? CallMethodTable[MaybeName]["result"]
       : undefined;
   };
+  export type MulticallReturnType<Callss extends MultiCallParams[]> =
+    Callss["length"] extends 1
+      ? MultiCallResults<Callss[0]>
+      : { [index in keyof Callss]: MultiCallResults<Callss[index]> };
 
   export interface SignExecuteMethodTable {
     getCollectionUri: {
@@ -326,10 +330,6 @@ class Factory extends ContractFactory<
       this.contract.fieldsSig,
       AllStructs
     );
-  }
-
-  getInitialFieldsWithDefaultValues() {
-    return this.contract.getInitialFieldsWithDefaultValues() as ForwardNameResolverTypes.Fields;
   }
 
   eventIndex = {
@@ -1336,14 +1336,14 @@ export class ForwardNameResolverInstance extends ContractInstance {
     },
   };
 
-  async multicall<Calls extends ForwardNameResolverTypes.MultiCallParams>(
-    calls: Calls
-  ): Promise<ForwardNameResolverTypes.MultiCallResults<Calls>> {
+  async multicall<Callss extends ForwardNameResolverTypes.MultiCallParams[]>(
+    ...callss: Callss
+  ): Promise<ForwardNameResolverTypes.MulticallReturnType<Callss>> {
     return (await multicallMethods(
       ForwardNameResolver,
       this,
-      calls,
+      callss,
       getContractByCodeHash
-    )) as ForwardNameResolverTypes.MultiCallResults<Calls>;
+    )) as ForwardNameResolverTypes.MulticallReturnType<Callss>;
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": "v3.2.0",
+  "version": "v3.5.0",
   "name": "GenerateFarm",
   "bytecodeTemplate": "0101030002000cb41700{0}17011600d1a20c0d1601010618",
   "fieldsSig": {

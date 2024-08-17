@@ -1,20 +1,17 @@
 {
   "version": "v3.5.0",
-  "name": "SetCapitalisation",
-  "bytecodeTemplate": "01010300040018b41700{0}1701{1}0d0d1601010c1702160217031600160316001603a5a3{1}{2}0e0c16010116",
+  "name": "GetName",
+  "bytecodeTemplate": "0101000005041c{0}1700{1}0d0d1600010c17010c0d1601010a17020c0d1601010817030c0d160101091704{1}16021603160402",
   "fieldsSig": {
     "names": [
       "forwardNameResolverId",
-      "name",
-      "newCapitalisation"
+      "name"
     ],
     "types": [
-      "ByteVec",
       "ByteVec",
       "ByteVec"
     ],
     "isMutable": [
-      false,
       false,
       false
     ]
@@ -25,7 +22,12 @@
       "paramNames": [],
       "paramTypes": [],
       "paramIsMutable": [],
-      "returnTypes": []
+      "returnTypes": [
+        "ByteVec",
+        "Address",
+        "ByteVec",
+        "U256"
+      ]
     }
   ]
 }
