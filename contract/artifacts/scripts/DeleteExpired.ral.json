@@ -1,0 +1,28 @@
+{
+  "version": "v3.5.0",
+  "name": "DeleteExpired",
+  "bytecodeTemplate": "01010300010007{0}1700{1}0d0c16000118",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "name"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

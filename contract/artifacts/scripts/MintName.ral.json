@@ -1,0 +1,31 @@
+{
+  "version": "v3.5.0",
+  "name": "MintName",
+  "bytecodeTemplate": "0101030004001db41700{0}17010c0d1601010e17021602170316007ad1d12aa2160316001603a5a3{1}{2}0e0d1601011418",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "name",
+      "capitalisation"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "version": "v3.5.0",
+  "name": "SetAddress",
+  "bytecodeTemplate": "01010300040016b41700{0}1701{1}0d0d1601010c170216021703160016030da3{1}{2}0e0c16010115",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "name",
+      "address"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec",
+      "Address"
+    ],
+    "isMutable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

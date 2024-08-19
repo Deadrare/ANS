@@ -1,0 +1,397 @@
+{
+  "version": "v3.5.0",
+  "name": "Farm",
+  "bytecode": "0608091240264039404d406940cc40f9010000000102ce0202010000000102a0000201000102010a160040cb17011601c50d7b16010201000203000816010002170216001602410e7b010001020107d34417e9aa160040cb170116010201000103010cd3692137dd5617010c0d16000108170216021601310201030308014030d31163e86eb31703ce011603410c7ba0000d2aa1005617041604ce032a1705b1a00016018914062063726f70734416021407414c504800030113056416051301641707170616001600a4a2a00040ce00160616070d1600c918a00002010302050016d34a6edf3db31702ce011602410c7b16010004170316031704160016040da316000d0c1603010b",
+  "codeHash": "4cafea5ed660e0edd4c4a863b813eca220d89ec28631d67fce5e8a8f755b58e1",
+  "fieldsSig": {
+    "names": [
+      "cropTemplateId",
+      "parentId",
+      "collectionUri",
+      "renewLength",
+      "totalSupply",
+      "__stdInterfaceId"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec",
+      "ByteVec",
+      "U256",
+      "U256",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "eventsSig": [
+    {
+      "name": "NameCreated",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "capitalisation",
+        "creator",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "ByteVec",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "NameRenewed",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "renewer",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "AddressSet",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "newAddress"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address"
+      ]
+    },
+    {
+      "name": "CapitalisationSet",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "newCapitalisation"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "NameDeleted",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "deleter"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address"
+      ]
+    },
+    {
+      "name": "ReverseAddressSet",
+      "fieldNames": [
+        "address",
+        "newName"
+      ],
+      "fieldTypes": [
+        "Address",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "ReverseAddressDeleted",
+      "fieldNames": [
+        "address",
+        "name"
+      ],
+      "fieldTypes": [
+        "Address",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "CropCreated",
+      "fieldNames": [
+        "nftIndex",
+        "amount",
+        "creator",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "U256",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "CropDeleted",
+      "fieldNames": [
+        "nftIndex",
+        "deleter"
+      ],
+      "fieldTypes": [
+        "U256",
+        "Address"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "getCollectionUri",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "totalSupply",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "nftByIndex",
+      "paramNames": [
+        "index"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "INFT"
+      ]
+    },
+    {
+      "name": "validateNFT",
+      "paramNames": [
+        "nftId",
+        "nftIndex"
+      ],
+      "paramTypes": [
+        "ByteVec",
+        "U256"
+      ],
+      "paramIsMutable": [
+        false,
+        false
+      ],
+      "returnTypes": []
+    },
+    {
+      "name": "getCrop",
+      "paramNames": [
+        "index"
+      ],
+      "paramTypes": [
+        "U256"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "Crop"
+      ]
+    },
+    {
+      "name": "hasExpired",
+      "paramNames": [
+        "crop"
+      ],
+      "paramTypes": [
+        "Crop"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "Bool"
+      ]
+    },
+    {
+      "name": "createCrop",
+      "paramNames": [
+        "minter",
+        "rewardTokenAmount",
+        "alphAmount"
+      ],
+      "paramTypes": [
+        "Address",
+        "U256",
+        "U256"
+      ],
+      "paramIsMutable": [
+        false,
+        false,
+        false
+      ],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "deleteCrop",
+      "paramNames": [
+        "cropOwner",
+        "nftIndex"
+      ],
+      "paramTypes": [
+        "Address",
+        "U256"
+      ],
+      "paramIsMutable": [
+        false,
+        false
+      ],
+      "returnTypes": []
+    }
+  ],
+  "constants": [],
+  "enums": [
+    {
+      "name": "ErrorCodes",
+      "fields": [
+        {
+          "name": "OnlyParentAllowed",
+          "value": {
+            "type": "U256",
+            "value": "0"
+          }
+        },
+        {
+          "name": "NFTNotFound",
+          "value": {
+            "type": "U256",
+            "value": "1"
+          }
+        },
+        {
+          "name": "NFTNotPartOfCollection",
+          "value": {
+            "type": "U256",
+            "value": "2"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerAllowed",
+          "value": {
+            "type": "U256",
+            "value": "3"
+          }
+        },
+        {
+          "name": "NameHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "4"
+          }
+        },
+        {
+          "name": "CannotRenewName",
+          "value": {
+            "type": "U256",
+            "value": "5"
+          }
+        },
+        {
+          "name": "TokenAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "6"
+          }
+        },
+        {
+          "name": "ReverseAddressNotFound",
+          "value": {
+            "type": "U256",
+            "value": "7"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerOrHolderAllowed",
+          "value": {
+            "type": "U256",
+            "value": "8"
+          }
+        },
+        {
+          "name": "IncorrectFarmInputAmount",
+          "value": {
+            "type": "U256",
+            "value": "9"
+          }
+        },
+        {
+          "name": "CropHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "10"
+          }
+        },
+        {
+          "name": "FarmInputAmountNotConsumed",
+          "value": {
+            "type": "U256",
+            "value": "11"
+          }
+        },
+        {
+          "name": "FarmAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "12"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Keys",
+      "fields": [
+        {
+          "name": "Names",
+          "value": {
+            "type": "ByteVec",
+            "value": "01"
+          }
+        },
+        {
+          "name": "Token",
+          "value": {
+            "type": "ByteVec",
+            "value": "02"
+          }
+        },
+        {
+          "name": "Farm",
+          "value": {
+            "type": "ByteVec",
+            "value": "03"
+          }
+        }
+      ]
+    }
+  ],
+  "stdInterfaceId": "0002"
+}

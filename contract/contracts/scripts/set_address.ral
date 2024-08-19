@@ -1,0 +1,14 @@
+TxScript SetAddress(
+    forwardNameResolverId: ByteVec,
+    name: ByteVec,
+    address: Address
+) {
+    let caller = callerAddress!()
+    let resolver = ForwardNameResolver(forwardNameResolverId)
+    let nft = resolver.getNftByName(name)
+    let tokenId = tokenId!(nft)
+    resolver.setAddress{caller -> tokenId: 1}(
+        name,
+        address
+    )
+}

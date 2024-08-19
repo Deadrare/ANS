@@ -1,0 +1,87 @@
+Abstract Contract FarmController() extends Constants(), Events() {
+
+    pub fn getFarmKey() -> ByteVec {
+        return Keys.Farm
+    }
+
+    pub fn getFarm() -> Farm {
+        return Farm(subContractId!(getFarmKey()))
+    }
+
+    @using(preapprovedAssets = true, checkExternalCaller = false)
+    pub fn generateFarm() -> ByteVec {
+        let farmExists = contractExists!(subContractId!(getFarmKey()))
+        assert!(!farmExists, ErrorCodes.FarmAlreadyGenerated)
+        let caller = callerAddress!()
+
+        let (encodeImmutableFields, encodeMutableFields) = Farm.encodeFields!(
+            cropTemplateId,
+            selfContractId!(),
+            farmCollectionUri,
+            renewLength - earliestRenew,
+            0
+        )
+
+        return copyCreateSubContractWithToken!{caller -> ALPH: minimalContractDeposit!()}(
+            getFarmKey(),
+            farmTemplateId,
+            encodeImmutableFields,
+            encodeMutableFields,
+            u256Max!()
+        )
+    }
+
+    fn handleCropRewardTokens(caller: Address, rewardTokenAmount: U256) -> () {
+        let rewardToken = getRewardToken()
+        rewardToken.mintTokens(caller, rewardTokenAmount * 1 alph)
+    }
+
+
+    @using(preapprovedAssets = true, checkExternalCaller = false)
+    pub fn mintCrop(alphAmount: U256) -> ByteVec {
+        let caller = callerAddress!()
+        let alphPerToken = minimalContractDeposit!() + mapEntryDeposit!()
+        let rewardTokenAmount = alphAmount / alphPerToken
+        assert!(rewardTokenAmount != 0 && rewardTokenAmount * alphPerToken == alphAmount, ErrorCodes.IncorrectFarmInputAmount)
+
+        handleCropRewardTokens(
+            caller,
+            rewardTokenAmount
+        )
+
+        let farm = getFarm()
+        let newCropIndex = farm.createCrop{caller -> ALPH: alphAmount}(
+            caller,
+            rewardTokenAmount,
+            alphAmount
+        )
+        let crop = farm.getCrop(newCropIndex)
+
+        emit CropCreated(
+            newCropIndex,
+            alphAmount,
+            caller,
+            crop.getExpires()
+        )
+        return tokenId!(crop)
+    }
+
+    @using(preapprovedAssets = true)
+    pub fn deleteCrop(nftIndex: U256) -> () {
+        let caller = callerAddress!()
+
+        let farm = getFarm()
+        let crop = farm.getCrop(nftIndex)
+        let tokenId = tokenId!(crop)
+        checkCaller!(tokenRemaining!(caller, tokenId) == 1, ErrorCodes.OnlyNftOwnerAllowed)
+        
+        let expired = farm.hasExpired(crop)
+        assert!(expired, ErrorCodes.CropHasNotExpired)
+        farm.deleteCrop{caller -> tokenId: 1}(caller, nftIndex)
+
+        emit CropDeleted(
+            nftIndex,
+            caller
+        )
+    }
+}

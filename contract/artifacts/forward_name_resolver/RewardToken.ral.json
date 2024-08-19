@@ -1,0 +1,229 @@
+{
+  "version": "v3.5.0",
+  "name": "RewardToken",
+  "bytecode": "060609121b402440464068010000000102ce0102010000000102ce0202010000000102ce0302010000000102a00002010202030010d3ac15c662b31702ce001602410c7ba00016012aa1001600b11601ab010102030010d3ad07bec1b31702ce001602410c7ba00016012ba1001600b11601ac",
+  "codeHash": "77c9f625f0fbe2d9ba253e4b445b828fc44b74dc40bcd03e601cae6d81c0425f",
+  "fieldsSig": {
+    "names": [
+      "parentId",
+      "symbol",
+      "name",
+      "decimals",
+      "totalSupply",
+      "__stdInterfaceId"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec",
+      "ByteVec",
+      "U256",
+      "U256",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "eventsSig": [],
+  "functions": [
+    {
+      "name": "getSymbol",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getName",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "getDecimals",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "getTotalSupply",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "U256"
+      ]
+    },
+    {
+      "name": "mintTokens",
+      "paramNames": [
+        "to",
+        "amount"
+      ],
+      "paramTypes": [
+        "Address",
+        "U256"
+      ],
+      "paramIsMutable": [
+        false,
+        false
+      ],
+      "returnTypes": []
+    },
+    {
+      "name": "burnTokens",
+      "paramNames": [
+        "from",
+        "amount"
+      ],
+      "paramTypes": [
+        "Address",
+        "U256"
+      ],
+      "paramIsMutable": [
+        false,
+        false
+      ],
+      "returnTypes": []
+    }
+  ],
+  "constants": [],
+  "enums": [
+    {
+      "name": "ErrorCodes",
+      "fields": [
+        {
+          "name": "OnlyParentAllowed",
+          "value": {
+            "type": "U256",
+            "value": "0"
+          }
+        },
+        {
+          "name": "NFTNotFound",
+          "value": {
+            "type": "U256",
+            "value": "1"
+          }
+        },
+        {
+          "name": "NFTNotPartOfCollection",
+          "value": {
+            "type": "U256",
+            "value": "2"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerAllowed",
+          "value": {
+            "type": "U256",
+            "value": "3"
+          }
+        },
+        {
+          "name": "NameHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "4"
+          }
+        },
+        {
+          "name": "CannotRenewName",
+          "value": {
+            "type": "U256",
+            "value": "5"
+          }
+        },
+        {
+          "name": "TokenAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "6"
+          }
+        },
+        {
+          "name": "ReverseAddressNotFound",
+          "value": {
+            "type": "U256",
+            "value": "7"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerOrHolderAllowed",
+          "value": {
+            "type": "U256",
+            "value": "8"
+          }
+        },
+        {
+          "name": "IncorrectFarmInputAmount",
+          "value": {
+            "type": "U256",
+            "value": "9"
+          }
+        },
+        {
+          "name": "CropHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "10"
+          }
+        },
+        {
+          "name": "FarmInputAmountNotConsumed",
+          "value": {
+            "type": "U256",
+            "value": "11"
+          }
+        },
+        {
+          "name": "FarmAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "12"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Keys",
+      "fields": [
+        {
+          "name": "Names",
+          "value": {
+            "type": "ByteVec",
+            "value": "01"
+          }
+        },
+        {
+          "name": "Token",
+          "value": {
+            "type": "ByteVec",
+            "value": "02"
+          }
+        },
+        {
+          "name": "Farm",
+          "value": {
+            "type": "ByteVec",
+            "value": "03"
+          }
+        }
+      ]
+    }
+  ],
+  "stdInterfaceId": "0001"
+}

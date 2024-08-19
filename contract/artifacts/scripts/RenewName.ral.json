@@ -1,0 +1,28 @@
+{
+  "version": "v3.5.0",
+  "name": "RenewName",
+  "bytecodeTemplate": "0101030006004022b41700{0}1701{1}0d0d1601010c1702160217030c0d1601010e17041604170516007a160516001605a5a316030da3{1}0d0c16010117",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "name"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

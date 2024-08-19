@@ -1,0 +1,60 @@
+{
+    "name": "orderbook",
+    "version": "0.1.0",
+    "scripts": {
+        "devnet:start": "cd ./test/docker && docker-compose up -d",
+        "devnet:stop": "cd ./test/docker && docker-compose down",
+        "build": "npx @alephium/cli compile",
+        "test": "jest -i --config ./test/jest-contracts.config.ts",
+        "deployForwardNameResolver": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployForwardNameResolver.ts",
+        "deployReverseNameResolvers": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployReverseNameResolvers.ts",
+        "deployTemplates": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/deployTemplates.ts",
+        "generateFarm": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/generateFarm.ts",
+        "generateRewardToken": "DEPLOYMENT=$DEPLOYMENT node --loader ts-node/esm --experimental-specifier-resolution=node src/actions/generateRewardToken.ts",
+        "deploy": "npx @alephium/cli deploy",
+        "type": "tsc ",
+        "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+        "lint-fix": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix",
+        "tidy": "yarn type && yarn lint-fix"
+    },
+    "dependencies": {
+        "@alephium/cli": "^1.4.0",
+        "@alephium/web3": "^1.4.0",
+        "@alephium/web3-test": "^1.4.0",
+        "@alephium/web3-wallet": "^1.4.0",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.5.1",
+        "@types/node": "^16.18.23",
+        "@typescript-eslint/eslint-plugin": "^5.57.0",
+        "@typescript-eslint/parser": "^5.57.0",
+        "eslint": "^7.15.0",
+        "eslint-config-standard": "^16.0.2",
+        "eslint-config-standard-with-typescript": "^21.0.1",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-react": "^7.21.5",
+        "eslint-plugin-react-hooks": "^4.2.0",
+        "eslint-plugin-standard": "^5.0.0",
+        "jest": "^28.1.0",
+        "ts-jest": "^28.0.2",
+        "ts-node": "^10.7.0",
+        "typescript": "^4.4.2"
+    },
+    "engines": {
+        "node": ">=14.0.0",
+        "npm": ">=7.0.0"
+    },
+    "prettier": {
+        "printWidth": 120,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": false,
+        "singleQuote": true,
+        "bracketSameLine": false,
+        "trailingComma": "none"
+    }
+}

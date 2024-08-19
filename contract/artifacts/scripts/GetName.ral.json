@@ -1,0 +1,33 @@
+{
+  "version": "v3.5.0",
+  "name": "GetName",
+  "bytecodeTemplate": "0101000005041c{0}1700{1}0d0d1600010c17010c0d1601010a17020c0d1601010817030c0d160101091704{1}16021603160402",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "name"
+    ],
+    "types": [
+      "ByteVec",
+      "ByteVec"
+    ],
+    "isMutable": [
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": [
+        "ByteVec",
+        "Address",
+        "ByteVec",
+        "U256"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "version": "v3.5.0",
+  "name": "ReverseNameResolver",
+  "bytecode": "000440224040409d40f701000101010bd332765acc0c0d0d140a5f5f6d61705f5f305f5f16004744cb010102010001010108d380e1c5e5140a5f5f6d61705f5f305f5f16004744cbc50201030102004023d302433df7b41701140a5f5f6d61705f5f305f5f16014744cbc54c0b16000c0e0c140a5f5f6d61705f5f305f5f16014744cb01024a0a1601d1a2140a5f5f6d61705f5f305f5f16014744b11600d201010a160116005f01000002004022d38f22aa26b41700140a5f5f6d61705f5f305f5f16004744cbc513077b0c0d0d140a5f5f6d61705f5f305f5f16004744cb0101170116000d0c140a5f5f6d61705f5f305f5f16004744cb01031206160016015f",
+  "codeHash": "4f651a84f3f05f5788df963419b4052d2334408b5a51a2249e9d9a7d5da1aacc",
+  "fieldsSig": {
+    "names": [],
+    "types": [],
+    "isMutable": []
+  },
+  "eventsSig": [
+    {
+      "name": "NameCreated",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "capitalisation",
+        "creator",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "ByteVec",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "NameRenewed",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "renewer",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "AddressSet",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "newAddress"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address"
+      ]
+    },
+    {
+      "name": "CapitalisationSet",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "newCapitalisation"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "NameDeleted",
+      "fieldNames": [
+        "nftIndex",
+        "name",
+        "deleter"
+      ],
+      "fieldTypes": [
+        "U256",
+        "ByteVec",
+        "Address"
+      ]
+    },
+    {
+      "name": "ReverseAddressSet",
+      "fieldNames": [
+        "address",
+        "newName"
+      ],
+      "fieldTypes": [
+        "Address",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "ReverseAddressDeleted",
+      "fieldNames": [
+        "address",
+        "name"
+      ],
+      "fieldTypes": [
+        "Address",
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "CropCreated",
+      "fieldNames": [
+        "nftIndex",
+        "amount",
+        "creator",
+        "expires"
+      ],
+      "fieldTypes": [
+        "U256",
+        "U256",
+        "Address",
+        "U256"
+      ]
+    },
+    {
+      "name": "CropDeleted",
+      "fieldNames": [
+        "nftIndex",
+        "deleter"
+      ],
+      "fieldTypes": [
+        "U256",
+        "Address"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "getNameByAddress",
+      "paramNames": [
+        "address"
+      ],
+      "paramTypes": [
+        "Address"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "ByteVec"
+      ]
+    },
+    {
+      "name": "containsNameByAddress",
+      "paramNames": [
+        "address"
+      ],
+      "paramTypes": [
+        "Address"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": [
+        "Bool"
+      ]
+    },
+    {
+      "name": "setAddressName",
+      "paramNames": [
+        "name"
+      ],
+      "paramTypes": [
+        "ByteVec"
+      ],
+      "paramIsMutable": [
+        false
+      ],
+      "returnTypes": []
+    },
+    {
+      "name": "removeAddress",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ],
+  "constants": [],
+  "enums": [
+    {
+      "name": "ErrorCodes",
+      "fields": [
+        {
+          "name": "OnlyParentAllowed",
+          "value": {
+            "type": "U256",
+            "value": "0"
+          }
+        },
+        {
+          "name": "NFTNotFound",
+          "value": {
+            "type": "U256",
+            "value": "1"
+          }
+        },
+        {
+          "name": "NFTNotPartOfCollection",
+          "value": {
+            "type": "U256",
+            "value": "2"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerAllowed",
+          "value": {
+            "type": "U256",
+            "value": "3"
+          }
+        },
+        {
+          "name": "NameHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "4"
+          }
+        },
+        {
+          "name": "CannotRenewName",
+          "value": {
+            "type": "U256",
+            "value": "5"
+          }
+        },
+        {
+          "name": "TokenAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "6"
+          }
+        },
+        {
+          "name": "ReverseAddressNotFound",
+          "value": {
+            "type": "U256",
+            "value": "7"
+          }
+        },
+        {
+          "name": "OnlyNftOwnerOrHolderAllowed",
+          "value": {
+            "type": "U256",
+            "value": "8"
+          }
+        },
+        {
+          "name": "IncorrectFarmInputAmount",
+          "value": {
+            "type": "U256",
+            "value": "9"
+          }
+        },
+        {
+          "name": "CropHasNotExpired",
+          "value": {
+            "type": "U256",
+            "value": "10"
+          }
+        },
+        {
+          "name": "FarmInputAmountNotConsumed",
+          "value": {
+            "type": "U256",
+            "value": "11"
+          }
+        },
+        {
+          "name": "FarmAlreadyGenerated",
+          "value": {
+            "type": "U256",
+            "value": "12"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Keys",
+      "fields": [
+        {
+          "name": "Names",
+          "value": {
+            "type": "ByteVec",
+            "value": "01"
+          }
+        },
+        {
+          "name": "Token",
+          "value": {
+            "type": "ByteVec",
+            "value": "02"
+          }
+        },
+        {
+          "name": "Farm",
+          "value": {
+            "type": "ByteVec",
+            "value": "03"
+          }
+        }
+      ]
+    }
+  ],
+  "mapsSig": {
+    "names": [
+      "addressNames"
+    ],
+    "types": [
+      "Map[Address,ByteVec]"
+    ]
+  }
+}

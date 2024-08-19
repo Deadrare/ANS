@@ -1,0 +1,28 @@
+{
+  "version": "v3.5.0",
+  "name": "DeleteCrop",
+  "bytecodeTemplate": "0101030005001ab41700{0}17010c0d160101051702{1}0d0d16020104170316031704160016040da3{1}0d0c16010109",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "nftIndex"
+    ],
+    "types": [
+      "ByteVec",
+      "U256"
+    ],
+    "isMutable": [
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}

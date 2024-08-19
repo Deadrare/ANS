@@ -1,0 +1,28 @@
+{
+  "version": "v3.5.0",
+  "name": "MintCrop",
+  "bytecodeTemplate": "0101030002000db41700{0}17011600{1}a2{1}0d0d1601010818",
+  "fieldsSig": {
+    "names": [
+      "forwardNameResolverId",
+      "alphAmount"
+    ],
+    "types": [
+      "ByteVec",
+      "U256"
+    ],
+    "isMutable": [
+      false,
+      false
+    ]
+  },
+  "functions": [
+    {
+      "name": "main",
+      "paramNames": [],
+      "paramTypes": [],
+      "paramIsMutable": [],
+      "returnTypes": []
+    }
+  ]
+}
